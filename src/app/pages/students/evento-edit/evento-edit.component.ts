@@ -29,11 +29,13 @@ export class EventoEditComponent {
     imagePath: string;
     slider: Slider;
     user:User;
+    public FILE_AVATAR: any;
+    public IMAGE_PREVISUALIZA: any = "assets/img/user-06.jpg";
   
     eventoForm: FormGroup;
     public Editor = ClassicEditor;
     public editorData = `<p>This is a CKEditor 4 WYSIWYG editor instance created with Angular.</p>`;
-  
+  text_validation: any = null;
     constructor(
       private fb: FormBuilder,
       private evntoService: EventoService,
@@ -84,16 +86,28 @@ export class EventoEditComponent {
         fecha_inicio: [''],
         fecha_fin: [''],
         status: [''],
-        image: [''],
+        imagen: [''],
       });
     }
   
     onSelectedFile(event) {
       if (event.target.files.length > 0) {
         const file = event.target.files[0];
-        this.eventoForm.get('image').setValue(file);
+        this.eventoForm.get('imagen').setValue(file);
       }
     }
+
+    loadFile($event: any) {
+    if ($event.target.files[0].type.indexOf("image")) {
+          this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+          return;
+        }
+        this.text_validation = "";
+        this.FILE_AVATAR = $event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(this.FILE_AVATAR);
+        reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
+  }
   
     get name() { return this.eventoForm.get('name'); }
     get description() { return this.eventoForm.get('description'); }
@@ -114,7 +128,13 @@ export class EventoEditComponent {
       formData.append('fecha_inicio', this.eventoForm.get('fecha_inicio').value);
       formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
       formData.append('status', this.eventoForm.get('status').value);
-      formData.append('image', this.eventoForm.get('image').value);
+      // formData.append('image', this.eventoForm.get('image').value);
+
+      if (this.FILE_AVATAR) {
+      formData.append("imagen", this.FILE_AVATAR);
+    }
+
+      
       formData.append('user_id', this.user.id.toString());
   
       const id = this.eventoForm.get('id').value;

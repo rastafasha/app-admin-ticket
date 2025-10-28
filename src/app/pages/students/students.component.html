@@ -41,7 +41,7 @@
                     <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
                         <thead>
                             <tr>
-                                <!-- <th>Imagen</th> -->
+                                <th>Imagen</th>
                                 <th>Nombre</th>
                                 <th>Status</th>
                                 <th class="text-nowrap">Acciones</th>
@@ -50,9 +50,9 @@
                         <tbody>
                             <tr
                                 *ngFor="let evento of eventos  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
-                                <!-- <td>
-                                    <img [src]="evento.avatar| imagenPipe: 'eventos' " class="imagecircle shadow" alt="">
-                                </td> -->
+                                <td>
+                                    <img [src]="evento.avatar| imagenPipe: 'eventos' " class=" shadow" style="width: 40px; height: 40px; border-radius: 100px;" alt="">
+                                </td>
                                 
                                 <td>
                                     <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}} {{evento.surname}}</a> 
