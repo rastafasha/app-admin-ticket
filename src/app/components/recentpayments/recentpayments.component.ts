@@ -35,6 +35,10 @@ export class RecentpaymentsComponent {
     this.getPagos();
     window.scrollTo(0, 0);
     // this.getPagos_list();
+    // if (this.user.role != 'PARTNER') {
+    //   // this.router.navigateByUrl('/dashboard');
+    //   // this.loadPaymentsbyEvent();
+    // }
   }
 
   getPagos(): void {

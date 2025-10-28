@@ -55,9 +55,11 @@ export class StudentsComponent {
         window.scrollTo(0,0);
         this.accountService.closeMenu();
         this.role = this.accountService.role;
-        this.getEvents();
         if (this.activatedRoute.snapshot.params['id']) {
           this.activatedRoute.params.subscribe(({ id }) => this.getEventsbyUser(id));
+        }else{
+          this.getEvents();
+          
         }
 
         
@@ -80,10 +82,10 @@ export class StudentsComponent {
         this.isLoading = true;
         this.eventosService.eventsbyUser(+id).subscribe(
           (res:any) =>{
-            this.eventos = res.events;
+            this.eventos = res.eventos;
             error => this.error = error;
             this.isLoading = false;
-            // console.log(this.students);
+            console.log(this.eventos);
           }
         );
       }

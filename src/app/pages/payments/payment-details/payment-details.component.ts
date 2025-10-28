@@ -24,8 +24,8 @@ export class PaymentDetailsComponent implements OnInit {
   payment: Payment;
   error: string;
   event_id:number;
-  parent_id:number;
-  parent:Parent;
+  client_id:number;
+  cliente:Parent;
   event:Evento;
   isLoading:boolean=false;
 
@@ -57,27 +57,27 @@ export class PaymentDetailsComponent implements OnInit {
     this.paymentService.getPagoById(id).subscribe(
       res=>{
         this.payment = res;
-        // console.log(this.payment);
-        this.parent_id = res.parent_id;
+        console.log(res);
+        this.client_id = res.client_id;
         this.event_id = res.event_id;
         this.isLoading = false;
-        this.getParent();
-        this.getStudent();
+        this.getClient();
+        this.getEvent();
       }
 
     )
   }
-  getParent(){
-    this.parentService.getUserById(this.parent_id).subscribe((resp:any)=>{
+  getClient(){
+    this.parentService.getUserById(this.client_id).subscribe((resp:any)=>{
       console.log(resp);
-      this.parent = resp.representante;
+      this.cliente = resp.cliente;
 
     })
   }
-  getStudent(){
-    this.eventService.getById(this.event_id).subscribe((resp:any)=>{
-      console.log(resp);
-      this.event = resp.event;
+  getEvent(){
+    this.eventService.getById(this.event_id).subscribe((resp:Evento)=>{
+      this.event = resp;
+      console.log(this.event);
     })
   }
 

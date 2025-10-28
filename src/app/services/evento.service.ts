@@ -87,7 +87,7 @@ export class EventoService {
         }
 
         createEvento(evento) {
-           return this.http.post<any>(this.serverUrl + 'event/store/', evento)
+           return this.http.post<any>(this.serverUrl + '/event/store/', evento)
                .pipe(
                  catchError(this.handleError)
                );
@@ -96,12 +96,12 @@ export class EventoService {
         
       
       
-        update(data: any) {
-          const url = `${baseUrl}/event/update/${data.id}`;
-          return this.http.put(url, data, this.headers);
-
-          
-        }
+        update(evento, id: number) {
+    return this.http.post<any>(this.serverUrl + '/event/update/' + id, evento)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
   
         updateStatus(data:any, id: number) {
             return this.http.put<any>(baseUrl + '/event/update/status/' + id, data, this.headers)

@@ -55,7 +55,7 @@ const childRoutes: Routes = [
             { path: 'evento/create', component: EventoEditComponent},
             { path: 'evento/edit/:id', component: EventoEditComponent},
             { path: 'evento/detail/:id', component: StudentDetailComponent},
-            { path: 'eventos/user/:id', component: StudentsComponent},
+            { path: 'eventos/partner/:id', component: StudentsComponent},
 
 
     { path: '', redirectTo: 'admin', pathMatch: 'full' },

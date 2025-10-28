@@ -8,6 +8,7 @@ export class Evento {
     client_id: number;
     name: string = "";
     description: string = "";
+    company: string = "";
     fecha_inicio: Date;
     fecha_fin: Date;
     precio_general: number = 0;

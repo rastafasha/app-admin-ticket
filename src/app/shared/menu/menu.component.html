@@ -6,7 +6,7 @@
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
-            <ul id="sidebarnav" *ngIf="role === 'GUEST'">
+            <ul id="sidebarnav" *ngIf="role === 'GUEST' || role === '' || !role ">
                 <li>
                     <a routerLink="/" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="mdi mdi-monitor"></i><span class="hide-menu">Inicio </span>
@@ -14,7 +14,7 @@
                 </li>
 
                 <li>
-                    <a [routerLink]="['/dashboard/user/edit/', user.id]" routerLinkActive="active"
+                    <a [routerLink]="['/dashboard/partner/edit/', user.id]" routerLinkActive="active"
                         class="waves-effect waves-dark">
                         <i class="mdi mdi-animation"></i><span class="hide-menu">Mi Perfil </span>
                     </a>
@@ -34,13 +34,13 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/dashboard/eventos/user/', user.id]" routerLinkActive="active" class="waves-effect waves-dark">
+                    <a [routerLink]="['/dashboard/eventos/partner/', user.id]" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fa fa-users"></i><span class="hide-menu">Eventos </span>
                     </a>
                 </li>
                 
                 <li>
-                    <a [routerLink]="['/dashboard/user/edit/', user.id]" routerLinkActive="active"
+                    <a [routerLink]="['/dashboard/partner/edit/', user.id]" routerLinkActive="active"
                         class="waves-effect waves-dark">
                         <i class="mdi mdi-animation"></i><span class="hide-menu">Mi Perfil </span>
                     </a>
@@ -70,7 +70,7 @@
                 </li>
                 <li>
                     <a routerLink="../dashboard/eventos" routerLinkActive="active" class="waves-effect waves-dark">
-                        <i class="fa fa-users"></i><span class="hide-menu">Eventos </span>
+                        <i class="fa fa-address-book"></i><span class="hide-menu">Eventos </span>
                     </a>
                 </li>
                 
@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li> <a routerLink="../dashboard/config" routerLinkActive="active" class="waves-effect waves-dark">
-                        <i class="fa fa-bank"></i><span class="hide-menu">Configuración </span>
+                        <i class="fa fa-cogs"></i><span class="hide-menu">Configuración </span>
                     </a>
                 </li>
                 <li> <a routerLink="../dashboard/tasabcv" routerLinkActive="active" class="waves-effect waves-dark">
@@ -89,7 +89,7 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/dashboard/user/edit/', user.id]" routerLinkActive="active"
+                    <a [routerLink]="['/dashboard/partner/edit/', user.id]" routerLinkActive="active"
                         class="waves-effect waves-dark">
                         <i class="fa fa-id-card"></i><span class="hide-menu">Mi Perfil </span>
                     </a>

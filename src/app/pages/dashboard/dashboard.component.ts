@@ -31,17 +31,19 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private dashboardService: DashboardService,
-    public accountService:AuthService
+    public authService:AuthService
     ) {}
 
   ngOnInit() {
 
     window.scrollTo(0, 0);
 
-    this.role = this.accountService.role;
-    this.userprofile = this.user;
-    this.accountService.closeMenu();
     this.getDashboardData();
+    this.authService.closeMenu();
+    this.authService.getRole();
+    this.role = this.authService.role;
+    this.user = this.authService.userprofile;
+    this.role = this.authService.role;
 
   }
   getDashboardData(){
