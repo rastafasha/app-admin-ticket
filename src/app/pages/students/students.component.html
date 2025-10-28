@@ -43,6 +43,9 @@
                             <tr>
                                 <th>Imagen</th>
                                 <th>Nombre</th>
+                                <th>P General</th>
+                                <th>P Estudiantes</th>
+                                <th>P Especialistas</th>
                                 <th>Status</th>
                                 <th class="text-nowrap">Acciones</th>
                             </tr>
@@ -58,12 +61,16 @@
                                     <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}} {{evento.surname}}</a> 
                                     
                                 </td>
+                                <td>{{evento.precio_general | currency}}</td>
+                        <td>{{evento.precio_estudiantes | currency}}</td>
+                        <td>{{evento.precio_especialistas | currency}}</td>
                                 <td >
                             <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
                             <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                             <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
                             <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Terminado</span>
                         </td>
+                        
                                 
 
                                 <td class="text-nowrap text-center">

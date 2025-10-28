@@ -73,7 +73,7 @@ export class ParentService {
     }
 
      updateStatus(data:any, id: number) {
-          return this.http.put<any>(baseUrl + '/student/update/status/' + id, data, this.headers)
+          return this.http.put<any>(baseUrl + '/client/update/status/' + id, data, this.headers)
       
         }
   
