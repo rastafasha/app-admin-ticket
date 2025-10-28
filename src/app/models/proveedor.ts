@@ -1,0 +1,33 @@
+export class Proveedor {
+  id: number;
+  user_id: number;
+  nombre_empresa: string;
+  ruc: string;
+  email: string;
+  web_site: string;
+  nombre_contacto_principal: string;
+  email_contacto_principal: string;
+  phone_contacto_principal: string;
+  nombre_razon_social: string;
+  direccion: string;
+  telefonos: string;
+  nombre_representante_legal: string;
+  cedula_representante_legal: string;
+  telefono_representante_legal: string;
+  cuenta_bancaria: string;
+  banco: string;
+  swift_bic: string;
+  documentos_de_solvencia_financiera: string;
+  descripcion_prod_serv: string;
+  categoria_prod_serv: string;
+  certificaciones: string;
+  credenciales: string;
+  aviso_operacion: string;
+  paz_salvos_dgi_y_css: string;
+  documento_incorporacion_empresa_rp: string;
+  referencias_comerciales: string;
+  referencias_bancarias: string;
+  informes_auditorias: string;
+  otros: string;
+  status: string;
+}

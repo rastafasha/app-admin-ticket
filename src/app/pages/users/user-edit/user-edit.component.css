@@ -1,0 +1,8 @@
+.tab-content-set .nav{
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        padding: 10px;
+        gap: 5px;
+   
+}

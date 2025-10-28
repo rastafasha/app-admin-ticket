@@ -1,0 +1,100 @@
+<!-- =======| Main |======= -->
+
+
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+    <app-backbreadcum [title]="title"></app-backbreadcum>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="col-xs-12" *ngIf="!isLoading">
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+
+                    <div class="card border-radio shadow">
+                        <div class="card-body profile-card pt-4  fichasmall">
+
+                            <div class="inffichasmall">
+                                <h2>{{userprofile.name}} {{userprofile.surname}}</h2>
+                                <p>{{userprofile.materia.name}}</p>
+                                <p>{{userprofile.email}}</p>
+                                <!-- <p>{{userprofile.status}}</p> -->
+                                 <span class="badge bg-success" *ngIf="userprofile.status === 1">Activo</span>
+                                <span class="badge bg-danger" *ngIf="userprofile.status === 0">Inactivo</span>
+
+                                <span class="badge bg-dark-light" *ngIf="userprofile.roles.name === 'SUPERADMIN'">SuperAdmin</span>
+                                <span class="badge bg-primary" *ngIf="userprofile.roles.name === 'ADMIN'">Admin</span>
+                                <!-- <span class="badge bg-success" *ngIf="userprofile.roles.name === 'MEMBER'">Miembro</span> -->
+                                <span class="badge bg-success" *ngIf="userprofile.roles.name === 'PARTNER'">Partner</span>
+                                <span class="badge bg-secondary" *ngIf="userprofile.roles.name === 'GUEST'">Invitado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+
+                    <div class="card border-radio">
+                        <div class="card-body pt-3">
+                            <div class="tab-content pt-2">
+
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <div class="row">
+
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class=" label ">
+                                                <i class="fa fa-user-circle"></i> Nombre 
+                                            </div>
+                                            <p>{{userprofile.full_name}}</p>
+                                        </div>
+                                       
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-calendar"></i> Nacimiento</div>
+                                            <p>{{userprofile.birth_date|date}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-sellsy"></i> Género</div>
+                                            <!-- <p>{{userprofile.gender}}</p> -->
+                                            <p>
+                                                 <span class="badge bg-primary" *ngIf="userprofile.gender === 1">M</span>
+                                            <span class="badge bg-danger" *ngIf="userprofile.gender === 2">F</span>
+                                            </p>
+                                        </div>
+                                         <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-envelope"></i> Email</div>
+                                            <p>{{userprofile.email}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-vcard"></i> CI/ID</div>
+                                            <p>{{userprofile.n_doc}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-phone-square"></i> Teléfono</div>
+                                            <p>{{userprofile.telefono}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-mobile-phone"></i> Móvil</div>
+                                            <p>{{userprofile.mobile}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="label"><i class="fa fa-map-marker"></i> Dirección</div>
+                                            <p>{{userprofile.address}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+<!--/main-->

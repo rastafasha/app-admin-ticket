@@ -1,0 +1,24 @@
+<div class="col-12 animated fadeInUp " >
+        <div class="card  shadow" style="border-radius: 14px;">
+            <div class="card-body ">
+                <div class="cardtop">
+                    <div class="">
+                        <h3 class="text-themecolor">{{title}}</h3>
+                    </div>
+                    
+                    <div class="">
+                        <button class="btn btn-outline-danger" href="javascript:void(0)"
+                            (click)="goBack()">Volver</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                <!-- <li class="breadcrumb-item"><a routerLink="/dashboard/directorio">Directorio</a></li> -->
+                <li class="breadcrumb-item active">{{title}}</li>
+            </ol>
+        </nav>
+    </div>

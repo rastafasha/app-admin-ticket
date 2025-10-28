@@ -1,0 +1,124 @@
+<div class="row page-titles">
+    <div class="col-12 animated fadeInLeft">
+        <div class="card cardtop">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-10 align-self-center">
+                        <h3 class="text-themecolor">{{pageTitle}}</h3>
+                    </div>
+                    <div class="col-12 col-sm-2">
+                        <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-12 animated fadeInUp">
+        <div class="card">
+            <div class="card-body slider-form">
+                <form [formGroup]="sliderForm" (ngSubmit)="onSubmit()" class="form-horizontal form-material">
+
+
+                    <div class=" form-group form-row">
+                        <label class="col-md-3">Mostrar Slider</label>
+                        <div class="col-md-9 demo-radio-button">
+                            <input type="radio" class="radio-col-green " formControlName="is_active" value="1" mdbInput> Si
+                            <input type="radio" class="radio-col-red" formControlName="is_active" value="0" mdbInput> No
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Mostrar texto</label>
+                        <div class="col-md-9">
+                            <input type="radio" formControlName="is_activeText" value="displayBlok" /> Si
+                            <input type="radio" formControlName="is_activeText" value="displayNone" /> No
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Es modal?</label>
+                        <div class="col-md-9">
+                            <input type="radio" formControlName="is_modal" value="1" /> Si
+                            <input type="radio" formControlName="is_modal" value="0" /> No
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Imagen Fondo (peso max: 500kb | medidas max: 1920x1080px)</label>
+                        <div class="col-md-9">
+                            <input type="file" id="image" (change)="onSelectedFile($event)" />
+                            <div [innerHTML]="uploadError" class="error"></div>
+                            <div *ngIf="imagePath">
+                                <br />
+                                <img [src]="imagePath" width="100px">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Título </label>
+                        <div class="col-md-9">
+                            <input type="text" formControlName="title" class="form-control" placeholder="Title">
+
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Video </label>
+                        <div class="col-md-9">
+                            <input type="text" formControlName="video_review" class="form-control" placeholder="Title">
+
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Descripción </label>
+                        <div class="col-md-9">
+                            <ckeditor [(data)]="editorData" formControlName="description" rows="5" class="form-control"> </ckeditor>
+                        </div>
+                    </div>
+                    <div class=" form-group form-row">
+                        <label class="col-md-3">Mostrar Boton</label>
+                        <div class="col-md-9 demo-radio-button">
+                            <input type="radio" class="radio-col-green " formControlName="is_activeBot" value="displayBlok" mdbInput> Si
+                            <input type="radio" class="radio-col-red" formControlName="is_activeBot" value="displayNone" mdbInput> No
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Título Boton <span class="required">*</span></label>
+                        <div class="col-md-9">
+                            <input type="text" formControlName="boton" class="form-control" placeholder="Title">
+
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-md-3">Enlace Boton </label>
+                        <div class="col-md-9">
+                            <input type="enlace" formControlName="enlace" class="form-control" placeholder="enlace">
+                        </div>
+                    </div>
+                    <div class=" form-group form-row">
+                        <label class="col-md-3">Abrir enlace</label>
+                        <div class="col-md-9 demo-radio-button">
+                            <input type="radio" class="radio-col-green " formControlName="target" value="_blank" mdbInput> Externo
+                            <input type="radio" class="radio-col-red" formControlName="target" value="_self" mdbInput> interno
+                        </div>
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-md-3"></label>
+                        <div class="col-md-9">
+                            <input type="hidden" formControlName="id">
+                            <button type="submit" [disabled]="!sliderForm.valid" class="btn btn-outline-success">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+            {{error}}
+        </div>
+    </div>
+</div>

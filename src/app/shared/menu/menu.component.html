@@ -1,0 +1,116 @@
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav" *ngIf="role === 'GUEST'">
+                <li>
+                    <a routerLink="/" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="mdi mdi-monitor"></i><span class="hide-menu">Inicio </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['/dashboard/user/edit/', user.id]" routerLinkActive="active"
+                        class="waves-effect waves-dark">
+                        <i class="mdi mdi-animation"></i><span class="hide-menu">Mi Perfil </span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="logout()"
+                        class="waves-effect waves-dark">
+                        <i class="fa fa-power-off"></i><span class="hide-menu">Salir</span>
+                    </a>
+                </li>
+                
+            </ul>
+            <ul id="sidebarnav" *ngIf="role === 'PARTNER'">
+                <li>
+                    <a routerLink="/" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="mdi mdi-monitor"></i><span class="hide-menu">Inicio </span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/dashboard/eventos/user/', user.id]" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="fa fa-users"></i><span class="hide-menu">Eventos </span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a [routerLink]="['/dashboard/user/edit/', user.id]" routerLinkActive="active"
+                        class="waves-effect waves-dark">
+                        <i class="mdi mdi-animation"></i><span class="hide-menu">Mi Perfil </span>
+                    </a>
+                </li>
+               <li>
+                    <a (click)="logout()"
+                        class="waves-effect waves-dark">
+                        <i class="fa fa-power-off"></i><span class="hide-menu">Salir</span>
+                    </a>
+                </li>
+            </ul>
+            <ul id="sidebarnav" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN'">
+                <li>
+                    <a routerLink="/" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="mdi mdi-monitor"></i><span class="hide-menu">Inicio </span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="../dashboard/payments" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="fa fa-line-chart"></i><span class="hide-menu">Pagos </span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="../dashboard/clientes" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="fa fa-vcard"></i><span class="hide-menu">Clientes </span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="../dashboard/eventos" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="fa fa-users"></i><span class="hide-menu">Eventos </span>
+                    </a>
+                </li>
+                
+                
+                <li>
+                    <a routerLink="../dashboard/partners" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="fa fa-users"></i><span class="hide-menu">Partners </span>
+                    </a>
+                </li>
+                <li> <a routerLink="../dashboard/config" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="fa fa-bank"></i><span class="hide-menu">Configuración </span>
+                    </a>
+                </li>
+                <li> <a routerLink="../dashboard/tasabcv" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="fa fa-bar-chart"></i><span class="hide-menu">Tasa BCV </span>
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['/dashboard/user/edit/', user.id]" routerLinkActive="active"
+                        class="waves-effect waves-dark">
+                        <i class="fa fa-id-card"></i><span class="hide-menu">Mi Perfil </span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="logout()"
+                        class="waves-effect waves-dark">
+                        <i class="fa fa-power-off"></i><span class="hide-menu">Salir</span>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a routerLink="video" routerLinkActive="active" class="waves-effect waves-dark">
+                        <i class="mdi mdi-animation"></i><span class="hide-menu">Video </span>
+                    </a>
+                </li> -->
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->

@@ -1,0 +1,78 @@
+
+<div class="row">
+    <!-- <app-line-chart [calificaciones]="calificaciones" ></app-line-chart> -->
+    <!-- <div class="col-xs-12 col-sm-6">
+        <app-bar-chart></app-bar-chart>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <app-pie-chart2></app-pie-chart2>
+
+    </div> -->
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- buscador -->
+            <form class="form-horizontal">
+                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                    <div class="input-group">
+                        <!-- <input type="search" name="search" type="text" class="form-control col-xs-12"
+                            placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                            class="form-control border-0 bg-light"> -->
+                        <div class="input-group-append">
+                            <!-- <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                    class="fa fa-search"></i></button> -->
+                            <a href="javascript:;" (click)="PageSize()" class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                    class="fa fa-refresh"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- buscador -->
+        </div>
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="card recent-sales overflow-auto" *ngIf="!isLoading">
+
+        <div class="card-body">
+
+            <table class="table table-borderless datatable table-striped">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Email</th>
+                        <!-- <th>Semestre</th> -->
+                        <th>Año Escolar</th>
+                        <!-- <th class="text-nowrap">Acciones</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-left: 2px solid cornflowerblue; border-spacing: 2px;"
+                        *ngFor="let califi of clients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+
+                    
+                        <td>{{califi.name}} </td>
+                        <td>{{califi.email}} </td>
+                        <!-- <td>{{califi.semestre}} </td> -->
+                        <td>{{califi.anio_escolar}} </td>
+                        
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+
+    </div>
+
+   <!-- Button trigger modal -->
+
+
+
+
+</div>

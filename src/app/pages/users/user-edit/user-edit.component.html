@@ -1,0 +1,277 @@
+<!-- =======| Main |======= -->
+
+
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+    <app-backbreadcum [title]="title"></app-backbreadcum>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="col-xs-12 animated fadeInUp" *ngIf="!isLoading">
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 ">
+
+                    <div class="card shadow border-radio">
+                        <div class="card-body profile-card pt-4  fichasmall">
+
+                            <div class="inffichasmall">
+                                <h2>{{user.name}} {{user.surname}}</h2>
+                                <p>{{user.email}}</p>
+
+                                <span class="badge bg-dark-light" *ngIf="user.roles.name === 'SUPERADMIN'">SuperAdmin</span>
+                                <span class="badge bg-primary" *ngIf="user.roles.name === 'ADMIN'">Admin</span>
+                                <span class="badge bg-success" *ngIf="user.roles.name === 'PARTNER'">Partner</span>
+                                <span class="badge bg-secondary" *ngIf="user.roles.name === 'GUEST'">Invitado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+
+                   
+                    <div class="card border-radio">
+
+                        <div class="card-body pt-3">
+                             <div class="tab-content-set">
+                        <ul class="nav nav-tabs nav-tabs-bordered d-flex ">
+
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab"
+                                    data-bs-target="#profile-overview">Detalles</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab"
+                                    data-bs-target="#profile-settings">Perfil: {{infoUser.name}} </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab"
+                                    data-bs-target="#profile-change-password">Cambiar
+                                    Contraseña</button>
+                            </li>
+                        </ul>
+
+                    </div>
+                            <div class="tab-content pt-2">
+
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <div class="row">
+
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class=" label ">
+                                                <i class="fa fa-user-circle"></i> Nombre 
+                                            </div>
+                                            <p>{{infoUser.full_name}}</p>
+                                        </div>
+                                       
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-calendar"></i> Nacimiento</div>
+                                            <p>{{infoUser.birth_date|date}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-sellsy"></i> Género</div>
+                                            <!-- <p>{{infoUser.gender}}</p> -->
+                                            <p>
+                                                 <span class="badge bg-primary" *ngIf="infoUser.gender === 1">M</span>
+                                            <span class="badge bg-danger" *ngIf="infoUser.gender === 2">F</span>
+                                            </p>
+                                        </div>
+                                         <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-envelope"></i> Email</div>
+                                            <p>{{infoUser.email}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-vcard"></i> CI/ID</div>
+                                            <p>{{infoUser.n_doc}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-phone-square"></i> Teléfono</div>
+                                            <p>{{infoUser.telefono}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="label"><i class="fa fa-mobile-phone"></i> Móvil</div>
+                                            <p>{{infoUser.mobile}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="label"><i class="fa fa-map-marker"></i> Dirección</div>
+                                            <p>{{infoUser.address}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- formulario                             -->
+                                <div class="tab-pane fade pt-3" id="profile-settings">
+
+                                    <div class="clear"></div>
+                                    <form class="form-horizontal form-material" (ngSubmit)="save()"
+                                        [formGroup]="userForm">
+                                        <div class="row">
+
+                                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                                <label>Nombres <span class="required">*</span></label>
+                                                <input type="text" formControlName="name" class="form-control" required>
+
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                                <label>Apellidos <span class="required">*</span></label>
+                                                <input type="text" formControlName="surname" class="form-control"
+                                                    required>
+
+                                            </div>
+                                            <!-- <div class="col-xs-12 col-sm-6 col-md-3">
+                                                <label for="exampleInputEmail1">Email<span
+                                                        class="required">*</span></label>
+                                                <input type="text" formControlName="email" class="form-control"
+                                                    required>
+
+                                            </div> -->
+                                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                                <label for="exampleInputEmail1">CI / ID<span
+                                                        class="required">*</span></label>
+                                                <input type="text" class="form-control" required
+                                                    formControlName="n_doc">
+
+                                            </div>
+                                            <div class="col-xs-12 col-md-3">
+                                                <label for="exampleInputEmail1">Fecha Nacimiento<span
+                                                        class="required">*</span></label>
+                                                <input type="date" class="form-control" required
+                                                    formControlName="birth_date">
+
+                                            </div>
+                                            <div class="col-xs-12 col-md-3">
+                                                <label for="exampleInputEmail1">Género<span
+                                                        class="required">*</span></label>
+                                                <!-- <input type="date"  class="form-control" required formControlName="gender"> -->
+
+                                                <div class="form-group">
+
+                                                    <div class="form-check-inline ">
+                                                        <label class="form-check-label ">
+                                                            <input type="radio" value="1" formControlName="gender"
+                                                                class="form-check-input ">Masculino
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check-inline ">
+                                                        <label class="form-check-label ">
+                                                            <input type="radio" value="2" formControlName="gender"
+                                                                class="form-check-input ">Femenino
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xs-12 col-md-3">
+                                                <label for="exampleInputEmail1">Teléfonos Principal <span
+                                                        class="required">*</span></label>
+                                                <input type="text" class="form-control" required
+                                                    formControlName="telefono">
+
+                                            </div>
+                                            <div class="col-xs-12 col-md-3">
+                                                <label for="exampleInputEmail1">Teléfonos Móvil </label>
+                                                <input type="text" class="form-control" formControlName="mobile">
+
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <label>Dirección <span class="required">*</span></label>
+                                                <div class="col-md-12">
+                                                    <textarea id="direccion" cols="30" rows="4" class="form-control"
+                                                        formControlName="address"></textarea>
+                                                    <!-- <ckeditor [editor]="Editor" id="direccion" (ready)="onReady($event)" data="<p>Hello, world!</p>" formControlName="direccion" value="direccion" rows="5" class="form-control" required></ckeditor> -->
+
+                                                </div>
+                                            </div>
+                                             <div class="col-xs-12 col-md-6">
+                                                <label for="exampleInputEmail1">Empresa</label>
+                                                <input type="text" class="form-control" formControlName="empresa">
+                                            </div>
+
+                                            <!-- <div class="col-xs-12 col-md-6">
+                                                <label for="exampleInputEmail1">Materia (si es por sección)</label>
+                                                <select class="form-control" id="materia_id" [value]="materia?.id"
+                                                    formControlName="materia_id">
+                                                    <div *ngFor="let data of materias " [value]="materia_id">
+                                                        <option value="{{data.id}}">{{data.name}}</option>
+                                                    </div>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-12 col-md-6">
+                                                <label for="exampleInputEmail1">Grado (Todas las materias)</label>
+                                                <input type="text" class="form-control" formControlName="grado">
+                                            </div> -->
+                                        </div>
+
+                                        <input type="hidden" formControlName="id">
+                                        <!-- [disabled]="!userForm.valid" -->
+                                        <button class="btn btn-outline-success waves-effect waves-light m-r-10"
+                                            type="submit" >Guardar</button>
+
+
+                                    </form>
+
+                                </div>
+
+                                <!-- Change Password Form -->
+                                <div class="tab-pane fade pt-3 profile-change-password profile-edit d-flex  align-content-center align-items-center"
+                                    id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    <form class="col-xs-12 col-sm-6 " [formGroup]="passwordForm" (ngSubmit)="cambiarPassword()">
+                                        <div class="row mb-3">
+                                            <h3>Cambiar contraseña</h3>
+                                            <p>La contraseña será cambiada al usuario <span>
+                                                    <b>{{user.username}}</b></span>
+                                            </p>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Email
+                                                <span class="required">*</span></label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="email" type="email" class="form-control"
+                                                    formControlName="email" id="email" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="password" class="col-md-4 col-lg-3 col-form-label">Nueva
+                                                Contraseña</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="password" type="password" class="form-control"
+                                                    id="password" formControlName="password" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="password2" class="col-md-4 col-lg-3 col-form-label">Reingresar
+                                                Contraseña</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="password2" type="password" class="form-control"
+                                                    id="password2" formControlName="password2" required>
+                                            </div>
+                                        </div>
+                                        <p *ngIf="passwordNoValido()">* El password deben ser iguales </p>
+                                        <div class="text-center">
+                                            <input type="hidden" formControlName="id">
+                                            <button class="btn btn-outline-success waves-effect waves-light m-r-10"
+                                                type="submit">Cambiar Contraseña</button>
+                                        </div>
+                                    </form>
+                                    <!-- End Change Password Form -->
+
+                                </div>
+                            </div>
+                            <!-- End Bordered Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+<!--/main-->

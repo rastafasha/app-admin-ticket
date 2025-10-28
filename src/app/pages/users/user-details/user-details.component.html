@@ -1,0 +1,85 @@
+<!-- =======| Main |======= -->
+
+
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile" *ngIf="userprofile">
+
+    <div class="col-xs-12">
+        <app-backbreadcum [title]="title"></app-backbreadcum>
+        <div class="clear"></div>
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card border-radio shadow">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                            <h2>{{userprofile.name}}</h2>
+                            <p>{{userprofile.email}}</p>
+
+                            <span class="badge bg-dark-light"
+                                *ngIf="userprofile.roles.name === 'SUPERADMIN'">SuperAdmin</span>
+                            <span class="badge bg-primary" *ngIf="userprofile.roles.name === 'ADMIN'">Admin</span>
+                            <span class="badge bg-success" *ngIf="userprofile.roles.name === 'PARTNER'">Partner</span>
+                            <span class="badge bg-secondary" *ngIf="userprofile.roles.name === 'GUEST'">Invitado</span>
+                            <button class="btn btn-outline-primary pull-right"
+                        [routerLink]="['/dashboard/partner/profile/', userprofile.id]">Perfil</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+
+
+                    <div class="card border-radio">
+                        <div class="card-body pt-3">
+                            <form [formGroup]="profileForm" (submit)="updateForm()">
+                                        <div class="row mb-3">
+                                            <label for="name" class="col-md-4 col-lg-3 col-form-label"><i
+                                                    class="bi bi-person-circle"></i> name</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="name" type="text" class="form-control" id="name"
+                                                    formControlName="name" [value]="userprofile.name">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">
+                                                <i class="bi bi-envelope"></i>Email</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="email" type="email" class="form-control" id="Email"
+                                                    [readOnly]="userprofile.email" [value]="userprofile.email">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Role</label>
+                                            <select class="form-control" id="role_id" [value]="userprofile.roles.id"
+                                                name="role_id" formControlName="role_id">
+                                                <!-- <ng-container *ngFor="let data of roles "   >
+                                                <option value="{{data.id}}">{{data.name}}</option>
+                                            </ng-container> -->
+                                                <option value="1">Superadmin</option>
+                                                <option value="2">Admin</option>
+                                                <option value="9">Invitado</option>
+                                                <option value="10">Partner</option>
+                                            </select>
+                                        </div>
+                                        <div class="text-center">
+                                            <input type="hidden" formControlName="id">
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="ri ri-save-3-fill"></i> Guardar</button>
+                                        </div>
+                                    </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+
+<!--/main-->

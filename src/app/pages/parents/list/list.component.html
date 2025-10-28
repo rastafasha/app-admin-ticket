@@ -1,0 +1,102 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+    <app-backbreadcum [title]="title"></app-backbreadcum>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="row animated fadeInUp" *ngIf="!isLoading">
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- buscador -->
+                    <form class="form-horizontal">
+                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                            <div class="input-group">
+                                <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                    placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                    class="form-control border-0 bg-light">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"
+                                        (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                            class="fa fa-search"></i></button>
+                                    <a href="javascript:;" (click)="PageSize()"
+                                        class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                            class="fa fa-refresh"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- buscador -->
+                </div>
+            </div>
+            <div class="card recent-sales overflow-auto border-radio">
+
+                <div class="card-body">
+
+                    <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Deuda</th>
+                                <th>Status</th>
+                                <th class="text-nowrap">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let parent of clientes  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+                                <td>
+                                    <img [src]="parent?.avatar| imagenPipe: 'parents' " class="imagecircle shadow"
+                                        alt="">
+                                </td>
+                                <td><a [routerLink]="['/dashboard/cliente/detail/', parent.id]">{{parent.id}}</a></td>
+                                <td>
+                                    <a [routerLink]="['/dashboard/cliente/detail/', parent.id]">{{parent.name}}</a>
+
+                                </td>
+                                <td>{{parent.email}}</td>
+                                <td>
+
+                                    <!-- {{parent.payments[0]?.status_deuda}} -->
+
+                                    <span class="badge bg-success"
+                                        *ngIf="parent.payments[0]?.status_deuda === 'PAID'">Pagado</span>
+                                    <span class="badge bg-warning"
+                                        *ngIf="parent.payments[0]?.status_deuda === null">Pendiente</span>
+                                    <span class="badge bg-danger"
+                                        *ngIf="parent.payments[0]?.status_deuda === 'DEUDA'">Deuda</span>
+
+                                </td>
+                                <td>
+                                    <span class="badge bg-success" *ngIf="parent.status === 'ACTIVE'">Activo</span>
+                                    <span class="badge bg-danger" *ngIf="parent.status === 'INACTIVE'">Inactivo</span>
+                                </td>
+
+                                <td class="text-nowrap text-center">
+
+                                    <a [routerLink]="['/dashboard/user/edit', parent.id]" class="cursor"
+                                        data-toggle="tooltip" data-original-title="Edit">
+                                        <div class="btn btn-success"><i class="fa fa-edit"></i></div>
+                                    </a>
+                                    <a (click)="eliminarUser(parent.id)" class="cursor" data-toggle="tooltip"
+                                        data-original-title="Borrar">
+                                        <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+</div>
+<!--/main-->

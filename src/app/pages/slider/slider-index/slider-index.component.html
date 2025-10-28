@@ -1,0 +1,81 @@
+<div class="row page-titles">
+    <div class="col-12 animated fadeInUp">
+        <div class="card cardtop">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-8 align-self-center">
+                        <h3 class="text-themecolor">{{titlepage}}</h3>
+                    </div>
+                    <div class="col-12 col-sm-4 botones pull-right">
+                        <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
+                        <button class="btn btn-success" [routerLink]="['/slider/create/']">Agregar Nuevo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Activity widget find scss into widget folder-->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="card col-12 animated fadeInUp">
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table id="demo-foo-addrow" class="table m-t-30 table-hover contact-list footable-loaded footable">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="footable-sortable">No<span class="footable-sort-indicator"></span></th>
+                            <th class="footable-sortable">imagen<span class="footable-sort-indicator"></span></th>
+                            <th class="footable-sortable">Título<span class="footable-sort-indicator"></span></th>
+                            <th class="footable-sortable">Enlace<span class="footable-sort-indicator"></span></th>
+                            <th class="footable-sortable">Activo<span class="footable-sort-indicator"></span></th>
+                            <th class="footable-sortable">Created<span class="footable-sort-indicator"></span></th>
+                            <th class="footable-sortable">Updated<span class="footable-sort-indicator"></span></th>
+                            <th class="footable-sortable">Acciones<span class="footable-sort-indicator"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- | keys  -->
+                        <tr class="footable-even" *ngFor="let slider of sliders | paginate: { itemsPerPage: count, currentPage: p }">
+                            <td><span class="footable-toggle"></span>{{slider.id}}</td>
+                            <td>
+                                <div *ngIf="slider.image">
+                                    <img src="{{slider.image}}" alt="{{slider.title}}" width="40" height="40">
+                                </div>
+                                <div *ngIf="!slider.image">
+                                    <img src="{{imageUrl}}no-image.jpg" width="40" height="40">
+                                </div>
+                            </td>
+
+                            <td>{{slider.title}}</td>
+                            <td>{{slider.enlace }}</td>
+                            <td>
+                                <div class="font-size-sm mb-4">
+                                    <p class="badge badge-success badge-shadow" *ngIf="slider.is_active == '1'">Activo</p>
+                                    <p class="badge badge-primary badge-shadow" *ngIf="slider.is_active == '0'">Inactivo</p>
+                                </div>
+                            </td>
+                            <td>{{slider.created_at }}</td>
+                            <td>{{slider.updated_at }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger" (click)="onDelete(slider.id)"><i class="fa fa-trash"></i>Borrar</button>
+                                <a [routerLink]="['/slider/edit', slider.id]"><button class="btn btn-sm btn-outline-success"><i class="fa fa-pencil"></i>Editar </button></a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+
+                            <td colspan="7">
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

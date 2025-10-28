@@ -1,0 +1,96 @@
+
+<div class="row">
+    <div class="col-12 ">
+        <div class="card">
+            <div class="card-body blog-form">
+                <form [formGroup]="configForm" (ngSubmit)="onSubmit()" class="form-horizontal form-material">
+                    <div class="row">
+                        
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <div class=" form-group">
+                                <label>Nombre del Colegio </label>
+                                <input type="text" formControlName="name" class="form-control" placeholder="Title">
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 ">
+                            <label class="col-md-3">Dirección <span class="required">*</span></label>
+                            <div class="col-md-9">
+                                <textarea  formControlName="direccion" rows="5" class="form-control" required></textarea>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <div class=" form-group">
+                                <label>Teléfono </label>
+                                <input type="text" formControlName="telefono" class="form-control" placeholder="Title">
+                            </div>
+                        </div>
+                        <div class=" form-group col-sm-6 col-xs-12 col-md-3">
+                            <label>Teléfono Activo</label>
+                            <div class="col-md-9 demo-radio-button">
+                                <input type="radio" class="radio-col-green " formControlName="telefonoActivo" value="1" mdbInput> Yes
+                                <input type="radio" class="radio-col-red" formControlName="telefonoActivo" value="0" mdbInput> No
+                            </div>
+                        </div>
+    
+                        <div class=" form-group col-sm-6 col-xs-12 col-md-3">
+                            <label>Teléfono 2 </label>
+                            <input type="text" formControlName="telPresidencia" class="form-control" placeholder="Title">
+                        </div>
+                        <div class=" form-group col-sm-6 col-xs-12 col-md-3">
+                            <label>Teléfono 2 Activo</label>
+                            <div class="col-md-9 demo-radio-button">
+                                <input type="radio" class="radio-col-green " formControlName="telPresActivo" value="1" mdbInput> Yes
+                                <input type="radio" class="radio-col-red" formControlName="telPresActivo" value="0" mdbInput> No
+                            </div>
+                        </div>
+    
+                        <div class=" form-group col-sm-6 col-xs-12 col-md-3">
+                            <label>Teléfono 3</label>
+                            <input type="text" formControlName="telSecretaria" class="form-control" placeholder="Title">
+                        </div>
+                        <div class=" form-group col-sm-6 col-xs-12 col-md-3">
+                            <label>Teléfono 3 Activo</label>
+                            <div class="col-md-9 demo-radio-button">
+                                <input type="radio" class="radio-col-green " formControlName="telSecActivo" value="1" mdbInput> Yes
+                                <input type="radio" class="radio-col-red" formControlName="telSecActivo" value="0" mdbInput> No
+                            </div>
+                        </div>
+                        <div class=" form-group col-sm-6 col-xs-12">
+                            <label>Logo</label>
+                             <div class="form-group local-top-form">
+                                    <!-- <label class="local-top"> {{'formulario.Picture'|translate}}<span class="login-danger">*</span></label> -->
+                                    <div class="settings-btn upload-files-avator">
+                                        <label for="file" class="upload labelgoogle">
+                                            <span class="label__name">
+                                               Seleccione el logo del colegio
+                                            </span>
+                                        </label>
+                                        <input type="file" accept="image/*" name="image" formControlName="image" id="file" (change)="loadFile($event)" class="hide-input input">
+                                    </div>
+                                </div>
+                                <div *ngIf="FILE_AVATAR">
+                                    <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;" alt="">
+                                </div>
+                        </div>
+    
+                     
+                        
+    
+    
+                        <div class="form-group ">
+                            <label class="col-md-3"></label>
+                            <div class="col-md-9">
+                                <input type="hidden" formControlName="id">
+                                <button type="submit"  class="btn btn-outline-success">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>

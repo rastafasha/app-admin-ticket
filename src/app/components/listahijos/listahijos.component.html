@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- buscador -->
+            <form class="form-horizontal">
+                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                    <div class="input-group">
+                        <input type="search" name="search" type="text" class="form-control col-xs-12"
+                            placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                            class="form-control border-0 bg-light">
+                        <div class="input-group-append">
+                            <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                    class="fa fa-search"></i></button>
+                            <a href="javascript:;" (click)="PageSize()" class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                    class="fa fa-refresh"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- buscador -->
+        </div>
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="card recent-sales overflow-auto" *ngIf="!isLoading">
+
+        <div class="card-body">
+
+            <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>Foto</th>
+                        <th>Nombre</th>
+                        <th *ngIf="showNacimiento">Fecha</th>
+                        <th>Status</th>
+                        <th>Sección</th>
+                        <th id="matricula" *ngIf="showMatricula">Precio general</th>
+                        <!-- <th>Option</th> -->
+                        <th id="acciones" class="text-nowrap" *ngIf="showAcciones">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let eventprofile of eventos  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+
+                        <!-- <td><a [routerLink]="['/dashboard/padre/detail/', eventprofile.id]">{{eventprofile.id}}</a></td> -->
+                        <td>
+                            <img [src]="eventprofile.avatar| imagenPipe: 'events' "  class="imagecircle shadow" alt="">
+                        </td>
+                        <td>
+                            <a [routerLink]="['/dashboard/evento/detail/', eventprofile.id]">
+
+                                {{eventprofile.name}} 
+                            </a>
+                        </td>
+                        <td *ngIf="showNacimiento">{{eventprofile.fecha_inicio|date}} </td>
+                        <td >
+                            <span class="badge bg-success" *ngIf="eventprofile.status === 'ACTIVE'">Activo</span>
+                            <span class="badge bg-danger" *ngIf="eventprofile.status === 'INACTIVE'">Inactivo</span>
+                            <span class="badge bg-primary" *ngIf="eventprofile.status === 'RETIRED'">Retirado</span>
+                            <span class="badge bg-warning" *ngIf="eventprofile.status === 'GRADUATED'">Graduado</span>
+                        </td>
+                        <td>{{eventprofile.section | uppercase}} </td>
+                        <td id="matricula" *ngIf="showMatricula">{{eventprofile.precio_general}}</td>
+                        <td  id="acciones" class="text-nowrap text-center" *ngIf="showAcciones">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal" (click)="openPaymentsModal(eventprofile)">
+                                Pagos
+                            </button>
+                        </td>
+
+                        <!-- Modal -->
+                        <app-listapaymentshijo [selectedeventProfile]="selectedeventProfile"></app-listapaymentshijo>
+                        
+                        <!-- Modal -->
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+
+    </div>
+
+   <!-- Button trigger modal -->
+
+
+
+
+</div>

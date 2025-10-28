@@ -1,0 +1,31 @@
+.profile .profile-edit img {
+    max-width: auto !important;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        float: left;
+        padding: 5px;
+    }
+    .col-md-3 {
+        height: 100vh;
+    }
+    .redes .row {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        height: 80px;
+    }
+    .redes label {
+        display: flex;
+    }
+    .redes label i {
+        display: flex;
+        margin-right: 11px;
+    }
+    .code img {
+        object-fit: contain;
+        width: 200px !important;
+        display: flex;
+    }
+}
