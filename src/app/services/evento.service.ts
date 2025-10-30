@@ -87,7 +87,7 @@ export class EventoService {
         }
 
         createEvento(evento) {
-           return this.http.post<any>(this.serverUrl + '/event/store/', evento)
+           return this.http.post<any>(this.serverUrl + '/event/store', evento)
                .pipe(
                  catchError(this.handleError)
                );
