@@ -92,7 +92,7 @@ export class UsersListComponent implements OnInit {
   // }
 
   cambiarRole(user: User){
-    this.userService.update(user).subscribe(
+    this.userService.updateUserRole(user).subscribe(
       resp =>{ console.log(resp);
         Swal.fire({
                               position: 'top-end',

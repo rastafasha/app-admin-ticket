@@ -60,10 +60,11 @@ export class PaymentDetailsComponent implements OnInit {
         console.log(res);
         this.client_id = res.client_id;
         this.event_id = res.event_id;
-        this.isLoading = false;
         this.getClient();
         this.getEvent();
+        this.isLoading = false;
       }
+      
 
     )
   }

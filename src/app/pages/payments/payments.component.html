@@ -47,7 +47,7 @@
                                 <tr>
                                     <th scope="col">Imagen</th>
                                     <th scope="col">Referencia</th>
-                                    <th scope="col">Padre</th>
+                                    <th scope="col">Cliente</th>
                                     <th scope="col">Banco</th>
                                     <th scope="col">Banco Destino</th>
                                     <th scope="col">Metodo</th>
@@ -68,7 +68,7 @@
                                     <th scope="row">
                                         <a [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a>
                                     </th>
-                                    <th><a [routerLink]="['/dashboard/padre/detail/', pago.parent_id]">{{pago.nombre}}</a>
+                                    <th><a [routerLink]="['/dashboard/cliente/detail/', pago.parent_id]">{{pago.nombre}}</a>
                                     </th>
                                     <td>{{pago.bank_name}}</td>
                                     <td>{{pago.bank_destino}}</td>

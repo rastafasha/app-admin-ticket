@@ -33,15 +33,15 @@ export class UserEditComponent implements OnInit {
   error:string;
   title:string;
   infoUser:string;
-  materia: Materia | undefined;
-  materias: Materia | undefined;
 
   uploadError: string;
 
   submitted = false;
 
   public storage = environment.url_media
-
+text_validation: any = null;
+public FILE_AVATAR: any;
+    public IMAGE_PREVISUALIZA: any = "assets/img/user-06.jpg";
 
   constructor(
     private router: Router,
@@ -60,11 +60,10 @@ this.user = this.userService.user;
 
   ngOnInit() {
     window.scrollTo(0, 0);
+    this.getUser();
     this.validarFormulario();
     this.validarFormularioPassword();
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormulario(id));
-    this.getUser();
-    this.getMaterias();
     this.accountService.closeMenu();
 
   }
@@ -85,20 +84,14 @@ this.user = this.userService.user;
       this.isLoading = false;
   }
 
-   getMaterias() {
-    this.materiaService.getMaterias().subscribe((resp: any) => {
-      this.materias = resp;
-      // console.log(resp);
-    });
-  }
-
+  
   iniciarFormulario(id:number){
     // const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.title = 'Editar Perfil';
       this.userService.getUserById(+id).subscribe(
         (res:any) => {
-          console.log(res);
+          // console.log(res);
           this.userprofile = res;
           
           this.userForm.patchValue({
@@ -134,13 +127,12 @@ this.user = this.userService.user;
       // password: ['', Validators.required],
       n_doc: ['', Validators.required],
       // email: ['', Validators.required],
-      materia_id: ['',],
-      address: ['',],
-      telefono: ['',],
-      mobile: ['',],
-      grado: ['',],
-      birth_date: ['',],
-      gender: ['',],
+      address: [''],
+      empresa: [''],
+      telefono: [''],
+      mobile: [''],
+      birth_date: [''],
+      gender: [''],
       
       // status: ['PENDING'],
     })
@@ -151,12 +143,22 @@ this.user = this.userService.user;
     get password() { return this.userForm.get('password'); }
     get email() { return this.userForm.get('email'); }
     get n_doc() { return this.userForm.get('n_doc'); }
+    get empresa() { return this.userForm.get('empresa'); }
     // get status() { return this.userForm.get('status'); }
     
 
-  avatarUpload(datos) {
-    const data = JSON.parse(datos.response);
-    this.userForm.controls['image'].setValue(data.image);//almaceno el nombre de la imagen
+  
+
+  loadFile($event: any) {
+    if ($event.target.files[0].type.indexOf("image")) {
+          this.text_validation = "Solamente pueden ser archivos de tipo imagen";
+          return;
+        }
+        this.text_validation = "";
+        this.FILE_AVATAR = $event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(this.FILE_AVATAR);
+        reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
   }
 
 
@@ -165,17 +167,9 @@ this.user = this.userService.user;
 
   save() {
     this.submitted = true;
-    // if(this.userForm.invalid){
-    //   return;
-    //     }
-
     const formData = new FormData();
     formData.append('name', this.userForm.get('name').value);
     formData.append('surname', this.userForm.get('surname').value);
-    // formData.append('password', this.userForm.get('password').value);
-    // formData.append('role', this.userForm.get('role').value);
-    // formData.append('email', this.userForm.get('email').value);
-    // formData.append('status', 'PENDING');
 
      if (this.userForm.value.birth_date) {
       formData.append("birth_date", this.userForm.value.birth_date);
@@ -197,13 +191,18 @@ this.user = this.userService.user;
       formData.append("n_doc", this.userForm.value.n_doc);
       
     }
+    if (this.userForm.value.empresa) {
+      formData.append("empresa", this.userForm.value.empresa);
+      
+    }
     if (this.userForm.value.gender) {
       formData.append("gender", this.userForm.value.gender);
       
     }
-    // if (this.FILE_AVATAR) {
-    //   formData.append("imagen", this.FILE_AVATAR);
-    // }
+     if (this.FILE_AVATAR) {
+      formData.append("imagen", this.FILE_AVATAR);
+    }
+
     
 
     const id = this.userForm.get('id').value;
@@ -213,11 +212,11 @@ this.user = this.userService.user;
         ...this.userForm.value,
         user_id: this.user.id
       }
-      this.userService.update(data).subscribe(
+      this.userService.update(formData, id).subscribe(
         (res:any) => {
           this.infoUser = res;
           Swal.fire('Guardado', 'Los cambios fueron actualizados', 'success');
-          this.router.navigate(['/dashboard/users']);
+          // this.router.navigate(['/dashboard/users']);
         },
         error => this.error = error
       );

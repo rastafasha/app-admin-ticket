@@ -12,6 +12,7 @@ import { UsersListComponent } from './user-list/users-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ComponentsModule } from "../../components/components.module";
 import { ProfileComponent } from './profile/profile.component';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 
 
@@ -37,7 +38,8 @@ import { ProfileComponent } from './profile/profile.component';
     NgxPaginationModule,
     CKEditorModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
 ]
 })
 export class UserModule { }

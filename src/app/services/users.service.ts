@@ -109,9 +109,10 @@ export class UserService {
     const url = `${baseUrl}/user/update-admin/${data.id}`;
     return this.http.put(url, data, this.headers);
   }
-  update(data: any) {
-    const url = `${baseUrl}/user/update/${data.id}`;
-    return this.http.put(url, data, this.headers);
+  update(data:any, id: number) {
+    // const url = `${baseUrl}/user/update/${data.id}`;
+    // return this.http.put(url, data, this.headers);
+    return this.http.post<any>(baseUrl + '/user/update/' + id, data, this.headers)
   }
 
   deleteById(user:User): Observable<any> {

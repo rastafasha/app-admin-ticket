@@ -41,7 +41,7 @@ export class CalificacionesComponent {
     selectedMateria: Calificacion;
   
     constructor(
-     private calificacionService: EventoService,
+     private eventoService: EventoService,
       private http: HttpClient,
       handler: HttpBackend
     ) {
@@ -67,10 +67,10 @@ export class CalificacionesComponent {
         return;
       }
       this.isLoading = true;
-      this.calificacionService.getUserbyEvent(this.userprofile.id).subscribe(
+      this.eventoService.getUserbyEvent(this.userprofile.id).subscribe(
         (res: any) => {
           this.event = res.event;
-          this.clients = res.clientes;
+          this.clients = res.event.clients;
           this.isLoading = false;
         },
         (error) => {
@@ -81,7 +81,7 @@ export class CalificacionesComponent {
     }
   
     search() {
-      return this.calificacionService.search(this.query).subscribe((res: any) => {
+      return this.eventoService.search(this.query).subscribe((res: any) => {
         this.eventos = res;
         if (!this.query) {
           this.ngOnInit();
