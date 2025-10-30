@@ -1,8 +1,8 @@
 {
-  "name": "PayCole",
-  "short_name": "PayCole",
+  "name": "PayTickets",
+  "short_name": "PayTickets",
   "categories": ["school", "production"],
-  "description": "App para administrar Colegio",
+  "description": "App para administrar Eventos y Venta de Tickets",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
