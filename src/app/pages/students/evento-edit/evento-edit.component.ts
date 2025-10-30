@@ -14,6 +14,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Slider } from 'src/app/models/slider';
 import { SliderService } from 'src/app/services/slider.service';
 import { EventoService } from 'src/app/services/evento.service';
+import { Evento } from 'src/app/models/evento';
 @Component({
   selector: 'app-evento-edit',
   templateUrl: './evento-edit.component.html',
@@ -27,8 +28,9 @@ export class EventoEditComponent {
     error: string;
     uploadError: string;
     imagePath: string;
-    slider: Slider;
+    event: Evento;
     user:User;
+    event_id : number;
     public FILE_AVATAR: any;
     public IMAGE_PREVISUALIZA: any = "assets/img/user-06.jpg";
   
@@ -50,6 +52,8 @@ export class EventoEditComponent {
       this.user = this.authService.userprofile;
   
       const id = this.route.snapshot.paramMap.get('id');
+
+      this.event_id = +this.route.snapshot.paramMap.get('id');
       if (id) {
         this.pageTitle = 'Edit Evento';
         this.evntoService.getById(+id).subscribe(
@@ -64,12 +68,14 @@ export class EventoEditComponent {
               fecha_inicio: res.event.fecha_inicio,
               fecha_fin: res.event.fecha_fin,
               status: res.event.status,
-              id: res.event.id
+              id: res.event.id,
+              event_id: res.event.id
             });
             this.imagePath = res.event.image;
             console.log(res)
   
-            this.slider = res;
+            this.event = res;
+            
           }
         );
       } else {
@@ -136,9 +142,10 @@ export class EventoEditComponent {
 
       
       formData.append('user_id', this.user.id.toString());
-  
+      
       const id = this.eventoForm.get('id').value;
-  
+      formData.append('event_id', id);
+      
       if (id) {
         this.evntoService.update(formData, +id).subscribe(
           res => {
