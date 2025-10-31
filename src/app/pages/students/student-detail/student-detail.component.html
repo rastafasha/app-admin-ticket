@@ -106,7 +106,7 @@
                                             [ngClass]="{'active': option_selected === 2}" data-bs-toggle="tab"
                                             data-bs-target="#hijos">Subscriptores</button>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item" *ngIf="user.roles[0]==='ADMIN'|| user.roles[0] === 'SUPERADMIN'">
                                         <button class="nav-link" (click)="optionSelected(3)"
                                             [ngClass]="{'active': option_selected === 3}" data-bs-toggle="tab"
                                             data-bs-target="#examenes">Pagos</button>
@@ -233,7 +233,7 @@
                                                                     <td>{{user.empresa}}</td>
                                                                     <td>
                                                                         <a class="btn btn-outline-danger btn-sm"
-                                                                        *ngIf="usersevento.length > 1  && role==='ADMIN'|| role === 'SUPERADMIN'"
+                                                                        *ngIf="usersevento.length > 1  && user.roles[0]==='ADMIN'|| user.roles[0] === 'SUPERADMIN'"
                                                                         
                                                                             href="#" onclick="return false;"
                                                                             (click)="removeColab(user.id)"

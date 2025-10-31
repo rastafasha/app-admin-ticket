@@ -68,7 +68,7 @@ export class EventoService {
     return this.http.get(URL, { headers: headers });
   }
 
-  getUserbyEvent(id: number): Observable<any> {
+  getClientsbyEvent(id: number): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: "Bearer" + this.authService.token,
     });
@@ -102,6 +102,7 @@ export class EventoService {
       .post<any>(this.serverUrl + "/event/update/" + id, evento)
       .pipe(catchError(this.handleError));
   }
+  
   addColaborador(event_id: number, data: any) {
     return this.http
       .post<any>(this.serverUrl + "/event/addcolaborador/" + event_id, data)
@@ -124,6 +125,15 @@ export class EventoService {
   deleteById(event: Evento): Observable<any> {
     const url = `${baseUrl}/event/destroy/${event}`;
     return this.http.delete(url, this.headers);
+  }
+
+  updateAsistencia(event_id: number, user_id: string, asistencia: boolean) {
+    const data = { asistencia };
+    return this.http.put<any>(
+      `${baseUrl}/event/asistencia/${event_id}/${user_id}`,
+      data,
+      this.headers
+    );
   }
 
   search(query = "") {

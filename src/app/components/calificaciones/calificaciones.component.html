@@ -22,8 +22,9 @@
                     <tr>
                         <th>Usuario</th>
                         <th>Email</th>
-                        <!-- <th>Semestre</th> -->
-                        <th>Role</th>
+                        <th>Asistencia</th>
+                        <th>Asistencia opt</th>
+                        <th>Notificar</th>
                         <!-- <th class="text-nowrap">Acciones</th> -->
                     </tr>
                 </thead>
@@ -34,8 +35,21 @@
                     
                         <td>{{califi.name}} </td>
                         <td>{{califi.email}} </td>
-                        <!-- <td>{{califi.semestre}} </td> -->
-                        <td>{{califi.role}} </td>
+                        <td>
+                            <span *ngIf="califi.asistencia; else noAsistio">Asistió</span>
+                            <ng-template #noAsistio>No asistió</ng-template>
+                        </td>
+                        <td>
+                            <div class="form-check form-switch" (change)="guardarAsistencia(califi, event)">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="califi.asistencia">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Asistió</label>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-primary" *ngIf="califi.asistencia" (click)="openEmailModal(califi)">
+                                <i class="fa fa-envelope"></i>
+                            </button>
+                        </td>
                         
                     </tr>
                 </tbody>

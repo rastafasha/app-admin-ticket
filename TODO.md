@@ -1,4 +1,4 @@
-- [x] Add currentStep property and nextStep/prevStep methods in login.component.ts
-- [x] Modify login.component.html to conditionally show parts based on currentStep
-- [x] Add "Siguiente" button after first part
-- [x] Add "Atrás" button in second part
+- [x] Modify getStudents method in calificaciones.component.ts to map clients and extract asistencia from pivot.
+- [x] Fix clients type to Parent[].
+- [x] Convert asistencia to boolean using !!.
+- [x] Change template condition to truthy check.

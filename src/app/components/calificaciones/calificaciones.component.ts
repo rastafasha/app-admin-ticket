@@ -2,6 +2,7 @@ import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Calificacion } from 'src/app/models/calificacion';
 import { Evento } from 'src/app/models/evento';
+import { Parent } from 'src/app/models/parents';
 import { Student } from 'src/app/models/student';
 import { User } from 'src/app/models/users';
 import { CalificacionService } from 'src/app/services/calificacion.service';
@@ -16,7 +17,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./calificaciones.component.css']
 })
 export class CalificacionesComponent {
-  @Input() userprofile: Student;
+  @Input() userprofile: Evento;
+    asistencia= false;
     isLoading = false;
     title = 'Calificaciones';
   
@@ -24,8 +26,8 @@ export class CalificacionesComponent {
     usersCount = 0;
     event: Evento;
     eventos: Evento;
-    clients: User;
-    studentprofile: Student;
+    clients: Parent[];
+    studentprofile: Evento;
     roles;
   
     p: number = 1;
@@ -38,7 +40,6 @@ export class CalificacionesComponent {
     calificaciones:Calificacion;
   
     ServerUrl = environment.url_servicios;
-    selectedMateria: Calificacion;
   
     constructor(
      private eventoService: EventoService,
@@ -67,10 +68,13 @@ export class CalificacionesComponent {
         return;
       }
       this.isLoading = true;
-      this.eventoService.getUserbyEvent(this.userprofile.id).subscribe(
+      this.eventoService.getClientsbyEvent(this.userprofile.id).subscribe(
         (res: any) => {
           this.event = res.event;
-          this.clients = res.event.clients;
+          this.clients = res.event.clients.map(client => ({
+            ...client,
+            asistencia: !!client.pivot?.asistencia
+          }));
           this.isLoading = false;
         },
         (error) => {
@@ -94,10 +98,21 @@ export class CalificacionesComponent {
       this.query = '';
     }
   
-    openPaymentsModal(calif: Calificacion): void {
-      this.selectedMateria = calif;
+    openEmailModal(califi){
+      this.studentprofile = califi;
     }
-    openNewModal(calif: Student): void {
-      this.studentprofile = calif;
+
+    guardarAsistencia(califi: any, event: any) {
+      const asistencia = califi.asistencia || false; // Asumiendo que califi tiene asistencia, pero ajusta si es necesario
+      this.eventoService.updateAsistencia(event.id, califi.id, asistencia).subscribe(
+        (res: any) => {
+          console.log('Asistencia actualizada', res);
+          this.asistencia = true;
+        },
+        (error) => {
+          console.error('Error actualizando asistencia', error);
+          this.asistencia = false;
+        }
+      );
     }
 }
