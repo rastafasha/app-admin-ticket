@@ -1,4 +1,3 @@
-
 <div class="row">
     <!-- <app-line-chart [calificaciones]="calificaciones" ></app-line-chart> -->
     <!-- <div class="col-xs-12 col-sm-6">
@@ -11,7 +10,7 @@
 </div>
 
 <div class="container">
-    
+
     <app-loading *ngIf="isLoading"></app-loading>
     <div class="card recent-sales overflow-auto" *ngIf="!isLoading">
 
@@ -21,6 +20,7 @@
                 <thead>
                     <tr>
                         <th>Usuario</th>
+                        <th>Id</th>
                         <th>Email</th>
                         <th>Asistencia</th>
                         <th>Asistencia opt</th>
@@ -30,27 +30,34 @@
                 </thead>
                 <tbody>
                     <tr style="border-left: 2px solid cornflowerblue; border-spacing: 2px;"
-                        *ngFor="let califi of clients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+                        *ngFor="let client of clients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
 
-                    
-                        <td>{{califi.name}} </td>
-                        <td>{{califi.email}} </td>
+                        <td>{{client.name}} </td>
+                        <td>{{client.n_doc}} </td>
+                        <td>{{client.email}} </td>
                         <td>
-                            <span *ngIf="califi.asistencia; else noAsistio">Asistió</span>
-                            <ng-template #noAsistio>No asistió</ng-template>
+                            <span *ngIf="client.asistencia; else noAsistio"><i class="fa fa-check-circle-o text-success"
+                                    aria-hidden="true"></i></span>
+                            <ng-template #noAsistio><i class="fa fa-info-circle text-danger"
+                                    aria-hidden="true"></i></ng-template>
                         </td>
                         <td>
-                            <div class="form-check form-switch" (change)="guardarAsistencia(califi, event)">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="califi.asistencia">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Asistió</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox"
+                                    [id]="'flexSwitchCheckDefault'+client.id" [(ngModel)]="client.asistencia"
+                                    (change)="guardarAsistencia(client, $event)">
+                                <label class="form-check-label"
+                                    [for]="'flexSwitchCheckDefault'+client.id">Asistió</label>
+
                             </div>
                         </td>
                         <td>
-                            <button class="btn btn-outline-primary" *ngIf="califi.asistencia" (click)="openEmailModal(califi)">
+                            <button class="btn btn-outline-primary" *ngIf="client.asistencia"
+                                (click)="openEmailModal(i)">
                                 <i class="fa fa-envelope"></i>
                             </button>
                         </td>
-                        
+
                     </tr>
                 </tbody>
 
@@ -62,7 +69,7 @@
 
     </div>
 
-   <!-- Button trigger modal -->
+    <!-- Button trigger modal -->
 
 
 

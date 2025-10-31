@@ -1,4 +1,4 @@
-- [x] Modify getStudents method in calificaciones.component.ts to map clients and extract asistencia from pivot.
-- [x] Fix clients type to Parent[].
-- [x] Convert asistencia to boolean using !!.
-- [x] Change template condition to truthy check.
+# TODO for guardarAsistencia Fix
+
+- [x] Update calificaciones.component.html: Change the (change) binding to pass the full client and $event
+- [x] Update calificaciones.component.ts: Extract client_id from client.pivot.client_id, uncomment and fix the service call

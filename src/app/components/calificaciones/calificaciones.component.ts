@@ -27,6 +27,7 @@ export class CalificacionesComponent {
     event: Evento;
     eventos: Evento;
     clients: Parent[];
+    client_id: number;
     studentprofile: Evento;
     roles;
   
@@ -98,13 +99,28 @@ export class CalificacionesComponent {
       this.query = '';
     }
   
-    openEmailModal(califi){
-      this.studentprofile = califi;
+    openEmailModal(client){
+      this.studentprofile = client;
+      console.log('cliente', client)
     }
 
-    guardarAsistencia(califi: any, event: any) {
-      const asistencia = califi.asistencia || false; // Asumiendo que califi tiene asistencia, pero ajusta si es necesario
-      this.eventoService.updateAsistencia(event.id, califi.id, asistencia).subscribe(
+    selectClient(client){
+      this.studentprofile = client;
+      console.log('cliente', client)
+    }
+
+    guardarAsistencia(client, event: any) {
+      console.log('evento', event)
+      console.log('cliente', client)
+      if (!client.pivot) {
+        console.error('Client pivot is undefined, cannot access client_id');
+        return;
+      }
+      const client_id = client.pivot.client_id;
+      this.client_id = client_id
+      console.log('cliente', this.client_id)
+      const asistencia = client.asistencia || false;
+      this.eventoService.updateAsistencia(this.userprofile.id, client_id, asistencia).subscribe(
         (res: any) => {
           console.log('Asistencia actualizada', res);
           this.asistencia = true;
