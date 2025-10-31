@@ -12,8 +12,8 @@
                             <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
                                 (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
                                     class="fa fa-search"></i></button>
-                            <a href="javascript:;" (click)="PageSize()" class="btn btn-primary doctor-refresh ms-2 circle"><i
-                                    class="fa fa-refresh"></i></a>
+                            <a href="javascript:;" (click)="PageSize()"
+                                class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
                         </div>
                     </div>
                 </div>
@@ -29,50 +29,53 @@
             <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
                 <thead>
                     <tr>
-                        <!-- <th>ID</th> -->
-                        <th>Foto</th>
+                        <th>Imagen</th>
                         <th>Nombre</th>
-                        <th *ngIf="showNacimiento">Fecha</th>
+                        <th>P General</th>
+                        <th>P Estudiantes</th>
+                        <th>P Especialistas</th>
                         <th>Status</th>
-                        <th>Sección</th>
-                        <th id="matricula" *ngIf="showMatricula">Precio general</th>
-                        <!-- <th>Option</th> -->
-                        <th id="acciones" class="text-nowrap" *ngIf="showAcciones">Acciones</th>
+                        <th class="text-nowrap">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr
-                        *ngFor="let eventprofile of eventos  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+                        *ngFor="let evento of events  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
 
-                        <!-- <td><a [routerLink]="['/dashboard/padre/detail/', eventprofile.id]">{{eventprofile.id}}</a></td> -->
+                        <!-- <td><a [routerLink]="['/dashboard/padre/detail/', evento.id]">{{evento.id}}</a></td> -->
                         <td>
-                            <img [src]="eventprofile.avatar| imagenPipe: 'events' "  class="imagecircle shadow" alt="">
+                            <img [src]="evento.avatar| imagenPipe: 'eventos' " class=" shadow"
+                                style="width: 40px; height: 40px; border-radius: 100px;" alt="">
                         </td>
-                        <td>
-                            <a [routerLink]="['/dashboard/evento/detail/', eventprofile.id]">
 
-                                {{eventprofile.name}} 
+                        <td>
+                            <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}}
+                                {{evento.surname}}</a>
+
+                        </td>
+                        <td>{{evento.precio_general | currency}}</td>
+                        <td>{{evento.precio_estudiantes | currency}}</td>
+                        <td>{{evento.precio_especialistas | currency}}</td>
+                        <td>
+                            <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                            <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
+                            <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
+                            <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Terminado</span>
+                        </td>
+
+
+
+                        <td class="text-nowrap text-center">
+
+                            <a [routerLink]="['/dashboard/evento/edit/', evento.id]" class="cursor"
+                                data-toggle="tooltip" data-original-title="Edit">
+                                <div class="btn btn-success"><i class="fa fa-edit"></i></div>
                             </a>
+                            <!-- <a (click)="eliminarUser(evento.id)" class="cursor" data-toggle="tooltip"
+                                        data-original-title="Borrar">
+                                        <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
+                                    </a> -->
                         </td>
-                        <td *ngIf="showNacimiento">{{eventprofile.fecha_inicio|date}} </td>
-                        <td >
-                            <span class="badge bg-success" *ngIf="eventprofile.status === 'ACTIVE'">Activo</span>
-                            <span class="badge bg-danger" *ngIf="eventprofile.status === 'INACTIVE'">Inactivo</span>
-                            <span class="badge bg-primary" *ngIf="eventprofile.status === 'RETIRED'">Retirado</span>
-                            <span class="badge bg-warning" *ngIf="eventprofile.status === 'GRADUATED'">Graduado</span>
-                        </td>
-                        <td>{{eventprofile.section | uppercase}} </td>
-                        <td id="matricula" *ngIf="showMatricula">{{eventprofile.precio_general}}</td>
-                        <td  id="acciones" class="text-nowrap text-center" *ngIf="showAcciones">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal" (click)="openPaymentsModal(eventprofile)">
-                                Pagos
-                            </button>
-                        </td>
-
-                        <!-- Modal -->
-                        <app-listapaymentshijo [selectedeventProfile]="selectedeventProfile"></app-listapaymentshijo>
-                        
-                        <!-- Modal -->
                     </tr>
                 </tbody>
 
@@ -84,7 +87,7 @@
 
     </div>
 
-   <!-- Button trigger modal -->
+    <!-- Button trigger modal -->
 
 
 

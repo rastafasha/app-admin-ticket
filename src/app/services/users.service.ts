@@ -91,6 +91,14 @@ export class UserService {
 
 
   }
+  getUserByEmpresa(user_empresa:string): Observable<any> {
+
+    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
+    let URL = this.serverUrl+"/users/porEmpresa/"+user_empresa;
+    return this.http.get(URL,{headers:headers});
+
+
+  }
 
   getRecientes(): Observable<any> {
     const url = `${baseUrl}/users/recientes`;

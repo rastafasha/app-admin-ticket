@@ -52,7 +52,7 @@ export class ListahijosComponent implements OnChanges {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    // console.log(this.userprofile);
+    console.log(this.userprofile);
     // Removed this.getUsers() from here to avoid calling before userprofile is set
   }
 
@@ -69,9 +69,9 @@ export class ListahijosComponent implements OnChanges {
       return;
     }
     this.isLoading = true;
-    this.eventosService.getUserbyEvent(this.userprofile.id).subscribe(
+    this.eventosService.eventsbyUser(this.userprofile.id).subscribe(
       (res: any) => {
-        this.events = res.events;
+        this.events = res.user.eventos;
         this.isLoading = false;
       },
       (error) => {

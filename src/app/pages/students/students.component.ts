@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
@@ -17,6 +17,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class StudentsComponent {
   title = "Eventos";
+  @Input() event_id:string;
+  @Input() user_id:string;
+
     
       loading = false;
       usersCount = 0;
@@ -80,9 +83,10 @@ export class StudentsComponent {
 
       getEventsbyUser(id:number): void {
         this.isLoading = true;
+        this.user_id = id.toString();
         this.eventosService.eventsbyUser(+id).subscribe(
           (res:any) =>{
-            this.eventos = res.eventos;
+            this.eventos = res.user.eventos;
             error => this.error = error;
             this.isLoading = false;
             console.log(this.eventos);

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dashboard } from 'src/app/models/dashboard';
+import { Evento } from 'src/app/models/evento';
 import { Parent } from 'src/app/models/parents';
 import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { EventoService } from 'src/app/services/evento.service';
 
 
 @Component({
@@ -12,6 +14,8 @@ import { DashboardService } from 'src/app/services/dashboard.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  userprofile:any;
 
   error: string;
  showMatricula: boolean = false;
@@ -26,11 +30,13 @@ export class DashboardComponent implements OnInit {
   clients_nodeuda:Dashboard
   total_clients_deuda:Dashboard
   total_events:Dashboard;
-  userprofile:any;
   roles: any;
+  isLoading = false;
+  eventos:Evento
 
   constructor(
     private dashboardService: DashboardService,
+    private eventosService: EventoService,
     public authService:AuthService
     ) {}
 
@@ -44,6 +50,7 @@ export class DashboardComponent implements OnInit {
     this.role = this.authService.role;
     this.user = this.authService.userprofile;
     this.role = this.authService.role;
+    this.userprofile = this.authService.userprofile;
 
   }
   getDashboardData(){
@@ -56,21 +63,13 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  public PageSize(): void {
-      // this.getDirectorios();
-      this.query = '';
-    }
-  
-  
-    search() {
-      // return this.directorioService.search(this.query).subscribe(
-      //   (res:any)=>{
-      //     this.directories = res;
-      //     if(!this.query){
-      //       this.ngOnInit();
-      //     }
-      //   });
+  selectDoctor(){
+      // this.dashboardDoctor();
+      // this.getDoctor();
+      // this.dashboardDoctorProfile();
     }
 
+  
 
 }
+

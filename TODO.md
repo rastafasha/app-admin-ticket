@@ -1,0 +1,4 @@
+- [x] Add currentStep property and nextStep/prevStep methods in login.component.ts
+- [x] Modify login.component.html to conditionally show parts based on currentStep
+- [x] Add "Siguiente" button after first part
+- [x] Add "Atrás" button in second part

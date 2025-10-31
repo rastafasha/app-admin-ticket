@@ -25,6 +25,8 @@ export class UserEditComponent implements OnInit {
 
   userForm: FormGroup;
   passwordForm: FormGroup;
+  profileForm: FormGroup;
+
   public formSumitted = false;
   isLoading:boolean = false;
   public user: User;
@@ -37,7 +39,7 @@ export class UserEditComponent implements OnInit {
   uploadError: string;
 
   submitted = false;
-
+user_id: any;
   public storage = environment.url_media
 text_validation: any = null;
 public FILE_AVATAR: any;
@@ -64,6 +66,7 @@ this.user = this.userService.user;
     this.validarFormulario();
     this.validarFormularioPassword();
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormulario(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormularioPerfil(id));
     this.accountService.closeMenu();
 
   }
@@ -159,6 +162,52 @@ this.user = this.userService.user;
         const reader = new FileReader();
         reader.readAsDataURL(this.FILE_AVATAR);
         reader.onloadend = () => (this.IMAGE_PREVISUALIZA = reader.result);
+  }
+
+
+  iniciarFormularioPerfil(id){
+    // const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      // this.pageTitle = 'Editar Directorio';
+      this.userService.getUserById(+id).subscribe(
+        (res:any) => {
+          this.profileForm.patchValue({
+            id: res.user.id,
+            name: res.user.name,
+            email: res.user.email,
+            // role: res.user.roles.name,
+          });
+          this.userprofile = res.user;
+          console.log(this.userprofile);
+        }
+      );
+      
+    }
+
+    this.validarFormularioPerfil();
+
+  }
+
+  validarFormularioPerfil(){
+    this.profileForm = this.fb.group({
+      id: [''],
+      // nombre: ['', Validators.required],
+      name: ['', Validators.required],
+      role_id: ['', Validators.required],
+      user_id: [''],
+    });
+  }
+
+  cambiarRole(user:User){
+
+    const data = {
+      ...this.profileForm.value,
+      user_id: user.id,
+      role_id: this.profileForm.get('role_id').value
+    }
+    this.userService.updateUserRole(data).subscribe((resp:any)=>{
+      Swal.fire('Guardado', 'Los cambios fueron actualizados', 'success');
+    })
   }
 
 

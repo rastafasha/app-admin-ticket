@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   // Registro
   public formSumitted = false;
+  public currentStep = 1;
   public registerForm = this.fb.group({
     name: ['', Validators.required],
     surname: ['', Validators.required],
@@ -167,7 +168,13 @@ passwordsIguales(pass1Name: string, pass2Name: string){
 }
 // Registro
 
+nextStep() {
+  this.currentStep = 2;
+}
 
+prevStep() {
+  this.currentStep = 1;
+}
 
 switchRegistrologin(){
   const container = document.querySelector(".logincontainer");

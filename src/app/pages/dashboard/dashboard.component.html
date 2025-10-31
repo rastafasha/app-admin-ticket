@@ -27,7 +27,7 @@
 <div *ngIf="role === 'PARTNER' ">
     <div class="row animated fadeInUp">
         <div class="col-xs-12 col-sm-8">
-            <div class="col-6 col-sm-6  ">
+            <!-- <div class="col-6 col-sm-6  ">
                 <div class="card d-flex justify-content-center shadow">
                     <a [routerLink]="['/dashboard/eventos/partner/', user.id]">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
@@ -46,7 +46,15 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div> -->
+            <!-- <div class="col-6 col-sm-6  ">
+                <select class="form-control" [(ngModel)]="event_id" class="form-control select" (selectionChange)="selectDoctor()">
+                    <option value="">-- Seleccione Evento --</option>
+                    <option *ngFor="let data of eventos" [value]="data.name">
+                        {{data.name}}
+                    </option>
+                </select>
+            </div> -->
             <div class="col-xs-12 col-sm-6">
                 <a [routerLink]="['/dashboard/evento/create']" class="cursor" data-toggle="tooltip"
                     data-original-title="Edit">
@@ -60,7 +68,8 @@
             </div>
         </div>
     </div>
-    <app-recentpayments></app-recentpayments>
+    <!-- <app-recentpayments></app-recentpayments> -->
+     <app-listahijos [userprofile]="userprofile"></app-listahijos>
 
 </div>
 

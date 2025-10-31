@@ -23,7 +23,7 @@ import { Evento } from 'src/app/models/evento';
 export class EventoEditComponent {
 
   imageUrl = environment.url_media;
-  
+
     pageTitle: string;
     error: string;
     uploadError: string;
@@ -33,6 +33,7 @@ export class EventoEditComponent {
     event_id : number;
     public FILE_AVATAR: any;
     public IMAGE_PREVISUALIZA: any = "assets/img/user-06.jpg";
+    public loading: boolean = false;
   
     eventoForm: FormGroup;
     public Editor = ClassicEditor;
@@ -56,6 +57,7 @@ export class EventoEditComponent {
       this.event_id = +this.route.snapshot.paramMap.get('id');
       if (id) {
         this.pageTitle = 'Edit Evento';
+        this.loading = true;
         this.evntoService.getById(+id).subscribe(
           (res:any) => {
             this.eventoForm.patchValue({
@@ -68,14 +70,16 @@ export class EventoEditComponent {
               fecha_inicio: res.event.fecha_inicio,
               fecha_fin: res.event.fecha_fin,
               status: res.event.status,
+              company: res.event.company,
               id: res.event.id,
               event_id: res.event.id
             });
             this.imagePath = res.event.image;
             console.log(res)
-  
+
             this.event = res;
-            
+            this.loading = false;
+
           }
         );
       } else {
@@ -92,6 +96,7 @@ export class EventoEditComponent {
         fecha_inicio: [''],
         fecha_fin: [''],
         status: [''],
+        company: [''],
         imagen: [''],
       });
     }
@@ -123,8 +128,10 @@ export class EventoEditComponent {
     get fecha_inicio() { return this.eventoForm.get('fecha_inicio'); }
     get fecha_fin() { return this.eventoForm.get('fecha_fin'); }
     get status() { return this.eventoForm.get('status'); }
+    get company() { return this.eventoForm.get('company'); }
   
     onSubmit () {
+      
       const formData = new FormData();
       formData.append('name', this.eventoForm.get('name').value);
       formData.append('description', this.eventoForm.get('description').value);
@@ -134,6 +141,7 @@ export class EventoEditComponent {
       formData.append('fecha_inicio', this.eventoForm.get('fecha_inicio').value);
       formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
       formData.append('status', this.eventoForm.get('status').value);
+      formData.append('company', this.eventoForm.get('company').value);
       // formData.append('image', this.eventoForm.get('image').value);
 
       if (this.FILE_AVATAR) {
@@ -147,6 +155,7 @@ export class EventoEditComponent {
       formData.append('event_id', id);
       
       if (id) {
+        this.loading = true;
         this.evntoService.update(formData, +id).subscribe(
           res => {
             if (res === 'error') {
@@ -163,12 +172,14 @@ export class EventoEditComponent {
                 text: 'Se Actualizó Correctamente'
               });
               // this.router.navigate(['/prensa']);
+              this.loading = false;
   
             }
           },
           error => this.error = error
         );
       } else {
+        this.loading = true;
         this.evntoService.createEvento(formData).subscribe(
           res => {
             if (res.status === 'error') {
@@ -185,12 +196,13 @@ export class EventoEditComponent {
                 text: 'Se Creó Correctamente!'
               });
               // this.router.navigateByUrl('/');
+              this.loading = false;
             }
           },
           error => this.error = error
         );
       }
-      console.log(this.eventoForm.value)
+      // console.log(this.eventoForm.value)
     }
   
     goBack() {

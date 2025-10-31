@@ -9,7 +9,7 @@
 
         <section class="section profile">
             <div class="row">
-                <div class="col-xl-4">
+                <div class="col-xl-3">
 
                     <div class="card border-radio shadow">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
@@ -22,55 +22,126 @@
                             <span class="badge bg-success" *ngIf="userprofile.roles.name === 'PARTNER'">Partner</span>
                             <span class="badge bg-secondary" *ngIf="userprofile.roles.name === 'GUEST'">Invitado</span>
                             <button class="btn btn-outline-primary pull-right"
-                        [routerLink]="['/dashboard/partner/profile/', userprofile.id]">Perfil</button>
+                        [routerLink]="['/dashboard/partner/edit', userprofile.id]">Editar</button>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="col-xl-8">
+                
 
-
+                <div class="col-xs-12 col-sm-12 col-md-9 col-xl-9">
 
                     <div class="card border-radio">
                         <div class="card-body pt-3">
-                            <form [formGroup]="profileForm" (submit)="updateForm()">
-                                        <div class="row mb-3">
-                                            <label for="name" class="col-md-4 col-lg-3 col-form-label"><i
-                                                    class="bi bi-person-circle"></i> name</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="name" type="text" class="form-control" id="name"
-                                                    formControlName="name" [value]="userprofile.name">
-                                            </div>
-                                        </div>
+                            <!-- Bordered Tabs -->
+                            <div *ngIf="userprofile?.role === 'GUEST'">
+                                <ul class="nav nav-tabs nav-tabs-bordered">
 
-                                        <div class="row mb-3">
-                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">
-                                                <i class="bi bi-envelope"></i>Email</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="email" type="email" class="form-control" id="Email"
-                                                    [readOnly]="userprofile.email" [value]="userprofile.email">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#profile-overview">Detalles</button>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Cambiar
+                    Contraseña</button>
+                                    </li> -->
+
+                                </ul>
+
+                            </div>
+
+                            <div>
+                                <ul class="nav nav-tabs nav-tabs-bordered">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" (click)="optionSelected(1)"
+                                            [ngClass]="{'active': option_selected === 1}" data-bs-toggle="tab"
+                                            data-bs-target="#profile-overview">Detalles</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" (click)="optionSelected(2)"
+                                            [ngClass]="{'active': option_selected === 2}" data-bs-toggle="tab"
+                                            data-bs-target="#hijos">Eventos</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" (click)="optionSelected(3)"
+                                            [ngClass]="{'active': option_selected === 3}" data-bs-toggle="tab"
+                                            data-bs-target="#pagos">Pagos</button>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="tab-content pt-2">
+<!-- Detalles -->
+                                <div class="tab-pane fade show active profile-overview" *ngIf="option_selected === 1 "
+                                    id="profile-overview">
+
+                                    <br />
+
+                                    <div class="row">
+
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="col-md-4 label ">
+                                                <i class="bi bi-person-circle"></i> Username
                                             </div>
+                                            <p>{{userprofile?.name}} {{userprofile?.surname}}</p>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Role</label>
-                                            <select class="form-control" id="role_id" [value]="userprofile.roles.id"
-                                                name="role_id" formControlName="role_id">
-                                                <!-- <ng-container *ngFor="let data of roles "   >
-                                                <option value="{{data.id}}">{{data.name}}</option>
-                                            </ng-container> -->
-                                                <option value="1">Superadmin</option>
-                                                <option value="2">Admin</option>
-                                                <option value="9">Invitado</option>
-                                                <option value="10">Partner</option>
-                                            </select>
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="col-md-4 label"><i class="bi bi-envelope"></i> Email</div>
+                                            <p>{{userprofile?.email}}</p>
                                         </div>
-                                        <div class="text-center">
-                                            <input type="hidden" formControlName="id">
-                                            <button type="submit" class="btn btn-primary"><i
-                                                    class="ri ri-save-3-fill"></i> Guardar</button>
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="col-md-4 label"><i class="bi bi-envelope"></i> Id/CI</div>
+                                            <p>{{userprofile?.n_doc}}</p>
                                         </div>
-                                    </form>
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="col-md-4 label"><i class="bi bi-envelope"></i> Teléfono</div>
+                                            <p>{{userprofile?.mobile}}</p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="col-md-4 label"><i class="bi bi-envelope"></i> Nacimiento</div>
+                                            <p>{{userprofile?.birth_date|date}}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6">
+                                            <div class="col-md-4 label"><i class="bi bi-bank2"></i> Dirección</div>
+                                            <p>{{userprofile?.address}}</p>
+                                        </div>
+                                    </div>
+                                    <!-- <app-statuspagos [userprofile]="userprofile"></app-statuspagos> -->
+
+
+
+
+
+                                </div>
+                                <!-- Eventos -->
+                                <div class="tab-pane fade show active profile-overview" *ngIf="option_selected === 2 "
+                                    id="hijos">
+
+                                    <br />
+
+                                    <div class="row">
+                                        <app-listahijos [userprofile]="userprofile"></app-listahijos>
+                                    </div>
+                                </div>
+                                <!-- Pagos -->
+                                <div class="tab-pane fade show active profile-overview" *ngIf="option_selected === 3 "
+                                    id="pagos">
+
+                                    <br />
+
+                                    <div class="row">
+
+                                        <!-- <app-listapayments [userprofile]="userprofile"></app-listapayments> -->
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!-- End Bordered Tabs -->
 
                         </div>
                     </div>

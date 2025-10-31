@@ -116,7 +116,7 @@
 
                             </div>
                             <div class="tab-content pt-2">
-<!-- detalles -->
+                                <!-- detalles -->
                                 <div class="tab-pane fade show active profile-overview" *ngIf="option_selected === 1 "
                                     id="profile-overview">
 
@@ -126,18 +126,25 @@
 
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label ">
-                                                <i class="fa fa-user-circle"></i> Nombre 
+                                                <i class="fa fa-user-circle"></i> Empresa
+                                            </div>
+                                            <p>{{userprofile?.company}} </p>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-3">
+                                            <div class=" label ">
+                                                <i class="fa fa-user-circle"></i> Nombre
                                             </div>
                                             <p>{{userprofile?.name}} </p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label ">
-                                                <i class="fa fa-user-circle"></i> descripcion 
+                                                <i class="fa fa-user-circle"></i> descripcion
                                             </div>
                                             <p>{{userprofile?.description}} </p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
-                                            <div class=" label"><i class="fa fa-calendar-check-o"></i> Fecha Inicio</div>
+                                            <div class=" label"><i class="fa fa-calendar-check-o"></i> Fecha Inicio
+                                            </div>
                                             <p>{{userprofile?.fecha_inicio}}</p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
@@ -159,10 +166,97 @@
 
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class=" label"><i class="fa fa-compass"></i> Agregar Colaboradores
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <table class="rbt-table table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nombre</th>
+                                                                <th>Email</th>
+                                                                <th>Empresa</th>
+                                                                <th>Status</th>
+                                                                <th>Op</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <ng-container *ngFor="let user of users">
+                                                                <tr>
+                                                                    <td>{{user.name}}</td>
+                                                                    <td>{{user.email}}</td>
+                                                                    <td>{{user.empresa}}</td>
+                                                                    <td>
+                                                                        <span class="badge bg-success"
+                                                                            *ngIf="user.status === 'ACTIVE'">Activo</span>
+                                                                        <span class="badge bg-danger"
+                                                                            *ngIf="user.status === 'INACTIVE'">Inactivo</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="btn btn-outline-primary btn-sm"
+                                                                            
+                                                                            href="#" onclick="return false;"
+                                                                            (click)="addColaborador(user.id)" title="Add"><i
+                                                                                class="fa fa-plus pl--0"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-container>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class=" label"><i class="fa fa-compass"></i> Colaboradores
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <table class="rbt-table table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nombre</th>
+                                                                <th>Empresa</th>
+                                                                
+                                                                <th>Op</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <ng-container *ngFor="let user of usersevento">
+                                                                <tr>
+                                                                    <td>{{user.name}}</td>
+                                                                    <td>{{user.empresa}}</td>
+                                                                    <td>
+                                                                        <a class="btn btn-outline-danger btn-sm"
+                                                                        *ngIf="usersevento.length > 1 "
+                                                                            href="#" onclick="return false;"
+                                                                            (click)="removeColab(user.id)"
+                                                                            title="Remove"><i
+                                                                                class="fa fa-trash pl--0"></i></a>
+
+                                                                                <span *ngIf="usersevento.length == 1 ">
+                                                                                    creador
+                                                                                </span>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-container>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <!-- fin detalles -->
-                                 <!-- subcriptores -->
+                                <!-- subcriptores -->
                                 <div class="tab-pane fade show active profile-overview" *ngIf="option_selected === 2 "
                                     id="hijos">
                                     <br />
@@ -171,7 +265,7 @@
                                     </div>
                                 </div>
                                 <!-- fin subcriptores -->
-                                 <!-- pagos -->
+                                <!-- pagos -->
                                 <div class="tab-pane fade show active profile-overview" *ngIf="option_selected === 3 "
                                     id="examenes">
                                     <br />

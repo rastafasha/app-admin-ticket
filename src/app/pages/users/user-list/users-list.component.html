@@ -32,6 +32,7 @@
                                     <th>ID</th>
                                     <th>partner</th>
                                     <th>Email</th>
+                                    <th>Empresa</th>
                                     <th>Role</th>
                                     <!-- <th>Role Edit</th> -->
                                     <!-- <th>Option</th> -->
@@ -44,6 +45,7 @@
                                     <td><a [routerLink]="['/dashboard/partner/detail/', user.id]">{{user.id}}</a></td>
                                     <td><a [routerLink]="['/dashboard/partner/detail/', user.id]">{{user.name}}</a> </td>
                                     <td>{{user.email}}</td>
+                                    <td>{{user.empresa}}</td>
                                     <td>
                                         <!-- {{user.role }}  -->
                                         <span class="badge bg-dark" *ngIf="user.roles.name === 'SUPERADMIN'">SuperAdmin</span>
