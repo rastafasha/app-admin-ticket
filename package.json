@@ -6,6 +6,7 @@
     "start": "ng serve",
     "start:dev": "ng serve --port 4203",
     "build": "ng build",
+    "build:adminticket": "ng build --configuration adminticket",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
