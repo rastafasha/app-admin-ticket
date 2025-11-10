@@ -1,4 +1,3 @@
-# TODO for guardarAsistencia Fix
-
-- [x] Update calificaciones.component.html: Change the (change) binding to pass the full client and $event
-- [x] Update calificaciones.component.ts: Extract client_id from client.pivot.client_id, uncomment and fix the service call
+- [x] Modificar evento-edit.component.ts: Convertir is_featured a boolean en patchValue, convertir de vuelta en onSubmit, y corregir asignación de this.event.
+- [x] Modificar evento-edit.component.html: Cambiar radio buttons a [value]="true"/"false" y agregar párrafo para mostrar valor actual.
+- [ ] Verificar funcionamiento: Ejecutar la app y probar edición de evento.

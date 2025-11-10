@@ -104,6 +104,7 @@ export class StudentsComponent {
         return this.eventosService.search(this.query).subscribe(
           (res:any)=>{
             console.log(res);
+            console.log(this.query);
             this.eventos = res;
             if(!this.query){
               this.ngOnInit();

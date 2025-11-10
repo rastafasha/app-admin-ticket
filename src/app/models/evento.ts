@@ -14,6 +14,7 @@ export class Evento {
     precio_general: number = 0;
     precio_estudiantes: number = 0;
     precio_especialistas: number = 0;
+    is_featured: boolean = false;
     created_at: string = "";
     image: string = "";
     avatar: string = "";

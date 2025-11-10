@@ -1,6 +1,6 @@
 {
-  "name": "PayTickets",
-  "short_name": "PayTickets",
+  "name": "PayTickets Admin",
+  "short_name": "PayTickets Admin",
   "categories": ["school", "production"],
   "description": "App para administrar Eventos y Venta de Tickets",
   "theme_color": "#1976d2",

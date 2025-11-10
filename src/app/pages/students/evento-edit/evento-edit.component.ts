@@ -71,13 +71,14 @@ export class EventoEditComponent {
               fecha_fin: res.event.fecha_fin,
               status: res.event.status,
               company: res.event.company,
+              is_featured: res.event.is_featured == 1 ? true : false,
               id: res.event.id,
               event_id: res.event.id
             });
             this.imagePath = res.event.image;
             console.log(res)
 
-            this.event = res;
+            this.event = res.event;
             this.loading = false;
 
           }
@@ -97,6 +98,7 @@ export class EventoEditComponent {
         fecha_fin: [''],
         status: [''],
         company: [''],
+        is_featured: [''],
         imagen: [''],
       });
     }
@@ -129,6 +131,7 @@ export class EventoEditComponent {
     get fecha_fin() { return this.eventoForm.get('fecha_fin'); }
     get status() { return this.eventoForm.get('status'); }
     get company() { return this.eventoForm.get('company'); }
+    get is_featured() { return this.eventoForm.get('is_featured'+''); }
   
     onSubmit () {
       
@@ -142,6 +145,7 @@ export class EventoEditComponent {
       formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
       formData.append('status', this.eventoForm.get('status').value);
       formData.append('company', this.eventoForm.get('company').value);
+      formData.append('is_featured', this.eventoForm.get('is_featured').value ? '1' : '0');
       // formData.append('image', this.eventoForm.get('image').value);
 
       if (this.FILE_AVATAR) {
