@@ -42,22 +42,28 @@
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
+            
             <ul class="navbar-nav my-lg-0">
                 <!-- ============================================================== -->
                 
                 <!-- ============================================================== -->
                 <!-- Profile -->
                 <!-- ============================================================== -->
+                <li>
+                        <img class="globowhite"   (click)="onDarkMode('dark')" src="./assets/svg/luna.svg" alt="">
+                        <img class="globoblack"  (click)="onDarkMode('dark')" src="./assets/svg/sol.svg" alt="">
+                    </li>
                 <li class="nav-item dropdown">
-                    <img [src]="user?.avatar  | imagenPipe: 'users' " class="profile-pic">
-                    <!-- <a class="nav-link dropdown-toggle waves-effect waves-dark" href="javascript:void(0)" (click)="openModal()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        
-                    </a> -->
-                    <!-- <div class="dropdown-menu dropdown-menu-right animated fadeInDown">
+                    
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="javascript:void(0)" (click)="openModal()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img [src]="user?.avatar  | imagenPipe: 'users' " class="profile-pic">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right animated fadeInDown">
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="{{user.image}}" alt="{{user.username}}"></div>
+                                    <!-- <div class="u-img"><img src="{{user.image}}" alt="{{user.username}}"></div> -->
+                                    <i class="fa fa-user"></i>
                                     <div class="u-text">
                                         <h4>{{user.name}} </h4>
                                         <span class="badge bg-dark" *ngIf="roles === 'SUPERADMIN'">Super Admin</span>
@@ -67,13 +73,13 @@
                                     </div>
                                 </div>
                             </li>
-                            <li><a [routerLink]="['/dashboard/user/edit/', user.id]">Perfil</a></li>
+                            <li><a [routerLink]="['/dashboard/user/edit/', user.id]"> <i class="fa fa-cogs"></i> Perfil</a></li>
                             
                             <li role="separator" class="divider"></li>
                             <li><a href="http://google.com" target="_blank"><i class="ti-world"></i> Web App </a></li>
                             <li><a (click)="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
-                    </div> -->
+                    </div>
                 </li>
             </ul>
         </div>

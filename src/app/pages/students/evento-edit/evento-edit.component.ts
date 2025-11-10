@@ -25,7 +25,7 @@ export class EventoEditComponent {
 
   imageUrl = environment.url_media;
 
-    pageTitle: string;
+    title: string;
     error: string;
     uploadError: string;
     imagePath: string;
@@ -57,7 +57,7 @@ export class EventoEditComponent {
 
       this.event_id = +this.route.snapshot.paramMap.get('id');
       if (id) {
-        this.pageTitle = 'Edit Evento';
+        this.title = 'Edit Evento';
         this.loading = true;
         this.evntoService.getById(+id).subscribe(
           (res:any) => {
@@ -85,7 +85,7 @@ export class EventoEditComponent {
           }
         );
       } else {
-        this.pageTitle = 'Create Evento';
+        this.title = 'Create Evento';
       }
   
       this.eventoForm = this.fb.group({

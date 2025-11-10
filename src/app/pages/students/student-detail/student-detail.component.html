@@ -1,7 +1,7 @@
 <!-- =======| Main |======= -->
 
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="col-12 animated fadeInUp" *ngIf="!isLoading">
+<!-- <div class="col-12 animated fadeInUp" *ngIf="!isLoading">
     <div class="card cardtop">
         <div class="card-body">
             <div class="row">
@@ -19,11 +19,12 @@
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
-            <!-- <li class="breadcrumb-item"><a routerLink="/dashboard/directorio">Directorio</a></li> -->
+            <li class="breadcrumb-item"><a routerLink="/dashboard/directorio">Directorio</a></li>
             <li class="breadcrumb-item active">{{title}}</li>
         </ol>
     </nav>
-</div>
+</div> -->
+<app-backbreadcum [title]="title" ></app-backbreadcum>
 
 
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="users" *ngIf="!isLoading">
@@ -73,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card border-radio shadow py-3">
+                    <div class="card border-radio shadow p-3">
                         <label for="Email" class="col-form-label">Seleccione Status</label>
                         <select class="form-control form-select-solid fw-bolder" name="status"
                             [(ngModel)]="eventprofile.status" (change)="cambiarStatus(eventprofile)"

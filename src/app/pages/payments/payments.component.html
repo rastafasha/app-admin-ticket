@@ -52,9 +52,9 @@
                                     <th scope="col">Banco Destino</th>
                                     <th scope="col">Metodo</th>
                                     <th scope="col">Monto </th>
-                                    <th scope="col">Deuda</th>
+                                    <!-- <th scope="col">Deuda</th>
                                     <th scope="col">Monto Pendiente</th>
-                                    <th scope="col">Status Deuda</th>
+                                    <th scope="col">Status Deuda</th> -->
                                     <th scope="col">Status</th>
                                     <th scope="col">Fecha | Hora</th>
                                     <th scope="col">Acciones</th>
@@ -82,7 +82,7 @@
                                             {{pago.monto|currency}}
                                         </span>
                                     </td>
-                                    <td >
+                                    <!-- <td >
                                         <span *ngIf="pago.metodo ==='Transferencia Bolívares' || pago.metodo ==='Pago Móvil'">
                                             {{pago.deuda|currency:'Bs.'}}
                                             
@@ -99,12 +99,12 @@
                                         <span *ngIf="pago.metodo ==='Transferencia Dólares'">
                                             {{pago.monto_pendiente|currency}}
                                         </span>
-                                    </td>
-                                    <td>
-                                        <!-- {{pago.status_deuda}} -->
+                                    </td> -->
+                                    <!-- <td>
+                                        {{pago.status_deuda}}
                                         <span class="badge bg-success" *ngIf="pago.status_deuda !== 'DEUDA'">Pagado</span>
                                         <span class="badge bg-danger" *ngIf="pago.status_deuda === 'DEUDA'">Deuda</span>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <span class="badge bg-success"
                                             *ngIf="pago.status === 'APPROVED'">Aprobado</span>

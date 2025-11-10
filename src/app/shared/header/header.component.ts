@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   error: string;
 
   users: User;
+  darkmode: boolean = false;
 
   user: any;
   roles: any;
@@ -40,8 +41,19 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.authService.getLocalDarkMode();
     this.authService.getRole();
+    let USER = localStorage.getItem("user");
+     if (USER) {
+      try {
+        this.user = JSON.parse(USER);
+      } catch (e) {
+        console.error('Error parsing user from localStorage', e);
+        this.user = null;
+      }
+    } else {
+      this.user = null;
+    }
     this.id = this.user.id;
     // this.getConfId();
 
@@ -76,6 +88,31 @@ export class HeaderComponent implements OnInit {
          modalcart[i].classList.toggle("show");
 
       }
+  }
+
+  onDarkMode(dark:string){
+    var element = document.body;
+
+    const classExists = document.getElementsByClassName(
+      'darkmode'
+     ).length > 0;
+
+    var dayNight = document.getElementsByClassName("site");
+      for (var i = 0; i<dayNight.length; i++) {
+        // dayNight[i].classList.toggle("darkmode");
+        element.classList.toggle("darkmode");
+
+      }
+      // localStorage.setItem('dark', dark);
+
+      if (classExists) {
+        localStorage.removeItem('darkmode');
+        // console.log('✅ class exists on page, removido');
+      } else {
+        localStorage.setItem('darkmode', dark);
+        // console.log('⛔️ class does NOT exist on page, agregado');
+      }
+      // console.log('Pulsado');
   }
 
 

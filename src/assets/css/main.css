@@ -32,7 +32,7 @@
 :root {
     --red: #370749;
     --fondo-footer: #f2f2f2;
-    --fondo-blanco: #ffff;
+    --fondo-blanco: #f2f2f2;
     --fondo-negro: #272626;
     --rojooscuro: #930707;
     --vinotinto: #6d0d22;
@@ -43,13 +43,12 @@
     --gris: #707070;
     --grisclaro: #B8B8B8;
     --fontFamily: 'HelveticaLTStd-Roman';
-    --blanco: #fff;
-    --white: #fff;
+    --blanco: #eeeeee;
+    --white: #f2f2f2;
     --shadow: 0px 7px 10px #2525253d;
     --shadow-red: 0px 7px 10px var(--red);
     --grisboton: #f5f5f5;
     --black: #202023;
-    --white: #fff;
     --bold: 'HelveticaNeueLTPro-Md';
     --font-family: 'HelveticaNeueLTStd-Roman';
 }

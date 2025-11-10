@@ -1,95 +1,3 @@
-.dark {
-    background-color: var(--black);
-    color: var(--white);
-}
-
-.dark .sidebar-nav .nav-link {
-    background-color: var(--black);
-    color: var(--white);
-}
-
-.dark .sidebar-nav .nav-link.collapsed i {
-    color: var(--white);
-}
-
-.dark .header .toggle-sidebar-btn,
-.dark .logo span,
-.dark .pagetitle,
-.dark .footer .copyright,
-.dark .pagetitle h1,
-.dark .profile-card,
-.dark .card-title,
-.dark .table,
-.dark .header-nav .nav-profile {
-    color: var(--white) !important;
-}
-
-.dark .table thead {
-    background: var(--black) !important;
-}
-
-.dark .card,
-.dark .acces-icons .icontext {
-    background: rgba(0, 0, 0, 0.4);
-    color: var(--white) !important;
-}
-
-.dark .pagetitle .right {
-    background-color: rgba(0, 0, 0, 0.4) !important;
-    color: var(--white) !important;
-}
-
-.dark .acces-icons .icontext i,
-.dark .acces-icons .icontext h3 {
-    color: var(--white) !important;
-}
-
-.dark p,
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark b,
-.dark label,
-.dark .nav-tabs-bordered .nav-link,
-.dark .profile .profile-overview .label,
-.dark label i {
-    color: var(--white);
-}
-
-.dark .dropdown-menu {
-    background: rgba(0, 0, 0, 0.9);
-}
-
-.dark .dolarvzla {
-    background-color: rgba(0, 0, 0, 0.4) !important;
-}
-
-.dark .instruccioness {
-    background-color: rgba(0, 0, 0, 0.4) !important;
-}
-
-.dark .instruccioness .info {
-    background: linear-gradient(to right, var(--black), var(--black), transparent);
-}
-
-.dark .header,
-.dark .sidebar {
-    background: var(--black);
-    box-shadow: 0px 2px 20px rgb(255 255 255 / 10%) !important;
-}
-
-.dark .shadow {
-    box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.15) !important;
-}
-
-.sidebar-nav .nav-link {
-    background: transparent !important;
-}
-
-.dark .nav-tabs-bordered .nav-link.active {
-    color: var(--azul);
-}
 
 .btns {
     position: relative;
@@ -123,33 +31,33 @@
     display: none;
 }
 
-body .dark {
+body .darkmode {
     background-color: var(--black);
 }
 
 
 /* acordion */
 
-.dark .accordion-button,
-.dark .accordion-body {
+.darkmode .accordion-button,
+.darkmode .accordion-body {
     color: var(--white);
     background-color: var(--black);
 }
 
-.dark .loginregister {
+.darkmode .loginregister {
     background: var(--black) !important;
 }
 
-.dark .loginregister .main {
+.darkmode .loginregister .main {
     background: var(--black) !important;
     border: 1px solid var(--white) !important;
 }
 
-.dark .swal2-popup.swal2-toast {
+.darkmode .swal2-popup.swal2-toast {
     background: var(--black);
 }
 
-.dark .profile .profile-edit label {
+.darkmode .profile .profile-edit label {
     font-weight: 600;
     color: var(--white);
 }
@@ -157,64 +65,387 @@ body .dark {
 
 /* cart */
 
-.dark .header__cart img.ligth {
+.darkmode .header__cart img.ligth {
     display: none;
 }
 
-.dark .header__cart img.darker {
+.darkmode .header__cart img.darker {
     display: block;
 }
 
-.dark .header__cart--notification {
+.darkmode .header__cart--notification {
     background-color: var(--white);
     color: var(--black);
 }
 
-.dark .cart-modal--active {
+.darkmode .cart-modal--active {
     background-color: var(--black);
     color: var(--white);
 }
 
-.dark .cart-modal__price span {
+.darkmode .cart-modal__price span {
     color: var(--white);
 }
 
-.dark .profile .profile-card .social-links a {
+.darkmode .profile .profile-card .social-links a {
     color: var(--white);
 }
 
-.dark .historial ul li a {
+.darkmode .historial ul li a {
     color: var(--white) !important;
 }
 
-.dark .historial ul li a:hover {
+.darkmode .historial ul li a:hover {
     color: var(--white) !important;
     background-color: var(--black) !important;
 }
 
-.dark .page-wrapper,
-.dark .footer {
+.darkmode .page-wrapper,
+.darkmode .footer {
     background-color: var(--black);
 }
 
-.dark .page-wrapper {
+.darkmode .page-wrapper {
     background-color: var(--black);
 }
 
-.dark .footer small {
+.darkmode .footer small {
     color: var(--white) !important;
 }
 
-.dark .logo-text-dark {
+.darkmode .logo-text-dark {
     display: none;
 }
 
-.dark .logo-text-light {
+.darkmode .logo-text-light {
     display: block;
 }
 
-.dark .card-no-border .left-sidebar,
-.dark .card-no-border .sidebar-nav {
+.darkmode .card-no-border .left-sidebar,
+.darkmode .card-no-border .sidebar-nav {
     background-color: var(--black) !important;
     background: var(--black) !important;
+}
+
+.darkmode h1,
+.darkmode h2,
+.darkmode h3,
+.darkmode h4,
+.darkmode h5,
+.darkmode p {
+    color: var(--white);
+}
+
+
+/* nuevo */
+
+.darkmode {
+    background-color: var(--fondo-negro);
+}
+
+.darkmode .dropdown-menu{
+    background-color: var(--fondo-negro);
+    color: var(--white);
+}
+
+
+
+.darkmode #logoNuevo{
+    /* filter: drop-shadow(1px 1px 1px white); */
+    /* filter: invert(1); */
+    filter: contrast(0);
+}
+.darkmode .header .sidemenu nav li::before {
+    border-top: 1px solid var(--white);
+}
+
+.darkmode .header .sidemenu nav a {
+    color: var(--white);
+    text-transform: capitalize;
+}
+
+.darkmode .header {
+    background: var(--fondo-negro);
+    color: var(--white);
+}
+.darkmode .sidemenu {
+    background: var(--fondo-negro);
+    color: var(--white);
+    border-right: 1px solid transparent;
+    box-shadow: 0px 0 39px transparent;
+}
+.darkmode .sidemenu.active {
+    background: var(--fondo-negro);
+    color: var(--white);
+    border-right: 1px solid #333;
+    box-shadow: 0px 0 39px #000;
+}
+.darkmode .menu-top {
+    background: var(--fondo-negro);
+    color: var(--white);
+}
+.darkmode .menu-footer {
+    background: var(--fondo-negro);
+    color: var(--white);
+    border-top: 1px solid #333;
+}
+
+.darkmode .sidemenu .close::before,
+.darkmode .sidemenu .close::after {
+    background: rgb(255, 255, 255);
+}
+
+.darkmode .navbarM a {
+    background-color: var(--fondo-negro);
+    box-shadow: 0 2px 5px 0 rgba(165, 164, 164, 0.37)
+}
+
+.darkmode .navbarM a p {
+    color: #fff;
+}
+
+.darkmode .navbarM a img {
+    filter: invert(30%) sepia(100%) saturate(0%) hue-rotate(234deg) brightness(118%) contrast(119%);
+}
+
+.darkmode .local_categoria_item .contenido {
+    background-color: var(--black);
+    color: #fff;
+}
+
+.darkmode .info_local h3, 
+.darkmode .info_local p {
+    color: #fff;
+}
+
+.darkmode .categoria_home a p {
+    color: var(--white);
+}
+
+.darkmode .top h2{
+    color: #fff;
+}
+.darkmode .light-logo{
+    display: none;
+}
+.darkmode .dark-logo{
+     display: block;
+     filter: invert(1);
+}
+
+.darkmode .header .menuright .menu {
+    background-color: var(--black);
+    border: 1px solid var(--white);
+}
+.darkmode .sidemenu-toggler>span {
+    display: block;
+    background-color: #d2cece;
+    height: 2px;
+}
+
+.darkmode .header2 {
+    background: var(--black);
+}
+
+.darkmode .globoblack {
+    display: block;
+    height: 35px;
+    width: 35px;
+    margin-top: 17px;
+    
+}
+.darkmode .globowhite {
+    display: none;
+    
+}
+
+.globowhite {
+    display: block;
+    height: 35px;
+    width: 35px;
+    margin-top: 17px;
+}
+
+
+.globoblack {
+    display: none;
+    
+}
+
+.darkmode .card {
+    background-color: var(--black);
+    border: 1px solid #ccc;
+    /* border-radius: 18px; */
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+    /* min-height: 30vh;
+    padding: 20px;
+    margin-bottom: 40px;
+    width: 100%;
+    display: flex; */
+    color: var(--white);
+}
+.darkmode .table {
+    color: #fff;
+}
+.darkmode .clinicaname{
+    border-left: 1px solid var(--white);
+    
+}
+.darkmode .topbar{
+    background-color: var(--fondo-negro);
+    
+}
+
+
+.darkmode .tab-content-set .active{
+    color: var(--base);
+    border-bottom: 2px solid var(--base);
+    border-bottom-width: 80%;
+    text-align: center;
+}
+
+.darkmode .tab-content-set{
+    color: var(--white);
+    background-color: var(--fondo-negro);
+}
+
+.darkmode b {
+    color: var(--white);
+}
+.darkmode .navbarM a.active {
+    background: #9c9a9a;
+    color: #fff;
+}
+.darkmode .tab-content-set li a {
+    color: #fff;
+}
+.darkmode .btn-sm {
+    color: #fff;
+    border:1px solid #fff;
+}
+.darkmode .info_local {
+    color: #fff;
+}
+
+.darkmode .accordion-item{
+    background: var(--fondo-negro);
+    color:  var(--white);
+}
+.darkmode .accordion-button:not(.collapsed) {
+    color: var(--white);
+    background-color: #101010;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+}
+.darkmode .accordion-item .accordion-button {
+    color: var(--white);
+    background-color: #101010;
+}
+.darkmode .accordion-button {
+    color: #ffffff;
+    background-color: #282828;
+    
+}
+
+.darkmode .accordion-body {
+    background: #201f1f;
+}
+.darkmode .recibo,
+.darkmode .legall,
+.darkmode .legall h2,
+.darkmode .legall p {
+    color: var(--white);
+}
+
+.darkmode .recibo h3{
+    color: var(--white);
+}
+.darkmode .pago p{
+    color: var(--white);
+}
+
+
+.darkmode .backbotton{
+    color: var(--white) !important;
+    background-color: var(--fondo-negro) !important;
+}
+
+
+.darkmode .option-admin i{
+    border: 1px solid var(--gris);
+}
+
+.darkmode .user .itemFav img {
+    border: none;
+    background-color: #0000;
+    box-shadow: none;
+    filter: drop-shadow(2px 4px 6px black);
+}
+.darkmode .itemFav .fa{
+    color: var(--gris);
+}
+
+.darkmode .menu-footer ul li a .fa-search {
+    box-shadow: none;
+    color: var(--gris);
+    background-color: var(--fondo-negro);
+    border: 3px solid var(--gris);
+    filter: drop-shadow(2px 4px 6px black);
+}
+
+.darkmode .user-header-top img {
+    filter: opacity(0.5);
+}
+
+
+.darkmode .shadowSearch {
+    border: 1px solid #333;
+    background-color: var(--fondo-negro);
+    
+    border-radius: 14px;
+    box-shadow: none;
+    margin-bottom: 30px;
+    padding: 15px;
+    filter: drop-shadow(2px 4px 6px black);
+}
+.darkmode label {
+    color: var(--white);
+}
+.darkmode .modal-content {
+    background-color: var(--fondo-negro) !important;
+    border: 1px solid #ccc;
+    color: var(--white);
+}
+
+.darkmode .back .fa {
+    color: var(--gris);
+}
+
+/* .darkmode .left-image{
+    filter: invert();
+} */
+
+.darkmode .back h1::before {
+    border-top: 1px solid var(--gris);
+}
+
+.darkmode .categorylist h2 {
+    background-color: #000;
+    color: var(--fondo-footer);
+    border: 1px solid #333;
+}
+
+.darkmode .label__name{
+    color: #000 !important;
+}
+
+.darkmode.input:where(:focus,:not(:placeholder-shown)) + .darkmode .label__name{
+    transform: translateY(-50%) scale(.7);
+    background-color: var(--fondo-negro) !important;
+    color: #fff;
+}
+
+.darkmode input.form-control,
+.darkmode textarea.form-control {
+    background-color: #393939;
+    color: var(--white);
 }

@@ -16,6 +16,7 @@ import { EventoService } from 'src/app/services/evento.service';
 export class DashboardComponent implements OnInit {
 
   userprofile:any;
+  title: string ='Bienvenido';
 
   error: string;
  showMatricula: boolean = false;
