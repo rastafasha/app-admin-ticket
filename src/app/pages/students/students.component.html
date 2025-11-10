@@ -25,7 +25,7 @@
                                 
                              
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' ">
                             <div class="form-group col-xs-12 col-sm-6">
 
                                     <select class="form-control form-select-solid fw-bolder" name="status"
@@ -51,7 +51,7 @@
                         </div>
                     </form>
                     <!-- buscador -->
-                     <div *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role === 'PARTNER'">
+                     <div class="py-2 justify-content-end" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role === 'PARTNER'">
                          <a [routerLink]="['/dashboard/evento/create']" class="cursor"
                                          data-toggle="tooltip" data-original-title="Edit" >
                      <div class="btn btn-success"><i class="fa fa-edit"></i> Crear Evento</div>

@@ -36,24 +36,38 @@
 
                     <div class="card border-radio shadow">
                         <div class="card-body profile-card pt-4  fichasmall">
+                            
                             <div class="inffichasmall">
-                                <img [src]="userprofile?.avatar | imagenPipe: 'students'" class="imagecircle shadow"
+                                <div class="fotoeditprofile">
+                                    <div class="col-xs-6 col-sm-3" *ngIf="role==='SUPERADMIN' || role==='ADMIN' || role==='PARTNER'">
+                                    <a [routerLink]="['/dashboard/evento/edit/', eventprofile.id]" class="cursor"
+                                        data-toggle="tooltip" data-original-title="Edit">
+                                        <div class="btn btn-outline-primary"><i class="fa fa-edit"></i></div>
+                                    </a>
+
+                                </div>
+                                <img [src]="eventprofile?.avatar | imagenPipe: 'events'" class="imagecircle shadow"
                                     alt="">
-                                <h5 style="margin-top: 15px;">{{userprofile?.name}} {{userprofile?.surname}}</h5>
+                                </div>
+                                <h5 style="margin-top: 15px;">{{eventprofile?.name}} </h5>
 
-                                <div class="col-xs-6 col-sm-3">
-                                    <div class=" label"><i class="fa fa-graduation-cap"></i> Status</div>
-                                    <p>
-                                        <span class="badge bg-success"
-                                            *ngIf="userprofile.status === 'ACTIVE'">Activo</span>
-                                        <span class="badge bg-danger"
-                                            *ngIf="userprofile.status === 'INACTIVE'">Inactivo</span>
-                                        <span class="badge bg-primary"
-                                            *ngIf="userprofile.status === 'RETIRED'">Retirado</span>
-                                        <span class="badge bg-warning"
-                                            *ngIf="userprofile.status === 'FINISHED'">Terminado</span>
-                                    </p>
+                                <div class="row">
 
+                                    <div class="col-xs-6 col-sm-3">
+                                        <div class=" label"><i class="fa fa-check-circle"></i> Status</div>
+                                        <p>
+                                            <span class="badge bg-success"
+                                                *ngIf="eventprofile.status === 'ACTIVE'">Activo</span>
+                                            <span class="badge bg-danger"
+                                                *ngIf="eventprofile.status === 'INACTIVE'">Inactivo</span>
+                                            <span class="badge bg-primary"
+                                                *ngIf="eventprofile.status === 'RETIRED'">Retirado</span>
+                                            <span class="badge bg-warning"
+                                                *ngIf="eventprofile.status === 'FINISHED'">Terminado</span>
+                                        </p>
+
+
+                                    </div>
 
                                 </div>
                             </div>
@@ -62,7 +76,8 @@
                     <div class="card border-radio shadow py-3">
                         <label for="Email" class="col-form-label">Seleccione Status</label>
                         <select class="form-control form-select-solid fw-bolder" name="status"
-                            [(ngModel)]="userprofile.status" (change)="cambiarStatus(userprofile)" placeholder="status">
+                            [(ngModel)]="eventprofile.status" (change)="cambiarStatus(eventprofile)"
+                            placeholder="status">
                             <option value="">Seleccione</option>
                             <option value="ACTIVE">Activo</option>
                             <option value="INACTIVE">Inactivo</option>
@@ -78,7 +93,7 @@
                     <div class="card border-radio">
                         <div class="card-body pt-3">
                             <!-- Bordered Tabs -->
-                            <div *ngIf="userprofile?.role === 'GUEST'">
+                            <div *ngIf="role === 'GUEST'">
                                 <ul class="nav nav-tabs nav-tabs-bordered">
 
                                     <li class="nav-item">
@@ -106,7 +121,8 @@
                                             [ngClass]="{'active': option_selected === 2}" data-bs-toggle="tab"
                                             data-bs-target="#hijos">Subscriptores</button>
                                     </li>
-                                    <li class="nav-item" *ngIf="user.roles[0]==='ADMIN'|| user.roles[0] === 'SUPERADMIN'">
+                                    <li class="nav-item"
+                                        *ngIf="role==='ADMIN'|| role === 'SUPERADMIN'">
                                         <button class="nav-link" (click)="optionSelected(3)"
                                             [ngClass]="{'active': option_selected === 3}" data-bs-toggle="tab"
                                             data-bs-target="#examenes">Pagos</button>
@@ -128,40 +144,40 @@
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> Empresa
                                             </div>
-                                            <p>{{userprofile?.company}} </p>
+                                            <p>{{eventprofile?.company}} </p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> Nombre
                                             </div>
-                                            <p>{{userprofile?.name}} </p>
+                                            <p>{{eventprofile?.name}} </p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> descripcion
                                             </div>
-                                            <p>{{userprofile?.description}} </p>
+                                            <p>{{eventprofile?.description}} </p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label"><i class="fa fa-calendar-check-o"></i> Fecha Inicio
                                             </div>
-                                            <p>{{userprofile?.fecha_inicio}}</p>
+                                            <p>{{eventprofile?.fecha_inicio | date}}</p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label"><i class="fa fa-calendar-check-o"></i> Fecha fin</div>
-                                            <p>{{userprofile?.fecha_fin}}</p>
+                                            <p>{{eventprofile?.fecha_fin | date}}</p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label"><i class="fa fa-compass"></i> precio_general</div>
-                                            <p>{{userprofile?.precio_general|currency}}</p>
+                                            <p>{{eventprofile?.precio_general|currency}}</p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label"><i class="fa fa-compass"></i> precio estudiantes</div>
-                                            <p>{{userprofile?.precio_estudiantes|currency}}</p>
+                                            <p>{{eventprofile?.precio_estudiantes|currency}}</p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label"><i class="fa fa-compass"></i> precio especialistas</div>
-                                            <p>{{userprofile?.precio_especialistas|currency}}</p>
+                                            <p>{{eventprofile?.precio_especialistas|currency}}</p>
                                         </div>
 
                                     </div>
@@ -197,9 +213,9 @@
                                                                     </td>
                                                                     <td>
                                                                         <a class="btn btn-outline-primary btn-sm"
-                                                                            
                                                                             href="#" onclick="return false;"
-                                                                            (click)="addColaborador(user.id)" title="Add"><i
+                                                                            (click)="addColaborador(user.id)"
+                                                                            title="Add"><i
                                                                                 class="fa fa-plus pl--0"></i></a>
                                                                     </td>
                                                                 </tr>
@@ -211,7 +227,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-12" >
+                                        <div class="col-12">
                                             <div class=" label"><i class="fa fa-compass"></i> Colaboradores
                                             </div>
                                             <div class="card">
@@ -221,8 +237,8 @@
                                                             <tr>
                                                                 <th>Nombre</th>
                                                                 <th>Empresa</th>
-                                                                
-                                                                <th>Op</th>
+
+                                                                <th *ngIf="role ==='ADMIN'|| role  === 'SUPERADMIN'">Op</th>
                                                             </tr>
                                                         </thead>
 
@@ -233,16 +249,15 @@
                                                                     <td>{{user.empresa}}</td>
                                                                     <td>
                                                                         <a class="btn btn-outline-danger btn-sm"
-                                                                        *ngIf="usersevento.length > 1  && user.roles[0]==='ADMIN'|| user.roles[0] === 'SUPERADMIN'"
-                                                                        
+                                                                            *ngIf="usersevento.length > 1  && role ==='ADMIN'|| role  === 'SUPERADMIN'"
                                                                             href="#" onclick="return false;"
                                                                             (click)="removeColab(user.id)"
                                                                             title="Remove"><i
                                                                                 class="fa fa-trash pl--0"></i></a>
 
-                                                                                <span *ngIf="usersevento.length == 1 ">
-                                                                                    creador
-                                                                                </span>
+                                                                        <span *ngIf="usersevento.length == 1 ">
+                                                                            creador
+                                                                        </span>
                                                                     </td>
                                                                 </tr>
                                                             </ng-container>
@@ -262,7 +277,7 @@
                                     id="hijos">
                                     <br />
                                     <div class="row">
-                                        <app-calificaciones [userprofile]="userprofile"></app-calificaciones>
+                                        <app-calificaciones [eventprofile]="eventprofile"></app-calificaciones>
                                     </div>
                                 </div>
                                 <!-- fin subcriptores -->
@@ -271,7 +286,7 @@
                                     id="examenes">
                                     <br />
                                     <div class="row">
-                                        <app-examenes-student [userprofile]="userprofile"></app-examenes-student>
+                                        <app-examenes-student [eventprofile]="eventprofile"></app-examenes-student>
                                     </div>
                                 </div>
                             </div>

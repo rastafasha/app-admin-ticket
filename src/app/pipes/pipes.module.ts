@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ImagenPipe } from './imagen.pipe';
 @NgModule({
   declarations: [
-    ImagenPipe
+    ImagenPipe,
 ],
 exports: [
       ImagenPipe

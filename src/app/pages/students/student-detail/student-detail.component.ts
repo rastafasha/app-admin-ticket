@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Student } from 'src/app/models/student';
-import { StudentService } from 'src/app/services/student-service.service';
 import { Location } from '@angular/common';
-import { CalificacionService } from 'src/app/services/calificacion.service';
 import { Calificacion } from 'src/app/models/calificacion';
 import Swal from 'sweetalert2';
 import { EventoService } from 'src/app/services/evento.service';
@@ -33,12 +31,11 @@ export class StudentDetailComponent {
 
   user: User;
   eventprofile: Evento;
-  userprofile: Evento;
 
   calificaciones: Calificacion;
 
   roles: any;
-  profileSeleccionado: Student;
+  profileSeleccionado: Evento;
 
   user_id: any;
   event_id: any;
@@ -87,7 +84,7 @@ role: any;
     this.isLoading = true;
     this.eventoService.getById(+id).subscribe(
       (res: any) => {
-        this.userprofile = res.event;
+        this.eventprofile = res.event;
         // this.calificaciones = res.calificaciones;
         if (res.event && res.event.id) {
           this.event_id = res.event.id;
@@ -221,15 +218,15 @@ role: any;
     }
   }
 
-  cambiarStatus(userprofile: any) {
-    const VALUE = userprofile.status;
+  cambiarStatus(eventprofile: any) {
+    const VALUE = eventprofile.status;
 
     const data = {
       status: VALUE 
     }
 
 
-    this.eventoService.updateStatus(data, userprofile.id ).subscribe((resp) => {
+    this.eventoService.updateStatus(data, eventprofile.id ).subscribe((resp) => {
       // console.log(resp);
       Swal.fire({
         position: 'top-end',

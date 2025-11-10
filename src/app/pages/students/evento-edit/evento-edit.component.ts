@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 import { Materia } from 'src/app/models/materia';
 import { User } from 'src/app/models/users';
 import { AuthService } from 'src/app/services/auth.service';
@@ -45,7 +46,7 @@ export class EventoEditComponent {
       private router: Router,
       private route: ActivatedRoute,
       private location: Location,
-      private authService: AuthService
+      private authService: AuthService,
     ) { }
   
     ngOnInit() {
