@@ -225,12 +225,11 @@ body .darkmode {
 .darkmode .top h2{
     color: #fff;
 }
-.darkmode .light-logo{
-    display: none;
-}
+
 .darkmode .dark-logo{
      display: block;
-     filter: invert(1);
+    filter: contrast(0);
+    transform: translateY(10px);
 }
 
 .darkmode .header .menuright .menu {
@@ -448,4 +447,11 @@ body .darkmode {
 .darkmode textarea.form-control {
     background-color: #393939;
     color: var(--white);
+}
+.darkmode .bg-light {
+    background-color: #393939 !important;
+} 
+.darkmode .table-striped tbody tr:nth-of-type(odd) {
+    background: #727272;
+    color: var(--bs-gray);
 }

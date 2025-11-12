@@ -3,7 +3,7 @@
     <app-backbreadcum [title]="title"></app-backbreadcum>
     <app-loading *ngIf="isLoading"></app-loading>
     <div class="row animated fadeInUp" *ngIf="!isLoading">
-        
+
         <section class="section dashboard">
             <div class="row">
                 <div class="col-xs-12">
@@ -19,45 +19,44 @@
                                         (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
                                             class="fa fa-search"></i></button>
                                     <a href="javascript:;" (click)="PageSize()"
-                                        class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
+                                        class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                            class="fa fa-refresh"></i></a>
                                 </div>
-                                </div>
-                                
-                             
+                            </div>
+
+
                         </div>
                         <div class="row" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' ">
                             <div class="form-group col-xs-12 col-sm-6">
 
-                                    <select class="form-control form-select-solid fw-bolder" name="status"
-                                                [(ngModel)]="query" (change)="search()"
-                                                placeholder="status">
-                                                <option value="">Status</option>
-                                                <option value="ACTIVE">Aprobado</option>
-                                                <option value="INACTIVE">Inactivo</option>
-                                                <option value="RETIRED">Retirado</option>
-                                                <option value="FINISHED">Finalizado</option>
-                                            </select>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-6">
+                                <select class="form-control form-select-solid fw-bolder" name="status"
+                                    [(ngModel)]="query" (change)="search()" placeholder="status">
+                                    <option value="">Status</option>
+                                    <option value="ACTIVE">Aprobado</option>
+                                    <option value="INACTIVE">Inactivo</option>
+                                    <option value="RETIRED">Retirado</option>
+                                    <option value="FINISHED">Finalizado</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6">
 
-                                    <select class="form-control form-select-solid fw-bolder" name="status"
-                                                [(ngModel)]="query" (change)="search()"
-                                                placeholder="status">
-                                                <option value="">Destacado</option>
-                                                <option value="1">Activo</option>
-                                                <option value="0">Inactivo</option>
-                                            </select>
-                                </div>
+                                <select class="form-control form-select-solid fw-bolder" name="status"
+                                    [(ngModel)]="query" (change)="search()" placeholder="status">
+                                    <option value="">Destacado</option>
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                            </div>
                         </div>
                     </form>
                     <!-- buscador -->
-                     <div class="py-2 justify-content-end" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role === 'PARTNER'">
-                         <a [routerLink]="['/dashboard/evento/create']" class="cursor"
-                                         data-toggle="tooltip" data-original-title="Edit" >
-                     <div class="btn btn-success"><i class="fa fa-edit"></i> Crear Evento</div>
-                     </a>
+                    <div class="py-3" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role === 'PARTNER'">
+                        <a [routerLink]="['/dashboard/evento/create']" class="cursor" data-toggle="tooltip"
+                            data-original-title="Edit">
+                            <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear Evento</div>
+                        </a>
 
-                     </div>
+                    </div>
                 </div>
             </div>
             <div class="card recent-sales overflow-auto border-radio">
@@ -81,28 +80,30 @@
                             <tr
                                 *ngFor="let evento of eventos  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
                                 <td>
-                                    <img [src]="evento.avatar| imagenPipe: 'eventos' " class=" shadow" style="width: 40px; height: 40px; border-radius: 100px;" alt="">
+                                    <img [src]="evento.avatar| imagenPipe: 'eventos' " class=" shadow"
+                                        style="width: 40px; height: 40px; border-radius: 100px;" alt="">
                                 </td>
-                                
+
                                 <td>
-                                    <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}} {{evento.surname}}</a> 
-                                    
+                                    <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}}
+                                        {{evento.surname}}</a>
+
                                 </td>
                                 <td>{{evento.precio_general | currency}}</td>
-                        <td>{{evento.precio_estudiantes | currency}}</td>
-                        <td>{{evento.precio_especialistas | currency}}</td>
-                                <td >
-                            <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
-                            <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
-                            <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
-                            <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Terminado</span>
-                        </td>
-                                <td >
-                            <span class="badge bg-success" *ngIf="evento.is_featured== '1'">Activo</span>
-                            <span class="badge bg-danger" *ngIf="evento.is_featured== '0'">Inactivo</span>
-                        </td>
-                        
-                                
+                                <td>{{evento.precio_estudiantes | currency}}</td>
+                                <td>{{evento.precio_especialistas | currency}}</td>
+                                <td>
+                                    <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                                    <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
+                                    <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
+                                    <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Terminado</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success" *ngIf="evento.is_featured== '1'">Activo</span>
+                                    <span class="badge bg-danger" *ngIf="evento.is_featured== '0'">Inactivo</span>
+                                </td>
+
+
 
                                 <td class="text-nowrap text-center">
 

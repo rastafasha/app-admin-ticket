@@ -142,9 +142,9 @@ getRole(){
 
 getLocalDarkMode(){
   setTimeout(()=>{
-    if(localStorage.getItem('darkmode')){
+    if(localStorage.getItem('dark')){
         var element = document.body;
-      element.classList.add("darkmode");
+      element.classList.add("dark");
       
     }
 

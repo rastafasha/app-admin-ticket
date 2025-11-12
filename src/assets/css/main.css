@@ -13,6 +13,8 @@
 @import url('./spinners.css');
 @import url('./normalize.css');
 @import url('./loginnuevo.css');
+
+
 .cursor {
     cursor: pointer;
 }
@@ -240,6 +242,14 @@ img.avatar {
     display: flex;
     justify-content: space-between;
 }
+
+/* search input */
+
+.input-group:not(.has-validation)> :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu), .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3) {
+    
+    border-radius: 100px !important;
+}
+/* search input */
 
 @media(max-width:480px) {
     .bannerplanes .instruccioness .info {

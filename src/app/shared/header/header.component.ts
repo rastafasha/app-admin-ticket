@@ -100,16 +100,48 @@ export class HeaderComponent implements OnInit {
     var dayNight = document.getElementsByClassName("site");
       for (var i = 0; i<dayNight.length; i++) {
         // dayNight[i].classList.toggle("darkmode");
-        element.classList.toggle("darkmode");
+        element.classList.toggle("dark");
+
+      }
+      // localStorage.setItem('dark', dark);
+      
+
+      if (classExists) {
+        localStorage.removeItem('dark');
+        this.ngOnInit()
+        // console.log('✅ class exists on page, removido');
+      } else {
+        localStorage.setItem('dark', dark);
+        this.ngOnInit()
+        // console.log('⛔️ class does NOT exist on page, agregado');
+      }
+      // console.log('Pulsado');
+  }
+
+  onDarkMoode(dark:string){
+    let body = document.querySelector('body');
+    let header = document.querySelector('header');
+    let aside = document.querySelector('aside');
+
+    const classExists = document.getElementsByClassName(
+      'darkmode'
+     ).length > 0;
+
+    var dayNight = document.getElementsByClassName("site");
+      for (var i = 0; i<dayNight.length; i++) {
+        dayNight[i].classList.toggle("active");
+        body.classList.toggle('darkmode');
+        header.classList.toggle('darkmode');
+        aside.classList.toggle('darkmode');
 
       }
       // localStorage.setItem('dark', dark);
 
       if (classExists) {
-        localStorage.removeItem('darkmode');
+        localStorage.removeItem('dark');
         // console.log('✅ class exists on page, removido');
       } else {
-        localStorage.setItem('darkmode', dark);
+        localStorage.setItem('dark', dark);
         // console.log('⛔️ class does NOT exist on page, agregado');
       }
       // console.log('Pulsado');

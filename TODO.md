@@ -1,3 +1,0 @@
-- [x] Modificar evento-edit.component.ts: Convertir is_featured a boolean en patchValue, convertir de vuelta en onSubmit, y corregir asignación de this.event.
-- [x] Modificar evento-edit.component.html: Cambiar radio buttons a [value]="true"/"false" y agregar párrafo para mostrar valor actual.
-- [ ] Verificar funcionamiento: Ejecutar la app y probar edición de evento.
