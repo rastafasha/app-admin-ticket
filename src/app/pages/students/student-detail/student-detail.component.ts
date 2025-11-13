@@ -147,7 +147,7 @@ role: any;
       (res: any) => {
         this.event = res.event;
         this.usersevento = res.event.users;
-        console.log(this.usersevento)
+        // console.log(this.usersevento)
       },
       (error) => {
         console.error('Error fetching user by id:', error);

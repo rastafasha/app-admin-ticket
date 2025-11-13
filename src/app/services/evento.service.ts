@@ -60,13 +60,7 @@ export class EventoService {
     return this.http.get(URL, { headers: headers });
   }
 
-  getPaymentById(id: number): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: "Bearer" + this.authService.token,
-    });
-    let URL = this.serverUrl + "/event/paymentbyid/" + id;
-    return this.http.get(URL, { headers: headers });
-  }
+  
 
   getClientsbyEvent(id: number): Observable<any> {
     let headers = new HttpHeaders({
@@ -132,6 +126,12 @@ export class EventoService {
     return this.http.put<any>(
       `${baseUrl}/event/asistencia/${event_id}/${user_id}`,
       data,
+      this.headers
+    );
+  }
+  enviarCertificado(event_id: number, client_id: string) {
+    return this.http.put<any>(
+      `${baseUrl}/event/sendConfirmation/${event_id}/${client_id}`,
       this.headers
     );
   }

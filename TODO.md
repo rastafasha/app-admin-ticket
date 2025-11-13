@@ -1,0 +1,1 @@
+- [x] Modify search() method in calificaciones.component.ts to filter clients locally instead of calling the global event search service.

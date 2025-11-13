@@ -70,15 +70,34 @@ export class ListComponent {
   
   
     eliminarUser(user:User){
-      this.parentService.deleteById(user).subscribe(
-        response =>{
-          this.getUsers();
-        },
-        error=>{
-          this.msm_error = 'No se pudo eliminar el curso, vuelva a intentar.'
+
+      Swal.fire({
+        title: "Quieres borrar este usuario?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        denyButtonText: `Don't save`
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.parentService.deleteById(user).subscribe(
+            response =>{
+              this.getUsers();
+            },
+            error=>{
+              this.msm_error = 'No se pudo eliminar el curso, vuelva a intentar.'
+            }
+          );
+          Swal.fire("Saved!", "", "success");
+          this.ngOnInit();
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+          // this.ngOnInit();
         }
-        );
-        this.ngOnInit();
+      });
+
+      
+        
     }
   
     goBack() {

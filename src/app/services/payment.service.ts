@@ -112,6 +112,14 @@ export class PaymentService {
         );
   }
 
+  getPaymentByEventId(id: number): Observable<any> {
+      const url = `${baseUrl}/payment/paymentbyeventid/${id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
+        );
+    }
+
    getRecientes(): Observable<any> {
     const url = `${baseUrl}/payment/recientes`;
     return this.http.get<any>(url, this.headers)

@@ -155,6 +155,8 @@ body .darkmode {
     /* filter: invert(1); */
     filter: contrast(0);
 }
+
+/* header   */
 .darkmode .header .sidemenu nav li::before {
     border-top: 1px solid var(--white);
 }
@@ -208,23 +210,6 @@ body .darkmode {
     filter: invert(30%) sepia(100%) saturate(0%) hue-rotate(234deg) brightness(118%) contrast(119%);
 }
 
-.darkmode .local_categoria_item .contenido {
-    background-color: var(--black);
-    color: #fff;
-}
-
-.darkmode .info_local h3, 
-.darkmode .info_local p {
-    color: #fff;
-}
-
-.darkmode .categoria_home a p {
-    color: var(--white);
-}
-
-.darkmode .top h2{
-    color: #fff;
-}
 
 .darkmode .dark-logo{
      display: block;
@@ -271,9 +256,30 @@ body .darkmode {
     
 }
 
-.darkmode .card {
+/* categoria */
+
+.darkmode .local_categoria_item .contenido {
     background-color: var(--black);
-    border: 1px solid #ccc;
+    color: #fff;
+}
+
+.darkmode .info_local h3, 
+.darkmode .info_local p {
+    color: #fff;
+}
+
+.darkmode .categoria_home a p {
+    color: var(--white);
+}
+
+.darkmode .top h2{
+    color: #fff;
+}
+
+
+.darkmode .card {
+    background-color: var(--fondo-cuadros-negro);
+    /* border: 1px solid #ccc; */
     /* border-radius: 18px; */
     box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
     /* min-height: 30vh;
@@ -283,6 +289,16 @@ body .darkmode {
     display: flex; */
     color: var(--white);
 }
+
+.darkmode .card-no-border .left-sidebar, .darkmode .card-no-border .sidebar-nav {
+    background: #131820 !important;
+}
+/* tabla */
+.darkmode .table-striped tbody tr:nth-of-type(odd) {
+    background: #727272;
+    color: var(--bs-gray);
+}
+
 .darkmode .table {
     color: #fff;
 }
@@ -295,6 +311,8 @@ body .darkmode {
     
 }
 
+
+/* tab-content */
 
 .darkmode .tab-content-set .active{
     color: var(--base);
@@ -326,6 +344,7 @@ body .darkmode {
     color: #fff;
 }
 
+/* accordion */
 .darkmode .accordion-item{
     background: var(--fondo-negro);
     color:  var(--white);
@@ -436,7 +455,7 @@ body .darkmode {
 .darkmode .label__name{
     color: #000 !important;
 }
-
+/* input */
 .darkmode.input:where(:focus,:not(:placeholder-shown)) + .darkmode .label__name{
     transform: translateY(-50%) scale(.7);
     background-color: var(--fondo-negro) !important;
@@ -451,7 +470,10 @@ body .darkmode {
 .darkmode .bg-light {
     background-color: #393939 !important;
 } 
-.darkmode .table-striped tbody tr:nth-of-type(odd) {
-    background: #727272;
-    color: var(--bs-gray);
+
+.darkmode .preloader,
+.darkmode body,
+.darkmode .body,
+.darkmode html{
+    background: var(--fondo-negro) !important;
 }

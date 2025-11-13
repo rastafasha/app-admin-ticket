@@ -141,16 +141,10 @@ getRole(){
 }
 
 getLocalDarkMode(){
-  setTimeout(()=>{
-    if(localStorage.getItem('dark')){
-        var element = document.body;
-      element.classList.add("dark");
-      
-    }
-
-  },500)
-  // console.log(this.user);
-  
+  if(localStorage.getItem('darkmode')){
+    var element = document.body;
+  element.classList.add("darkmode");
+}
 }
 
 forgotPassword(formData:any){

@@ -100,18 +100,18 @@ export class HeaderComponent implements OnInit {
     var dayNight = document.getElementsByClassName("site");
       for (var i = 0; i<dayNight.length; i++) {
         // dayNight[i].classList.toggle("darkmode");
-        element.classList.toggle("dark");
+        element.classList.toggle("darkmode");
 
       }
       // localStorage.setItem('dark', dark);
       
 
       if (classExists) {
-        localStorage.removeItem('dark');
+        localStorage.removeItem('darkmode');
         this.ngOnInit()
         // console.log('✅ class exists on page, removido');
       } else {
-        localStorage.setItem('dark', dark);
+        localStorage.setItem('darkmode', dark);
         this.ngOnInit()
         // console.log('⛔️ class does NOT exist on page, agregado');
       }
