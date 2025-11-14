@@ -99,6 +99,8 @@ export class PaymentService {
     return this.http.delete(baseUrl);
   }
 
+  
+
   findByReference(title): Observable<any> {
     return this.http.get(`${baseUrl}/payment/?title=${title}`);
   }
@@ -126,6 +128,16 @@ export class PaymentService {
       .pipe(
         map((resp:{ok: boolean, payments: Payment}) => resp.payments)
       )
+  }
+
+  getPaymentByEventbyClientId(event_id:number, client_id:number): Observable<any> {
+      
+
+    const url = `${baseUrl}/payment/paymentbyeventbyclient/${event_id}/${client_id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean}) => resp)
+        );
   }
 
   search(query=''){

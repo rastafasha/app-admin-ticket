@@ -13,9 +13,9 @@ export class Payment {
    bank_name?:string;
    bank_destino?:string;
    monto:string;
+   image:string;
    referencia?:string;
    telefono?:string;
-   image?:string;
    avatar?:string;
    deuda?:string;
    monto_pendiente?:string;
@@ -38,13 +38,11 @@ export class Payment {
    get imagenUrl(){
 
       if(!this.image){
-        return `${base_url}/payments/no-image.jpg`;
+        return `${base_url}public/no-image.png`;
       } else if(this.image.includes('https')){
         return this.image;
-      } else if(this.image){
-        return `${base_url}/payments/${this.image}`;
-      }else {
-        return `${base_url}/payments/no-image.jpg`;
+      } else {
+        return `${base_url}payments/${this.image}`;
       }
 
     }

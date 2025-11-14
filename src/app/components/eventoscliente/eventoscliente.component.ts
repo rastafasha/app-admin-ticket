@@ -1,27 +1,28 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Evento } from 'src/app/models/evento';
+import { Payment } from 'src/app/models/payment';
 import { EventoService } from 'src/app/services/evento.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-listahijos',
+  selector: 'app-eventoscliente',
   standalone: false,
-  templateUrl: './listahijos.component.html',
-  styleUrls: ['./listahijos.component.css']
+  templateUrl: './eventoscliente.component.html',
+  styleUrls: ['./eventoscliente.component.css']
 })
-export class ListahijosComponent implements OnChanges {
+export class EventosclienteComponent implements OnChanges {
   @Input() userprofile: any;
   @Input() showMatricula: boolean = true;
   @Input() showAcciones: boolean = true;
   @Input() showGenero: boolean = true;
   @Input() showNacimiento: boolean = true;
   isLoading = false;
-  title = 'Padres';
+  title = 'Eventos Cliente';
 
   loading = false;
   usersCount = 0;
-  events: Evento;
+  events: Evento[];
   eventprofile: Evento;
   roles;
 
@@ -33,9 +34,12 @@ export class ListahijosComponent implements OnChanges {
   msm_error: string;
   query: string = '';
 
+  payments:Payment[];
+
   ServerUrl = environment.url_servicios;
   doctores;
   // role:any;
+
 
   constructor(
     private eventosService: EventoService,
@@ -53,20 +57,35 @@ export class ListahijosComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userprofile'] && this.userprofile && this.userprofile.id) {
-      this.getEvents();
+      this.getEventsporCliente();
     }
   }
 
-  getEvents(): void {
+  getEventsporCliente(): void {
     if (!this.userprofile || !this.userprofile.id) {
       this.isLoading = false;
       this.error = 'User profile is not defined';
       return;
     }
     this.isLoading = true;
-    this.eventosService.eventsbyUser(this.userprofile.id).subscribe(
+    this.eventosService.eventsbyClient(this.userprofile.id).subscribe(
       (res: any) => {
-        this.events = res.user.eventos;
+        this.events = res.client.eventos;
+        this.payments = res.client.payments;
+
+        // Compute ticketcount for events with repeated event_id
+        const countMap: { [key: number]: number } = {};
+        this.payments.forEach(payment => {
+          if (payment.event_id) {
+            countMap[payment.event_id] = (countMap[payment.event_id] || 0) + 1;
+          }
+        });
+        this.events.forEach(event => {
+          if (countMap[event.id] > 1) {
+            event.ticketcount = countMap[event.id];
+          }
+        });
+
         this.isLoading = false;
       },
       (error) => {
@@ -86,7 +105,7 @@ export class ListahijosComponent implements OnChanges {
   }
 
   public PageSize(): void {
-    this.getEvents();
+    this.getEventsporCliente();
     this.query = '';
   }
 

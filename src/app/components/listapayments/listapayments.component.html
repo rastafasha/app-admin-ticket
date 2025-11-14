@@ -1,14 +1,3 @@
-<div class="row mb-5">
-     <app-bar-chart [payments]="payments"></app-bar-chart>
-    <!-- <div class="col-xs-12 col-sm-6">
-        <app-line-chart  ></app-line-chart>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-        <app-pie-chart2></app-pie-chart2>
-
-    </div> -->
-</div>
-
 <div class="col-12">
     <div class="row">
         <div class="col-xs-12">
@@ -45,7 +34,7 @@
                         <th scope="col">Imagen</th>
                         <th scope="col">Referencia</th>
                         <!-- <th scope="col">Usuario</th> -->
-                        <th scope="col">Estudiante</th>
+                        <th scope="col">Evento</th>
                         <th scope="col">bank destino</th>
                         <th scope="col">Monto </th>
                         <th scope="col">Metodo</th>
@@ -56,12 +45,15 @@
                 <tbody>
                     <tr *ngFor="let pago of payments |  paginate: { itemsPerPage: count, currentPage: p }">
                         <td>
-                            <img [src]="pago.avatar| imagenPipe: 'payments' "  class="imagecircle shadow" alt="">
+                            <a [routerLink]="['/dashboard/payment-detail', pago.id]">
+                                <img [src]="pago.avatar| imagenPipe: 'payments' "  class="imagecircle shadow" alt="">
+
+                            </a>
                         </td>
                         <th scope="row"><a [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a>
                         </th>
                         <!-- <th><a [routerLink]="['/dashboard/user/', pago.parent_id]">{{pago.parent_id}}</a></th> -->
-                        <td>{{pago.student_id}}</td>
+                        <td>{{pago.event?.name}}</td>
                         <td>{{pago.bank_destino}}</td>
                         <td>{{pago.metodo}}</td>
                          <td >

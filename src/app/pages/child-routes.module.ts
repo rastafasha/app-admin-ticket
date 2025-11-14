@@ -11,17 +11,15 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UsersListComponent } from './users/user-list/users-list.component';
 import { PaymentEditComponent } from './payments/payment-edit/payment-edit.component';
 import { PaymentDetailsComponent } from './payments/payment-details/payment-details.component';
-import { Payment } from '../models/payment';
 import { PaymentsComponent } from './payments/payments.component';
-import { ListComponent } from './parents/list/list.component';
-import { DetailparentComponent } from './parents/detailparent/detailparent.component';
+import { ListComponent } from './clientes/list/list.component';
+import { ClientdetailComponent } from './clientes/clientdetail/clientdetail.component';
 import { ConfigComponent } from './config/config.component';
 import { TasabcvComponent } from './tasabcv/tasabcv.component';
-import { MateriasComponent } from './materias/materias.component';
-import { StudentDetailComponent } from './students/student-detail/student-detail.component';
-import { StudentsComponent } from './students/students.component';
+import { EventoDetailComponent } from './eventos/evento-detail/evento-detail.component';
+import { EventosComponent } from './eventos/eventos.component';
 import { ProfileComponent } from './users/profile/profile.component';
-import { EventoEditComponent } from './students/evento-edit/evento-edit.component';
+import { EventoEditComponent } from './eventos/evento-edit/evento-edit.component';
 
 const childRoutes: Routes = [
 
@@ -37,7 +35,7 @@ const childRoutes: Routes = [
             { path: 'partner/detail/:id', component: UserDetailsComponent},
             
             { path: 'clientes', component: ListComponent},
-            { path: 'cliente/detail/:id', component: DetailparentComponent},
+            { path: 'cliente/detail/:id', component: ClientdetailComponent},
             
             { path: 'slider', component: SliderIndexComponent},
             { path: 'slider/create', component: SliderEditComponent},
@@ -49,13 +47,12 @@ const childRoutes: Routes = [
             
             { path: 'config', component: ConfigComponent},
             { path: 'tasabcv', component: TasabcvComponent},
-            { path: 'materias', component: MateriasComponent},
             
-            { path: 'eventos', component: StudentsComponent},
+            { path: 'eventos', component: EventosComponent},
             { path: 'evento/create', component: EventoEditComponent},
             { path: 'evento/edit/:id', component: EventoEditComponent},
-            { path: 'evento/detail/:id', component: StudentDetailComponent},
-            { path: 'eventos/partner/:id', component: StudentsComponent},
+            { path: 'evento/detail/:id', component: EventoDetailComponent},
+            { path: 'eventos/partner/:id', component: EventosComponent},
 
 
     { path: '', redirectTo: 'admin', pathMatch: 'full' },

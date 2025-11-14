@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
-import { ParentService } from 'src/app/services/parent-service.service';
+import { ClientService } from 'src/app/services/client.service';
 import { Parent } from 'src/app/models/parents';
 import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento';
@@ -31,7 +31,7 @@ export class PaymentDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private paymentService: PaymentService,
     private eventService: EventoService,
-    private parentService: ParentService,
+    private clientService: ClientService,
     private http: HttpClient
   ) { }
 
@@ -67,7 +67,7 @@ export class PaymentDetailsComponent implements OnInit {
     )
   }
   getClient() {
-    this.parentService.getUserById(this.client_id).subscribe((resp: any) => {
+    this.clientService.getUserById(this.client_id).subscribe((resp: any) => {
       this.cliente = resp.cliente;
 
     })

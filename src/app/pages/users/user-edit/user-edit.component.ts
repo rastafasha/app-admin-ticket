@@ -7,8 +7,6 @@ import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Materia } from 'src/app/models/materia';
-import { MateriaService } from 'src/app/services/materia.service';
 
 
 interface HtmlInputEvent extends Event{
@@ -51,7 +49,6 @@ public FILE_AVATAR: any;
     private userService: UserService,
     private location: Location,
     private accountService: AuthService,
-     private materiaService: MateriaService,
     private fb: FormBuilder,
 
   ) {
@@ -207,6 +204,7 @@ this.user = this.userService.user;
     }
     this.userService.updateUserRole(data).subscribe((resp:any)=>{
       Swal.fire('Guardado', 'Los cambios fueron actualizados', 'success');
+      this.ngOnInit();
     })
   }
 
@@ -266,6 +264,7 @@ this.user = this.userService.user;
           this.infoUser = res;
           Swal.fire('Guardado', 'Los cambios fueron actualizados', 'success');
           // this.router.navigate(['/dashboard/users']);
+          this.ngOnInit();
         },
         error => this.error = error
       );

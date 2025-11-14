@@ -29,7 +29,8 @@
                         <table [ngClass]="isLoading? 'table table-borderless datatable':'table table-borderless'">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <!-- <th>ID</th> -->
+                                    <th>avatar</th>
                                     <th>partner</th>
                                     <th>Email</th>
                                     <th>Empresa</th>
@@ -42,7 +43,11 @@
                             <tbody>
                                 <tr *ngFor="let user of usuarios  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
 
-                                    <td><a [routerLink]="['/dashboard/partner/detail/', user.id]">{{user.id}}</a></td>
+                                    <!-- <td><a [routerLink]="['/dashboard/partner/detail/', user.id]">{{user.id}}</a></td> -->
+                                    <td><a [routerLink]="['/dashboard/partner/detail/', user.id]">
+                                        <img [src]="user.avatar| imagenPipe: 'users' " class=" shadow"
+                                        style="width: 40px; height: 40px; border-radius: 100px;" alt="">
+                                    </a> </td>
                                     <td><a [routerLink]="['/dashboard/partner/detail/', user.id]">{{user.name}}</a> </td>
                                     <td>{{user.email}}</td>
                                     <td>{{user.empresa}}</td>

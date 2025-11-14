@@ -224,7 +224,10 @@ img.avatar {
     color: var(--azul);
 } */
 
-
+html[darker-dark-theme][dark], [darker-dark-theme] [dark] {
+    --yt-spec-text-primary: #f1f1f1;
+    --yt-spec-text-primary-inverse: #0f0f0f;
+}
 .bannerplanes{
     height: 40vh;
     width: 100%;

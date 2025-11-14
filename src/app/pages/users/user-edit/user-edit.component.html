@@ -14,16 +14,16 @@
                         <div class="card-body profile-card pt-4  fichasmall">
 
                             <div class="inffichasmall">
-                                <img [src]="user.avatar| imagenPipe: 'users' " class=" shadow"
+                                <img [src]="infoUser.avatar| imagenPipe: 'users' " class=" shadow"
                                     style="width: 40px; height: 40px; border-radius: 100px;" alt="">
-                                <h2>{{user.name}} {{user.surname}}</h2>
-                                <p>{{user.email}}</p>
+                                <h2>{{infoUser.name}} {{infoUser.surname}}</h2>
+                                <p>{{infoUser.email}}</p>
 
                                 <span class="badge bg-dark-light"
-                                    *ngIf="user.roles.name === 'SUPERADMIN'">SuperAdmin</span>
-                                <span class="badge bg-primary" *ngIf="user.roles.name === 'ADMIN'">Admin</span>
-                                <span class="badge bg-success" *ngIf="user.roles.name === 'PARTNER'">Partner</span>
-                                <span class="badge bg-secondary" *ngIf="user.roles.name === 'GUEST'">Invitado</span>
+                                    *ngIf="infoUser.roles.name === 'SUPERADMIN'">SuperAdmin</span>
+                                <span class="badge bg-primary" *ngIf="infoUser.roles.name === 'ADMIN'">Admin</span>
+                                <span class="badge bg-success" *ngIf="infoUser.roles.name === 'PARTNER'">Partner</span>
+                                <span class="badge bg-secondary" *ngIf="infoUser.roles.name === 'GUEST'">Invitado</span>
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                                             <p>{{infoUser.address}}</p>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" *ngIf="user.roles[0] === 'SUPERADMIN' || user.roles[0] === 'ADMIN'">
                                         <div class="col-12">
                                             <div class="card border-radio">
                                                 <div class="card-body pt-3">
@@ -228,23 +228,10 @@
                                                 <input type="text" class="form-control" formControlName="empresa">
                                             </div>
 
-                                            <!-- <div class="col-xs-12 col-md-6">
-                                                <label for="exampleInputEmail1">Materia (si es por sección)</label>
-                                                <select class="form-control" id="materia_id" [value]="materia?.id"
-                                                    formControlName="materia_id">
-                                                    <div *ngFor="let data of materias " [value]="materia_id">
-                                                        <option value="{{data.id}}">{{data.name}}</option>
-                                                    </div>
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-12 col-md-6">
-                                                <label for="exampleInputEmail1">Grado (Todas las materias)</label>
-                                                <input type="text" class="form-control" formControlName="grado">
-                                            </div> -->
 
                                             <div class="col-xs-12 col-md-6">
                                                 <div class="form-group form-row">
-                                                    <label class="col-md-3">Imagen Perfil (peso max: 500kb | medidas
+                                                    <label class="col-xs-12 ">Imagen Perfil (peso max: 500kb | medidas
                                                         max:
                                                         1920x1080px)</label>
                                                     <div class="col-md-9">
@@ -262,9 +249,9 @@
                                                                 </label>
                                                             </div>
                                                         </div>
+                                                        <img [src]="infoUser?.avatar | imagenPipe: 'users'" class=" shadow" style="width: 100%; height: auto;">
                                                         <div *ngIf="FILE_AVATAR">
-                                                            <img [src]="IMAGE_PREVISUALIZA" style="width: 250px;"
-                                                                alt="">
+                                                            <img [src]="IMAGE_PREVISUALIZA | imagenPipe: 'users'" style="width: 250px;" alt="">
                                                         </div>
                                                     </div>
                                                 </div>

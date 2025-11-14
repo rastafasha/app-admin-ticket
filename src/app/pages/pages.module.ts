@@ -30,10 +30,8 @@ import{SliderEditComponent} from './slider/slider-edit/slider-edit.component';
 import { ComponentsModule } from "../components/components.module";
 import { ConfigComponent } from './config/config.component';
 import { TasabcvComponent } from './tasabcv/tasabcv.component';
-import { MateriasComponent } from './materias/materias.component';
-import { StudentsModule } from './students/students.module';
+import { EventosModule } from './eventos/eventos.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { CalendariotModule } from '../components/calendarioT/calendariot.module';
 import { ConfigModule } from './config/config.module';
 
 
@@ -47,7 +45,6 @@ import { ConfigModule } from './config/config.module';
         SliderIndexComponent,
         SliderEditComponent,
         TasabcvComponent,
-        MateriasComponent,
 
     ],
     exports: [
@@ -74,9 +71,8 @@ import { ConfigModule } from './config/config.module';
     CKEditorModule,
     SharedModule,
     ComponentsModule,
-    StudentsModule,
+    EventosModule,
     NgxChartsModule,
-     CalendariotModule,
      ConfigModule
 ]
 })

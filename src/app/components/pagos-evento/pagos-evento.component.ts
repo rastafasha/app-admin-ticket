@@ -1,26 +1,25 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
-import { Parent } from 'src/app/models/parents';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Evento } from 'src/app/models/evento';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
 import { environment } from 'src/environments/environment';
-import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-listapayments',
-  standalone: false,
-  templateUrl: './listapayments.component.html',
-  styleUrls: ['./listapayments.component.css']
+  selector: 'app-pagos-evento',
+  templateUrl: './pagos-evento.component.html',
+  styleUrls: ['./pagos-evento.component.css']
 })
-export class ListapaymentsComponent {
-   @Input() userprofile: Parent;
+export class PagosEventoComponent implements OnChanges{
+  @Input() eventprofile:Evento;
+
+  isLoading = false;
+    title = 'Pagos';
   
-    title = 'Padres';
-    isLoading = false;
     loading = false;
     usersCount = 0;
     payments: Payment;
-  
+    studentprofile: Evento;
     p: number = 1;
     count: number = 8;
   
@@ -30,6 +29,10 @@ export class ListapaymentsComponent {
     query: string = '';
   
     ServerUrl = environment.url_servicios;
+    doctores;
+    // role:any;
+  
+    selectedStudentProfile: Evento;
   
     constructor(
       private paymentService: PaymentService,
@@ -39,32 +42,27 @@ export class ListapaymentsComponent {
       this.http = new HttpClient(handler);
     }
   
-  ngOnInit(): void {
+    ngOnInit(): void {
       window.scrollTo(0, 0);
-      // console.log(this.userprofile);
-      // Removed call to getPayments here to avoid accessing userprofile before it's set
-      
     }
 
-    ngOnChanges(): void {
-      if (this.userprofile && this.userprofile.id) {
+    ngOnChanges(changes: SimpleChanges): void {
+      if (changes['eventprofile'] && this.eventprofile && this.eventprofile.id) {
         this.getPayments();
       }
     }
 
     getPayments(): void {
-      if (!this.userprofile || !this.userprofile.id) {
+      if (!this.eventprofile || !this.eventprofile.id) {
         this.isLoading = false;
-        this.error = 'Parent profile is not defined.';
+        this.error = 'Event profile is not defined';
         return;
       }
       this.isLoading = true;
-      this.paymentService.getPagosbyUser(this.userprofile.id).subscribe(
+      this.paymentService.getPaymentByEventId(this.eventprofile.id).subscribe(
         (res: any) => {
           this.payments = res;
-          
           this.isLoading = false;
-          
         },
         (error) => {
           this.error = error;
@@ -73,11 +71,6 @@ export class ListapaymentsComponent {
       );
     }
 
-    getEvento(){
-      
-    }
-  
-  
     search() {
       return this.paymentService.search(this.query).subscribe((res: any) => {
         this.payments = res;
@@ -91,21 +84,5 @@ export class ListapaymentsComponent {
       this.getPayments();
       this.query = '';
     }
-
-    cambiarStatus(data: any) {
-    const VALUE = data.status;
-    console.log(VALUE);
-
-    this.paymentService.updateStatus(data, data.id).subscribe((resp) => {
-      console.log(resp);
-      Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Actualizado',
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-      this.getPayments();
-    });
-  }
+  
 }

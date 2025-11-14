@@ -1,5 +1,4 @@
 import { environment } from "src/environments/environment";
-import { Materia } from "./materia";
 const base_url = environment.url_media;
 
 export class User {
@@ -8,7 +7,6 @@ export class User {
     // role_id: number = 3; // 3 = Rol miembro
     username: string = "";
     materia_id: string = "";
-    materia:Materia;
     name: string = "";
     surname: string = "";
     n_doc: string = "";
@@ -37,7 +35,7 @@ export class User {
     get imagenUrl(){
 
       if(!this.image){
-        return `${base_url}users/no-image.jpg`;
+        return `${base_url}public/no-image.png`;
       } else if(this.image.includes('https')){
         return this.image;
       } else if(this.image){

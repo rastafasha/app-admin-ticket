@@ -11,6 +11,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { BackbreadcumComponent } from './backbreadcum/backbreadcum.component';
 import { Breadc2Component } from './breadc2/breadc2.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 // Pipes
 //import { PipesModule } from '../pipes/pipes.module';
@@ -32,6 +33,7 @@ import { PipesModule } from '../pipes/pipes.module';
         BannerplanesComponent,
         LoadingComponent,
         BackbreadcumComponent,
+        ProgressBarComponent,
         Breadc2Component
     ],
     exports: [

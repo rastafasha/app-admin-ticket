@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js/auto';
-import { Calificacion } from 'src/app/models/calificacion';
 
 @Component({
   selector: 'app-line-chart',
@@ -9,13 +8,12 @@ import { Calificacion } from 'src/app/models/calificacion';
 })
 export class LineChartComponent implements OnChanges {
   public chart: Chart;
-  @Input() calificaciones: Calificacion[] | undefined;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges called with calificaciones:', this.calificaciones);
-    if (changes['calificaciones'] && this.calificaciones && this.calificaciones.length > 0) {
-      this.createChart();
-    }
+    // console.log('ngOnChanges called with calificaciones:', this.calificaciones);
+    // if (changes['calificaciones'] && this.calificaciones && this.calificaciones.length > 0) {
+    //   this.createChart();
+    // }
   }
 
   createChart() {
@@ -46,19 +44,19 @@ export class LineChartComponent implements OnChanges {
 
     // Group calificaciones by materia.name
     const grouped: { [key: string]: number[] } = {};
-    if (this.calificaciones) {
-      this.calificaciones.forEach((calificacion) => {
-        const materiaName = calificacion.materia?.name || 'Unknown';
-        if (!grouped[materiaName]) {
-          grouped[materiaName] = new Array(12).fill(0);
-        }
-        const dataArray = grouped[materiaName];
-        // Use created_at date to get month index
-        const createdAt = calificacion['created_at'] ? new Date(calificacion['created_at']) : null;
-        const monthIndex = createdAt ? createdAt.getMonth() : 0;
-        dataArray[monthIndex] = calificacion.grade || 0;
-      });
-    }
+    // if (this.calificaciones) {
+    //   this.calificaciones.forEach((calificacion) => {
+    //     const materiaName = calificacion.materia?.name || 'Unknown';
+    //     if (!grouped[materiaName]) {
+    //       grouped[materiaName] = new Array(12).fill(0);
+    //     }
+    //     const dataArray = grouped[materiaName];
+    //     // Use created_at date to get month index
+    //     const createdAt = calificacion['created_at'] ? new Date(calificacion['created_at']) : null;
+    //     const monthIndex = createdAt ? createdAt.getMonth() : 0;
+    //     dataArray[monthIndex] = calificacion.grade || 0;
+    //   });
+    // }
 
     const datasets = Object.keys(grouped).map((materiaName) => ({
       label: materiaName,

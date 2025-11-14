@@ -8,7 +8,6 @@ import {
 } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { catchError, Observable, throwError } from "rxjs";
-import { Student } from "../models/student";
 import { AuthService } from "./auth.service";
 const baseUrl = environment.url_servicios;
 
@@ -84,6 +83,13 @@ export class EventoService {
     let URL = this.serverUrl + "/event/userbyEvent/" + event_id;
     return this.http.get(URL, { headers: headers });
   }
+
+  eventsbyClient(id:number): Observable<any> {
+      
+          let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
+          let URL = this.serverUrl+"/event/eventsbyclient/"+id;
+          return this.http.get(URL,{headers:headers});
+        }
 
   createEvento(evento) {
     return this.http

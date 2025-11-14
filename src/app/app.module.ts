@@ -11,7 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { UserModule } from './pages/users/user.module';
 import { PaymentsModule } from './pages/payments/payments.module';
-import { ParentsModule } from './pages/parents/parents.module';
+import { ParentsModule } from './pages/clientes/clientes.module';
 import { ComponentsModule } from './components/components.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PipesModule } from './pipes/pipes.module';

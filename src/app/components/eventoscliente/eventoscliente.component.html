@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- buscador -->
+            <form class="form-horizontal">
+                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                    <div class="input-group">
+                        <input type="search" name="search" type="text" class="form-control col-xs-12"
+                            placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                            class="form-control border-0 bg-light">
+                        <div class="input-group-append">
+                            <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                    class="fa fa-search"></i></button>
+                            <a href="javascript:;" (click)="PageSize()"
+                                class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- buscador -->
+        </div>
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="card recent-sales overflow-auto" *ngIf="!isLoading">
+
+        <div class="card-body">
+
+            <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let evento of events  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+
+                        <!-- <td><a [routerLink]="['/dashboard/padre/detail/', evento.id]">{{evento.id}}</a></td> -->
+                        <td>
+                            <a [routerLink]="['/dashboard/evento/detail/', evento.id]">
+                                <img [src]="evento.avatar| imagenPipe: 'eventos' " class=" shadow"
+                                    style="width: 40px; height: 40px; border-radius: 100px;" alt="">
+
+                            </a>
+                        </td>
+
+                        <td>
+                            <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}}
+                                </a>
+
+                        </td>
+                        <td>{{evento.ticketcount ? evento.ticketcount : 1}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+
+    </div>
+
+    <!-- Button trigger modal -->
+
+
+
+
+</div>

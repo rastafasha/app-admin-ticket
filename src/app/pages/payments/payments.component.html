@@ -68,7 +68,7 @@
                                     <th scope="row">
                                         <a [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a>
                                     </th>
-                                    <th><a [routerLink]="['/dashboard/cliente/detail/', pago.parent_id]">{{pago.nombre}}</a>
+                                    <th><a [routerLink]="['/dashboard/cliente/detail/', pago.client_id]">{{pago.nombre}}</a>
                                     </th>
                                     <td>{{pago.bank_name}}</td>
                                     <td>{{pago.bank_destino}}</td>

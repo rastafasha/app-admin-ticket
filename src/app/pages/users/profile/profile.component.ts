@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Materia } from 'src/app/models/materia';
 import { User } from 'src/app/models/users';
 import { AuthService } from 'src/app/services/auth.service';
-import { MateriaService } from 'src/app/services/materia.service';
 import { UserService } from 'src/app/services/users.service';
 import { environment } from 'src/environments/environment';
 @Component({
@@ -24,8 +22,6 @@ export class ProfileComponent {
     error:string;
     title:string;
     infoUser:string;
-    materia: Materia | undefined;
-    materias: Materia | undefined;
   
     uploadError: string;
   
@@ -40,7 +36,6 @@ export class ProfileComponent {
       private userService: UserService,
       private location: Location,
       private accountService: AuthService,
-       private materiaService: MateriaService,
       private fb: FormBuilder,
   
     ) {
@@ -53,20 +48,12 @@ export class ProfileComponent {
       window.scrollTo(0, 0);
       this.accountService.closeMenu();
       this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormulario(id));
-      this.getMaterias();
-  
     }
   
     goBack() {
       this.location.back(); // <-- go back to previous location on cancel
     }
   
-  
-     getMaterias() {
-      this.materiaService.getMaterias().subscribe((resp: any) => {
-        this.materias = resp;
-      });
-    }
   
     iniciarFormulario(id:number){
       // const id = this.route.snapshot.paramMap.get('id');

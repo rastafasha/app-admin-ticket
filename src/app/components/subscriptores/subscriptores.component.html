@@ -1,0 +1,108 @@
+<div class="row">
+    <!-- <app-line-chart [calificaciones]="calificaciones" ></app-line-chart> -->
+    <!-- <div class="col-xs-12 col-sm-6">
+        <app-bar-chart></app-bar-chart>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <app-pie-chart2></app-pie-chart2>
+
+    </div> -->
+</div>
+
+<div class="container">
+
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- buscador -->
+                            <form class="form-horizontal">
+                                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                                    <div class="input-group">
+                                        <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                            placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                            class="form-control border-0 bg-light">
+                                        <div class="input-group-append">
+                                            <button id="button-addon1" type="submit" class="btn btn-link text-primary circle"
+                                                (click)="search()" name="submit" data-toggle="tooltip"
+                                                title="mostrar todos"><i class="fa fa-search"></i></button>
+                                            <a href="javascript:;" (click)="PageSize()"
+                                                class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                                    class="fa fa-refresh"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- buscador -->
+                        </div>
+                    </div>
+    <div class="card recent-sales overflow-auto" *ngIf="!isLoading">
+
+        <div class="card-body">
+
+            <table class="table table-borderless datatable table-striped">
+                <thead>
+                    <tr>
+                        <th>image</th>
+                        <th>Usuario</th>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Asistencia</th>
+                        <th>Asistencia opt</th>
+                        <th>Notificar</th>
+                        <!-- <th class="text-nowrap">Acciones</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-left: 2px solid cornflowerblue; border-spacing: 2px;"
+                        *ngFor="let client of filteredClients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+
+    
+                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">
+                            <img [src]="client?.avatar| imagenPipe: 'clients' " class=" shadow"
+                            style="width: 45px; height: 45px; border-radius: 100px;"
+                                    alt="">
+                        </a>
+                    </td>
+                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">{{client.name}}</a></td>
+                        <td>{{client.n_doc}} </td>
+                        <td>{{client.email}} </td>
+                        <td>
+                            <span *ngIf="client.asistencia; else noAsistio"><i class="fa fa-check-circle-o text-success"
+                                    aria-hidden="true"></i></span>
+                            <ng-template #noAsistio><i class="fa fa-info-circle text-danger"
+                                    aria-hidden="true"></i></ng-template>
+                        </td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox"
+                                    [id]="'flexSwitchCheckDefault'+client.id" [(ngModel)]="client.asistencia"
+                                    (change)="guardarAsistencia(client, $event)">
+                                <label class="form-check-label"
+                                    [for]="'flexSwitchCheckDefault'+client.id">Asistió</label>
+
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-primary" *ngIf="client.asistencia"
+                                (click)="enviarCertificado(client)">
+                                <i class="fa fa-envelope"></i>
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+
+    </div>
+
+    <!-- Button trigger modal -->
+
+
+
+
+</div>
