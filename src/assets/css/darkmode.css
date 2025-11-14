@@ -295,8 +295,13 @@ body .darkmode {
 }
 /* tabla */
 .darkmode .table-striped tbody tr:nth-of-type(odd) {
-    background: #727272;
+    background: #232222;
     color: var(--bs-gray);
+}
+
+.darkmode .table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: #949aa0;
 }
 
 .darkmode .table {
@@ -323,7 +328,6 @@ body .darkmode {
 
 .darkmode .tab-content-set{
     color: var(--white);
-    background-color: var(--fondo-negro);
 }
 
 .darkmode b {
