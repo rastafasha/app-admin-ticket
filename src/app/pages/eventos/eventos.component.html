@@ -32,7 +32,7 @@
                                 <select class="form-control form-select-solid fw-bolder" name="status"
                                     [(ngModel)]="query" (change)="search()" placeholder="status">
                                     <option value="">Status</option>
-                                    <option value="ACTIVE">Aprobado</option>
+                                    <option value="PUBLISHED">Publicado</option>
                                     <option value="INACTIVE">Inactivo</option>
                                     <option value="RETIRED">Retirado</option>
                                     <option value="FINISHED">Finalizado</option>
@@ -93,7 +93,7 @@
                                 <td>{{evento.precio_estudiantes | currency}}</td>
                                 <td>{{evento.precio_especialistas | currency}}</td>
                                 <td>
-                                    <span class="badge bg-success" *ngIf="evento.status === 'ACTIVE'">Activo</span>
+                                    <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Publicado</span>
                                     <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
                                     <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
                                     <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Terminado</span>

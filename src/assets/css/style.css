@@ -5886,7 +5886,7 @@ table.dataTable thead .sorting:after {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    *cursor: hand;
+    /* *cursor: hand; */
     color: #67757c;
     border: 1px solid #ddd;
 }
@@ -7910,6 +7910,8 @@ File: scss
         display: -ms-flexbox;
         display: flex;
         width: 100%;
+        justify-content: space-between;
+        -webkit-justify-content: space-between;
     }
     .topbar .top-navbar .navbar-nav {
         -webkit-box-orient: horizontal;

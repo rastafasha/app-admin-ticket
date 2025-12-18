@@ -13,19 +13,14 @@ import { environment } from 'src/environments/environment';
 })
 export class EventosclienteComponent implements OnChanges {
   @Input() userprofile: any;
-  @Input() showMatricula: boolean = true;
-  @Input() showAcciones: boolean = true;
-  @Input() showGenero: boolean = true;
-  @Input() showNacimiento: boolean = true;
   isLoading = false;
   title = 'Eventos Cliente';
 
   loading = false;
   usersCount = 0;
-  events: Evento[];
   eventprofile: Evento;
   roles;
-
+  
   p: number = 1;
   count: number = 8;
 
@@ -33,8 +28,9 @@ export class EventosclienteComponent implements OnChanges {
   selectedValue!: any;
   msm_error: string;
   query: string = '';
-
+  
   payments:Payment[];
+  events: Evento[];
 
   ServerUrl = environment.url_servicios;
   doctores;
