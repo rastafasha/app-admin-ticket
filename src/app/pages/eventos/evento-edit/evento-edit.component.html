@@ -46,8 +46,8 @@
                         <div class="form-group col-xs-12 col-sm-6">
                             <label class="col-md-3">Empresa </label>
                             <div class="">
-                                <select name="" id="" [(ngModel)]="company_id" [ngModelOptions]="{standalone: true}"
-                                    class="form-control" (change)="addEvento(event.id)">
+                                <select name="" id="" formControlName="company_id"
+                                    class="form-control" >
                                     <option value="">Select</option>
                                     <option *ngFor="let company of companies" [value]="company.id"
                                         [selected]="company_id === company.id">

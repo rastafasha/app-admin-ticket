@@ -32,7 +32,7 @@
                         <th>Imagen</th>
                         <th>Nombre</th>
                         <th>tickets</th>
-                        <th class="text-nowrap" *ngIf="companySelected">Acciones</th>
+                        <!-- <th class="text-nowrap" *ngIf="companySelected">Acciones</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -54,12 +54,12 @@
 
                         </td>
                         <td>{{evento.ticketcount ? evento.ticketcount : 1}}</td>
-                        <td *ngIf="companySelected">
+                        <!-- <td *ngIf="companySelected">
                             <button class="btn btn-outline-danger" 
                                 (click)="removeEvento(evento)">
                                 <i class="fa fa-trash"></i>
                             </button>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
 

@@ -39,21 +39,21 @@
                 </thead>
                 <tbody>
                     <tr style="border-left: 2px solid cornflowerblue; border-spacing: 2px;"
-                        *ngFor="let client of filteredClients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+                        *ngFor="let partner of filteredClients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
 
 
-                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">
-                                <img [src]="client?.avatar| imagenPipe: 'clients' " class=" shadow"
+                        <td><a [routerLink]="['/dashboard/partner/detail/', partner.id]">
+                                <img [src]="partner?.avatar| imagenPipe: 'clients' " class=" shadow"
                                     style="width: 45px; height: 45px; border-radius: 100px;" alt="">
                             </a>
                         </td>
-                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">{{client.name}}</a></td>
-                        <td>{{client.n_doc}} </td>
-                        <td>{{client.email}} </td>
+                        <td><a [routerLink]="['/dashboard/partner/detail/', partner.id]">{{partner.name}}</a></td>
+                        <td>{{partner.n_doc}} </td>
+                        <td>{{partner.email}} </td>
                        
                         <td>
                             <button class="btn btn-outline-danger" 
-                                (click)="removeColab(client)">
+                                (click)="removeColab(partner)">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>

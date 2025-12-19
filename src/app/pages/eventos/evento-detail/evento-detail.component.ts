@@ -8,6 +8,7 @@ import { Evento } from 'src/app/models/evento';
 import { User } from 'src/app/models/users';
 import { UserService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CompanyService } from 'src/app/services/company.service';
 @Component({
   selector: 'app-evento-detail',
   templateUrl: './evento-detail.component.html',
@@ -35,6 +36,7 @@ export class EventoDetailComponent {
 
   user_id: any;
   event_id: any;
+  company_id: number;
   errors: any = null;
   users: User[] = [];
   usersevento: User[] = [];
@@ -45,6 +47,7 @@ role: any;
   constructor(
     private location: Location,
     private eventoService: EventoService,
+    private companyService: CompanyService,
     private userService: UserService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute
@@ -73,32 +76,6 @@ role: any;
     this.location.back(); // <-- go back to previous location on cancel
   }
 
- 
-  
-
-  getEvento(id: number) {
-    this.isLoading = true;
-    this.eventoService.getById(+id).subscribe(
-      (res: any) => {
-        this.eventprofile = res.event;
-        // this.calificaciones = res.calificaciones;
-        if (res.event && res.event.id) {
-          this.event_id = res.event.id;
-        } else {
-          this.event_id = null;
-          console.error('User or user.id is undefined in response:', res);
-        }
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error fetching user by id:', error);
-        this.event_id = null;
-      }
-    );
-    this.getUserbyEvento(+id);
-    
-  }
-
    getUser() {
     const id = this.user.id
     this.userService.getUserById(+id).subscribe(
@@ -118,18 +95,42 @@ role: any;
       }
     );
   }
+ 
+  
+
+  getEvento(id: number) {
+    this.isLoading = true;
+    this.eventoService.getById(+id).subscribe(
+      (res: any) => {
+        this.eventprofile = res.event;
+        // this.calificaciones = res.calificaciones;
+        if (res.event && res.event.id) {
+          this.event_id = res.event.id;
+          this.company_id = res.event.company_id;
+
+          this.getUsersEmpresa();
+        } else {
+          this.event_id = null;
+          console.error('User or user.id is undefined in response:', res);
+        }
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching user by id:', error);
+        this.event_id = null;
+      }
+    );
+    this.getUserbyEvento(+id);
+    
+  }
+
+  
 
 
   getUsersEmpresa(){
-    this.user_empresa = this.user.empresa
-    this.userService.getUserByEmpresa(this.user_empresa).subscribe(
+    this.companyService.usersById(this.company_id).subscribe(
       (res: any) => {
-        if (res.users && Array.isArray(res.users)) {
-          this.users = res.users;
-        } else {
-          this.users = [];
-          console.warn('res.users is not an array or undefined:', res.users);
-        }
+        this.users = res.company.users;
         console.log(this.users)
       },
       (error) => {

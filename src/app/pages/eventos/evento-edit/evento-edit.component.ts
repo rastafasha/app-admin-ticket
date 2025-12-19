@@ -38,7 +38,6 @@ export class EventoEditComponent {
 
 
   companies: any[] = [];
-  company_id: number = null;
 
   constructor(
     private fb: FormBuilder,
@@ -74,7 +73,7 @@ export class EventoEditComponent {
             fecha_inicio: res.event.fecha_inicio,
             fecha_fin: res.event.fecha_fin,
             status: res.event.status,
-            company: res.event.company,
+            company_id: res.event.company_id,
             is_featured: res.event.is_featured == 1 ? true : false,
             id: res.event.id,
             event_id: res.event.id
@@ -101,7 +100,7 @@ export class EventoEditComponent {
       fecha_inicio: [''],
       fecha_fin: [''],
       status: [''],
-      company: [''],
+      company_id: [''],
       is_featured: [''],
       imagen: [''],
     });
@@ -121,32 +120,32 @@ export class EventoEditComponent {
 
   addEvento() {
 
-    const data = {
-      event_id: this.event.id,
-      company_id: this.company_id
-    }
+    // const data = {
+    //   event_id: this.event.id,
+    //   company_id: this.company_id
+    // }
 
-    this.companyService.addEvent(this.company_id, data).subscribe(
-      (res: any) => {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Evento agregado',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      },
-      (error) => {
-        console.error('Error:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Error al agregar evento',
-          showConfirmButton: false,
-          timer: 2000,
-        });
-      }
-    )
+    // this.companyService.addEvent(this.company_id, data).subscribe(
+    //   (res: any) => {
+    //     Swal.fire({
+    //       position: 'top-end',
+    //       icon: 'success',
+    //       title: 'Evento agregado',
+    //       showConfirmButton: false,
+    //       timer: 1500,
+    //     });
+    //   },
+    //   (error) => {
+    //     console.error('Error:', error);
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Error',
+    //       text: 'Error al agregar evento',
+    //       showConfirmButton: false,
+    //       timer: 2000,
+    //     });
+    //   }
+    // )
   }
 
 
@@ -179,7 +178,7 @@ export class EventoEditComponent {
   get fecha_inicio() { return this.eventoForm.get('fecha_inicio'); }
   get fecha_fin() { return this.eventoForm.get('fecha_fin'); }
   get status() { return this.eventoForm.get('status'); }
-  get company() { return this.eventoForm.get('company'); }
+  get company_id() { return this.eventoForm.get('company_id'); }
   get is_featured() { return this.eventoForm.get('is_featured' + ''); }
 
   onSubmit() {
@@ -193,7 +192,7 @@ export class EventoEditComponent {
     formData.append('fecha_inicio', this.eventoForm.get('fecha_inicio').value);
     formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
     formData.append('status', this.eventoForm.get('status').value);
-    formData.append('company', this.eventoForm.get('company').value);
+    formData.append('company_id', this.eventoForm.get('company_id').value);
     formData.append('is_featured', this.eventoForm.get('is_featured').value ? '1' : '0');
     // formData.append('image', this.eventoForm.get('image').value);
 

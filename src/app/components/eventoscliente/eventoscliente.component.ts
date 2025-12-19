@@ -108,7 +108,7 @@ export class EventosclienteComponent implements OnChanges {
     this.isLoading = true;
     this.companyService.eventsById(this.companySelected.id).subscribe(
       (res: any) => {
-        this.events = res.company.eventos;
+        this.events = res.events;
         this.isLoading = false;
       },
       (error) => {

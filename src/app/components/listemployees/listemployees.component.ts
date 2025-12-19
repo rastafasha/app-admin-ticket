@@ -108,15 +108,15 @@ export class ListemployeesComponent {
     
       
   
-      selectClient(client){
-        this.clienteProfile = client;
-        console.log('cliente', client)
+      selectClient(partner){
+        this.clienteProfile = partner;
+        console.log('partner', partner)
       }
 
-      removeColab(client: number) {
+      removeColab(partner: number) {
         this.company_id = this.companySelected.id
           const data = {
-            user_id: client,
+            user_id: partner,
             company_id: this.companySelected.id
           }
           this.companyService.removeColaborador( this.company_id, data).subscribe(

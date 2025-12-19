@@ -24,7 +24,7 @@
         </ol>
     </nav>
 </div> -->
-<app-backbreadcum [title]="title" ></app-backbreadcum>
+<app-backbreadcum [title]="title"></app-backbreadcum>
 
 
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="users" *ngIf="!isLoading">
@@ -37,18 +37,19 @@
 
                     <div class="card border-radio shadow">
                         <div class="card-body profile-card pt-4  fichasmall">
-                            
+
                             <div class="inffichasmall">
                                 <div class="fotoeditprofile">
-                                    <div class="col-xs-6 col-sm-3" *ngIf="role==='SUPERADMIN' || role==='ADMIN' || role==='PARTNER'">
-                                    <a [routerLink]="['/dashboard/evento/edit/', eventprofile.id]" class="cursor"
-                                        data-toggle="tooltip" data-original-title="Edit">
-                                        <div class="btn btn-outline-primary"><i class="fa fa-edit"></i></div>
-                                    </a>
+                                    <div class="col-xs-6 col-sm-3"
+                                        *ngIf="role==='SUPERADMIN' || role==='ADMIN' || role==='PARTNER'">
+                                        <a [routerLink]="['/dashboard/evento/edit/', eventprofile.id]" class="cursor"
+                                            data-toggle="tooltip" data-original-title="Edit">
+                                            <div class="btn btn-outline-primary"><i class="fa fa-edit"></i></div>
+                                        </a>
 
-                                </div>
-                                <img [src]="eventprofile?.avatar | imagenPipe: 'events'" class="imagecircle shadow"
-                                    alt="">
+                                    </div>
+                                    <img [src]="eventprofile?.avatar | imagenPipe: 'events'" class="imagecircle shadow"
+                                        alt="">
                                 </div>
                                 <h5 style="margin-top: 15px;">{{eventprofile?.name}} </h5>
 
@@ -123,8 +124,7 @@
                                             data-bs-target="#hijos">Subscriptores</button>
                                     </li>
                                     <!-- *ngIf="role==='ADMIN'|| role === 'SUPERADMIN'" -->
-                                    <li class="nav-item"
-                                        >
+                                    <li class="nav-item">
                                         <button class="nav-link" (click)="optionSelected(3)"
                                             [ngClass]="{'active': option_selected === 3}" data-bs-toggle="tab"
                                             data-bs-target="#examenes">Pagos</button>
@@ -146,7 +146,7 @@
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> Empresa
                                             </div>
-                                            <p>{{eventprofile?.companies[0].name}} </p>
+                                            <p>{{eventprofile?.company.name}} </p>
                                         </div>
                                         <div class="col-xs-6 col-sm-3">
                                             <div class=" label ">
@@ -183,7 +183,7 @@
                                         </div>
 
                                     </div>
-
+                                    <!-- Agregar Colaboradores -->
                                     <div class="row">
                                         <div class="col-12">
                                             <div class=" label"><i class="fa fa-compass"></i> Agregar Colaboradores
@@ -229,6 +229,7 @@
 
                                             </div>
                                         </div>
+                                        <!-- Colaboradores -->
                                         <div class="col-12">
                                             <div class=" label"><i class="fa fa-compass"></i> Colaboradores
                                             </div>
@@ -240,7 +241,8 @@
                                                                 <th>Nombre</th>
                                                                 <th>Empresa</th>
 
-                                                                <th *ngIf="role ==='ADMIN'|| role  === 'SUPERADMIN'">Op</th>
+                                                                <th *ngIf="role ==='ADMIN'|| role  === 'SUPERADMIN'">Op
+                                                                </th>
                                                             </tr>
                                                         </thead>
 
