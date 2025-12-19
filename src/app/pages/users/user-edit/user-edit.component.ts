@@ -268,6 +268,10 @@ this.user = this.userService.user;
       formData.append("birth_date", this.userForm.value.birth_date);
       
     }
+    if (this.userForm.value.address) {
+      formData.append("address", this.userForm.value.address);
+      
+    }
      if (this.userForm.value.gender) {
       formData.append("gender", this.userForm.value.gender);
       
@@ -284,6 +288,7 @@ this.user = this.userService.user;
       formData.append("n_doc", this.userForm.value.n_doc);
       
     }
+    
     if (this.userForm.value.empresa) {
       formData.append("empresa", this.userForm.value.empresa);
       

@@ -50,10 +50,10 @@
                         </div>
                     </form>
                     <!-- buscador -->
-                    <div class="py-3" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role === 'PARTNER'">
-                        <a [routerLink]="['/dashboard/evento/create']" class="cursor" data-toggle="tooltip"
+                    <div class="py-3" >
+                        <a [routerLink]="['/dashboard/company/create']" class="cursor" data-toggle="tooltip"
                             data-original-title="Edit">
-                            <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear Evento</div>
+                            <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear Empresa</div>
                         </a>
 
                     </div>
@@ -90,7 +90,7 @@
                                         data-toggle="tooltip" data-original-title="Edit">
                                         <div class="btn btn-success"><i class="fa fa-edit"></i></div>
                                     </a>
-                                    <a (click)="eliminarUser(company.id)" class="cursor" data-toggle="tooltip"
+                                    <a (click)="eliminarCompany(company.id)" class="cursor" data-toggle="tooltip"
                                         data-original-title="Borrar">
                                         <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
                                     </a>

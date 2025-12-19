@@ -59,6 +59,8 @@
                                         <div class=" label"><i class="fa fa-check-circle"></i> Status</div>
                                         <p>
                                             <span class="badge bg-success"
+                                                *ngIf="eventprofile.status === 'PUBLISHED'">Publicado</span>
+                                            <span class="badge bg-success"
                                                 *ngIf="eventprofile.status === 'ACTIVE'">Activo</span>
                                             <span class="badge bg-danger"
                                                 *ngIf="eventprofile.status === 'INACTIVE'">Inactivo</span>
@@ -81,6 +83,7 @@
                             [(ngModel)]="eventprofile.status" (change)="cambiarStatus(eventprofile)"
                             placeholder="status">
                             <option value="">Seleccione</option>
+                            <option value="PUBLISHED">Publicado</option>
                             <option value="ACTIVE">Activo</option>
                             <option value="INACTIVE">Inactivo</option>
                             <option value="RETIRED">Retirado</option>

@@ -41,4 +41,16 @@ export class CompanyListComponent  {
     );
   }
 
+  eliminarCompany(id: number): void {
+    this.companyService.delete(id).subscribe(
+      (response) => {
+        console.log('Company deleted successfully', response);
+        this.loadCompanies();
+      },
+      (error) => {
+        console.error('Error deleting company', error);
+      }
+    );
+  }
+
 }

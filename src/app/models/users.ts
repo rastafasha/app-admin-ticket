@@ -6,7 +6,7 @@ export class User {
     id: string;
     // role_id: number = 3; // 3 = Rol miembro
     username: string = "";
-    materia_id: string = "";
+    company_id: number ;
     name: string = "";
     surname: string = "";
     n_doc: string = "";

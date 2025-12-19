@@ -118,11 +118,12 @@ export class EditCompanyComponent {
         
         
         const id = this.companyForm.get('id').value;
-        formData.append('company_id', id);
+        formData.append('company_id', this.company_id.toString());
+        formData.append('user_id', this.user.id.toString());
         
-        if (id) {
+        if (this.company_id) {
           this.loading = true;
-          this.companyService.update(formData, +id).subscribe(
+          this.companyService.update(formData, +this.company_id).subscribe(
             res => {
               if (res === 'error') {
                 //this.uploadError = res.message;

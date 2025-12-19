@@ -38,7 +38,7 @@
                                 <th>ID</th>
                                 <th>Usuario</th>
                                 <th>Email</th>
-                                <th>Deuda</th>
+                                <!-- <th>Deuda</th> -->
                                 <th>Status</th>
                                 <th class="text-nowrap">Acciones</th>
                             </tr>
@@ -56,9 +56,9 @@
 
                                 </td>
                                 <td>{{parent.email}}</td>
-                                <td>
+                                <!-- <td>
 
-                                    <!-- {{parent.payments[0]?.status_deuda}} -->
+                                    {{parent.payments[0]?.status_deuda}}
 
                                     <span class="badge bg-success"
                                         *ngIf="parent.payments[0]?.status_deuda === 'PAID'">Pagado</span>
@@ -67,7 +67,7 @@
                                     <span class="badge bg-danger"
                                         *ngIf="parent.payments[0]?.status_deuda === 'DEUDA'">Deuda</span>
 
-                                </td>
+                                </td> -->
                                 <td>
                                     <span class="badge bg-success" *ngIf="parent.status === 'ACTIVE'">Activo</span>
                                     <span class="badge bg-danger" *ngIf="parent.status === 'INACTIVE'">Inactivo</span>

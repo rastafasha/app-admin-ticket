@@ -79,6 +79,12 @@ export class CompanyService {
       .pipe(catchError(this.handleError));
   }
 
+  delete(id: number) {
+    return this.http
+      .delete<any>(this.serverUrl + "/company/destroy/" + id)
+      .pipe(catchError(this.handleError));
+  }
+
 
    addColaborador(company_id: number, data: any) {
     return this.http
