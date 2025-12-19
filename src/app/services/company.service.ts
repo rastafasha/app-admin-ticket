@@ -49,7 +49,21 @@ export class CompanyService {
     let headers = new HttpHeaders({
       Authorization: "Bearer" + this.authService.token,
     });
-    let URL = this.serverUrl + "/event/show/" + id;
+    let URL = this.serverUrl + "/company/show/" + id;
+    return this.http.get(URL, { headers: headers });
+  }
+  usersById(id: number): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: "Bearer" + this.authService.token,
+    });
+    let URL = this.serverUrl + "/company/usersby/" + id;
+    return this.http.get(URL, { headers: headers });
+  }
+  eventsById(id: number): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: "Bearer" + this.authService.token,
+    });
+    let URL = this.serverUrl + "/company/eventsby/" + id;
     return this.http.get(URL, { headers: headers });
   }
 
@@ -62,6 +76,29 @@ export class CompanyService {
   update(company, id: number) {
     return this.http
       .post<any>(this.serverUrl + "/company/update/" + id, company)
+      .pipe(catchError(this.handleError));
+  }
+
+
+   addColaborador(company_id: number, data: any) {
+    return this.http
+      .post<any>(this.serverUrl + "/company/addcolaborador/" + company_id, data)
+      .pipe(catchError(this.handleError));
+  }
+  removeColaborador(company_id: number, data: any) {
+    return this.http
+      .post<any>(this.serverUrl + "/company/removecolaborador/" + company_id, data)
+      .pipe(catchError(this.handleError));
+  }
+
+   addEvent(company_id: number, data: any) {
+    return this.http
+      .post<any>(this.serverUrl + "/company/addEvent/" + company_id, data)
+      .pipe(catchError(this.handleError));
+  }
+  removeEvent(company_id: number, data: any) {
+    return this.http
+      .post<any>(this.serverUrl + "/company/removeEvent/" + company_id, data)
       .pipe(catchError(this.handleError));
   }
 

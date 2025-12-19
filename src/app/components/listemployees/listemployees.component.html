@@ -1,4 +1,6 @@
 <div class="container">
+
+    <app-loading *ngIf="isLoading"></app-loading>
     <div class="row">
         <div class="col-xs-12">
             <!-- buscador -->
@@ -21,45 +23,41 @@
             <!-- buscador -->
         </div>
     </div>
-    <app-loading *ngIf="isLoading"></app-loading>
     <div class="card recent-sales overflow-auto" *ngIf="!isLoading">
 
         <div class="card-body">
 
-            <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+            <table class="table table-borderless datatable table-striped">
                 <thead>
                     <tr>
-                        <th>Imagen</th>
-                        <th>Nombre</th>
-                        <th>tickets</th>
-                        <th class="text-nowrap" *ngIf="companySelected">Acciones</th>
+                        <th>image</th>
+                        <th>Usuario</th>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th class="text-nowrap">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr
-                        *ngFor="let evento of events  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+                    <tr style="border-left: 2px solid cornflowerblue; border-spacing: 2px;"
+                        *ngFor="let client of filteredClients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
 
-                        <!-- <td><a [routerLink]="['/dashboard/padre/detail/', evento.id]">{{evento.id}}</a></td> -->
-                        <td>
-                            <a [routerLink]="['/dashboard/evento/detail/', evento.id]">
-                                <img [src]="evento.avatar| imagenPipe: 'eventos' " class=" shadow"
-                                    style="width: 40px; height: 40px; border-radius: 100px;" alt="">
 
+                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">
+                                <img [src]="client?.avatar| imagenPipe: 'clients' " class=" shadow"
+                                    style="width: 45px; height: 45px; border-radius: 100px;" alt="">
                             </a>
                         </td>
-
+                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">{{client.name}}</a></td>
+                        <td>{{client.n_doc}} </td>
+                        <td>{{client.email}} </td>
+                       
                         <td>
-                            <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}}
-                                </a>
-
-                        </td>
-                        <td>{{evento.ticketcount ? evento.ticketcount : 1}}</td>
-                        <td *ngIf="companySelected">
                             <button class="btn btn-outline-danger" 
-                                (click)="removeEvento(evento)">
+                                (click)="removeColab(client)">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
+
                     </tr>
                 </tbody>
 

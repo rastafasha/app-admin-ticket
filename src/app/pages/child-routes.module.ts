@@ -20,6 +20,9 @@ import { EventoDetailComponent } from './eventos/evento-detail/evento-detail.com
 import { EventosComponent } from './eventos/eventos.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { EventoEditComponent } from './eventos/evento-edit/evento-edit.component';
+import { CompanyListComponent } from './company/list/Companylist.component';
+import { EditCompanyComponent } from './company/edit/edit.component';
+import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
 
 const childRoutes: Routes = [
 
@@ -54,6 +57,11 @@ const childRoutes: Routes = [
             { path: 'evento/detail/:id', component: EventoDetailComponent},
             { path: 'eventos/partner/:id', component: EventosComponent},
 
+            { path: 'companies', component: CompanyListComponent},
+            { path: 'company/create', component: EditCompanyComponent},
+            { path: 'company/edit/:id', component: EditCompanyComponent},
+            { path: 'company/detail/:id', component: CompanyDetailComponent},
+            { path: 'companies/partner/:id', component: CompanyListComponent},
 
     { path: '', redirectTo: 'admin', pathMatch: 'full' },
     { path: '**', component:  DashboardComponent },

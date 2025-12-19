@@ -2,8 +2,10 @@ import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Evento } from 'src/app/models/evento';
 import { Payment } from 'src/app/models/payment';
+import { CompanyService } from 'src/app/services/company.service';
 import { EventoService } from 'src/app/services/evento.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-eventoscliente',
@@ -13,6 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EventosclienteComponent implements OnChanges {
   @Input() userprofile: any;
+  @Input() companySelected: any;
   isLoading = false;
   title = 'Eventos Cliente';
 
@@ -20,7 +23,7 @@ export class EventosclienteComponent implements OnChanges {
   usersCount = 0;
   eventprofile: Evento;
   roles;
-  
+
   p: number = 1;
   count: number = 8;
 
@@ -28,17 +31,18 @@ export class EventosclienteComponent implements OnChanges {
   selectedValue!: any;
   msm_error: string;
   query: string = '';
-  
-  payments:Payment[];
+
+  payments: Payment[];
   events: Evento[];
 
   ServerUrl = environment.url_servicios;
   doctores;
   // role:any;
-
+  company_id: number = null;
 
   constructor(
     private eventosService: EventoService,
+    private companyService: CompanyService,
     private http: HttpClient,
     handler: HttpBackend
   ) {
@@ -48,12 +52,16 @@ export class EventosclienteComponent implements OnChanges {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     console.log(this.userprofile);
+    console.log(this.companySelected);
     // Removed this.getUsers() from here to avoid calling before userprofile is set
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userprofile'] && this.userprofile && this.userprofile.id) {
       this.getEventsporCliente();
+    }
+    if (changes['companySelected'] && this.companySelected && this.companySelected.id) {
+      this.getEventsporCompany();
     }
   }
 
@@ -91,6 +99,25 @@ export class EventosclienteComponent implements OnChanges {
     );
   }
 
+  getEventsporCompany(): void {
+    if (!this.companySelected || !this.companySelected.id) {
+      this.isLoading = false;
+      this.error = 'Company is not defined';
+      return;
+    }
+    this.isLoading = true;
+    this.companyService.eventsById(this.companySelected.id).subscribe(
+      (res: any) => {
+        this.events = res.company.eventos;
+        this.isLoading = false;
+      },
+      (error) => {
+        this.error = error;
+        this.isLoading = false;
+      }
+    );
+  }
+
   search() {
     return this.eventosService.search(this.query).subscribe((res: any) => {
       this.events = res;
@@ -103,6 +130,26 @@ export class EventosclienteComponent implements OnChanges {
   public PageSize(): void {
     this.getEventsporCliente();
     this.query = '';
+  }
+
+  removeEvento(evento: number) {
+    debugger
+    this.company_id = this.companySelected.id
+    const data = {
+      event_id: evento,
+      company_id: this.companySelected.id
+    }
+    this.companyService.removeEvent(this.company_id, data).subscribe(
+      (res: any) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Evento eliminado',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.getEventsporCompany();
+      })
   }
 
 }

@@ -255,6 +255,24 @@ html[darker-dark-theme][dark], [darker-dark-theme] [dark] {
 }
 /* search input */
 
+
+.imagecircle{
+    width:80px; 
+    height:80px;
+    overflow: hidden;
+    padding: 2px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    border-radius: 100px;
+}
+
+.fotoeditprofile{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
 @media(max-width:480px) {
     .bannerplanes .instruccioness .info {
         flex-direction: row;

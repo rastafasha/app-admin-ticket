@@ -33,6 +33,7 @@ import { TasabcvComponent } from './tasabcv/tasabcv.component';
 import { EventosModule } from './eventos/eventos.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ConfigModule } from './config/config.module';
+import { CompanyModule } from './company/company.module';
 
 
 
@@ -73,7 +74,8 @@ import { ConfigModule } from './config/config.module';
     ComponentsModule,
     EventosModule,
     NgxChartsModule,
-     ConfigModule
+     ConfigModule,
+     CompanyModule
 ]
 })
 

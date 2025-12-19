@@ -17,7 +17,9 @@ import { EventoEditComponent } from './evento-edit/evento-edit.component';
 
 @NgModule({
   declarations: [
-    EventosComponent, EventoDetailComponent, EventoEditComponent
+    EventosComponent, 
+    EventoDetailComponent, 
+    EventoEditComponent
   ],
   imports: [
    CommonModule,

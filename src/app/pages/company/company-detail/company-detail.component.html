@@ -1,29 +1,7 @@
 <!-- =======| Main |======= -->
 
 <app-loading *ngIf="isLoading"></app-loading>
-<!-- <div class="col-12 animated fadeInUp" *ngIf="!isLoading">
-    <div class="card cardtop">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12 col-md-10 align-self-center">
-                    <h3 class="text-themecolor">{{title}}</h3>
-                </div>
 
-                <div class="col-12 col-sm-2">
-                    <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
-            <li class="breadcrumb-item"><a routerLink="/dashboard/directorio">Directorio</a></li>
-            <li class="breadcrumb-item active">{{title}}</li>
-        </ol>
-    </nav>
-</div> -->
 <app-backbreadcum [title]="title" ></app-backbreadcum>
 
 
@@ -41,51 +19,21 @@
                             <div class="inffichasmall">
                                 <div class="fotoeditprofile">
                                     <div class="col-xs-6 col-sm-3" *ngIf="role==='SUPERADMIN' || role==='ADMIN' || role==='PARTNER'">
-                                    <a [routerLink]="['/dashboard/evento/edit/', eventprofile.id]" class="cursor"
+                                    <a [routerLink]="['/dashboard/company/edit/', companySelected.id]" class="cursor"
                                         data-toggle="tooltip" data-original-title="Edit">
                                         <div class="btn btn-outline-primary"><i class="fa fa-edit"></i></div>
                                     </a>
 
                                 </div>
-                                <img [src]="eventprofile?.avatar | imagenPipe: 'events'" class="imagecircle shadow"
+                                <img [src]="companySelected?.avatar | imagenPipe: 'companies'" class="imagecircle shadow"
                                     alt="">
                                 </div>
-                                <h5 style="margin-top: 15px;">{{eventprofile?.name}} </h5>
+                                <h5 style="margin-top: 15px;">{{companySelected?.name}} </h5>
 
-                                <div class="row">
-
-                                    <div class="col-xs-6 col-sm-3">
-                                        <div class=" label"><i class="fa fa-check-circle"></i> Status</div>
-                                        <p>
-                                            <span class="badge bg-success"
-                                                *ngIf="eventprofile.status === 'ACTIVE'">Activo</span>
-                                            <span class="badge bg-danger"
-                                                *ngIf="eventprofile.status === 'INACTIVE'">Inactivo</span>
-                                            <span class="badge bg-primary"
-                                                *ngIf="eventprofile.status === 'RETIRED'">Retirado</span>
-                                            <span class="badge bg-warning"
-                                                *ngIf="eventprofile.status === 'FINISHED'">Terminado</span>
-                                        </p>
-
-
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card border-radio shadow p-3">
-                        <label for="Email" class="col-form-label">Seleccione Status</label>
-                        <select class="form-control form-select-solid fw-bolder" name="status"
-                            [(ngModel)]="eventprofile.status" (change)="cambiarStatus(eventprofile)"
-                            placeholder="status">
-                            <option value="">Seleccione</option>
-                            <option value="ACTIVE">Activo</option>
-                            <option value="INACTIVE">Inactivo</option>
-                            <option value="RETIRED">Retirado</option>
-                            <option value="FINISHED">Terminado</option>
-                        </select>
-                    </div>
+                    
 
                 </div>
 
@@ -120,14 +68,14 @@
                                     <li class="nav-item">
                                         <button class="nav-link" (click)="optionSelected(2)"
                                             [ngClass]="{'active': option_selected === 2}" data-bs-toggle="tab"
-                                            data-bs-target="#hijos">Subscriptores</button>
+                                            data-bs-target="#hijos">Eventos</button>
                                     </li>
                                     <!-- *ngIf="role==='ADMIN'|| role === 'SUPERADMIN'" -->
                                     <li class="nav-item"
                                         >
                                         <button class="nav-link" (click)="optionSelected(3)"
                                             [ngClass]="{'active': option_selected === 3}" data-bs-toggle="tab"
-                                            data-bs-target="#examenes">Pagos</button>
+                                            data-bs-target="#examenes">Colaboradores</button>
                                     </li>
 
                                 </ul>
@@ -141,51 +89,29 @@
                                     <br />
 
                                     <div class="row">
-
-                                        <div class="col-xs-6 col-sm-3">
-                                            <div class=" label ">
-                                                <i class="fa fa-user-circle"></i> Empresa
-                                            </div>
-                                            <p>{{eventprofile?.companies[0].name}} </p>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3">
+                                        <div class="col-xs-6 col-sm-4">
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> Nombre
                                             </div>
-                                            <p>{{eventprofile?.name}} </p>
+                                            <p>{{companySelected?.name}} </p>
                                         </div>
-                                        <div class="col-xs-6 col-sm-3">
+                                        
+                                        <div class="col-xs-6 col-sm-4">
+                                            <div class=" label"><i class="fa fa-calendar-check-o"></i> Creada
+                                            </div>
+                                            <p>{{companySelected?.created_at | date}}</p>
+                                        </div>
+                                       <div class="col-xs-12">
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> descripcion
                                             </div>
-                                            <p>{{eventprofile?.description}} </p>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3">
-                                            <div class=" label"><i class="fa fa-calendar-check-o"></i> Fecha Inicio
-                                            </div>
-                                            <p>{{eventprofile?.fecha_inicio | date}}</p>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3">
-                                            <div class=" label"><i class="fa fa-calendar-check-o"></i> Fecha fin</div>
-                                            <p>{{eventprofile?.fecha_fin | date}}</p>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3">
-                                            <div class=" label"><i class="fa fa-compass"></i> precio_general</div>
-                                            <p>{{eventprofile?.precio_general|currency}}</p>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3">
-                                            <div class=" label"><i class="fa fa-compass"></i> precio estudiantes</div>
-                                            <p>{{eventprofile?.precio_estudiantes|currency}}</p>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3">
-                                            <div class=" label"><i class="fa fa-compass"></i> precio especialistas</div>
-                                            <p>{{eventprofile?.precio_especialistas|currency}}</p>
+                                            <p>{{companySelected?.description}} </p>
                                         </div>
 
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12">
+                                        <!-- <div class="col-12">
                                             <div class=" label"><i class="fa fa-compass"></i> Agregar Colaboradores
                                             </div>
                                             <div class="card">
@@ -228,7 +154,7 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-12">
                                             <div class=" label"><i class="fa fa-compass"></i> Colaboradores
                                             </div>
@@ -245,7 +171,7 @@
                                                         </thead>
 
                                                         <tbody>
-                                                            <ng-container *ngFor="let user of usersevento">
+                                                            <ng-container *ngFor="let user of users">
                                                                 <tr>
                                                                     <td>{{user.name}}</td>
                                                                     <td>{{user.empresa}}</td>
@@ -279,7 +205,7 @@
                                     id="hijos">
                                     <br />
                                     <div class="row">
-                                        <app-subscriptores [eventProfile]="eventprofile"></app-subscriptores>
+                                        <app-eventoscliente [companySelected]="companySelected"></app-eventoscliente>
                                     </div>
                                 </div>
                                 <!-- fin subcriptores -->
@@ -288,7 +214,7 @@
                                     id="examenes">
                                     <br />
                                     <div class="row">
-                                        <app-pagos-evento [eventprofile]="eventprofile"></app-pagos-evento>
+                                        <app-listemployees [companySelected]="companySelected"></app-listemployees>
                                     </div>
                                 </div>
                             </div>

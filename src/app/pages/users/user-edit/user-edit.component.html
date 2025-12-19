@@ -223,9 +223,17 @@
 
                                                 </div>
                                             </div>
+
                                             <div class="col-xs-12 col-md-6">
                                                 <label for="exampleInputEmail1">Empresa</label>
-                                                <input type="text" class="form-control" formControlName="empresa">
+                                                <div class="">
+                                                    <select name="" id="" [(ngModel)]="company_id" [ngModelOptions]="{standalone: true}" class="form-control" (change)="addColaboradors(user.id)" >
+                                                        <option value="">Select</option>
+                                                        <option *ngFor="let company of companies" [value]="company.id" [selected]="company_id === company.id"  >
+                                                            {{ company.name }}
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
 
 

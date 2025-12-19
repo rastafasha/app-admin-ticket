@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 
 interface HtmlInputEvent extends Event{
@@ -43,10 +44,15 @@ text_validation: any = null;
 public FILE_AVATAR: any;
     public IMAGE_PREVISUALIZA: any = "assets/img/user-06.jpg";
 
+
+  companies: any[] = [];
+  company_id: number = null;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
+    private companyService: CompanyService,
     private location: Location,
     private accountService: AuthService,
     private fb: FormBuilder,
@@ -65,12 +71,23 @@ this.user = this.userService.user;
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormulario(id));
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormularioPerfil(id));
     this.accountService.closeMenu();
-
+    this.getCompanies()
   }
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
   }
+
+  getCompanies() {
+      this.companyService.getAll().subscribe(
+        (res:any) => {
+          this.companies = res.companies;
+        }
+      );
+    }
+
+
+    
 
   getUser(): void {
     this.isLoading = true;
@@ -80,10 +97,39 @@ this.user = this.userService.user;
       this.router.navigateByUrl('/login');
 
     }
-      this.id = this.user.id;
+      this.user_id = this.user.id;
       this.isLoading = false;
   }
 
+   addColaboradors() {
+        
+        const data = {
+          user_id: this.userprofile.id,
+          company_id: this.company_id
+        }
+        
+        this.companyService.addColaborador(this.company_id, data).subscribe(
+          (res: any) => {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Colaborador agregado',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          },
+          (error) => {
+            console.error('Error:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error al agregar colaborador',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        )       
+    }
   
   iniciarFormulario(id:number){
     // const id = this.route.snapshot.paramMap.get('id');

@@ -31,7 +31,8 @@
                     </div>
                     <p>Cargando información...</p>
                 </div>
-                <form [formGroup]="eventoForm" method="POST" (ngSubmit)="onSubmit()" class="form-horizontal form-material" *ngIf="!loading">
+                <form [formGroup]="eventoForm" method="POST" (ngSubmit)="onSubmit()"
+                    class="form-horizontal form-material" *ngIf="!loading">
 
                     <div class="row">
 
@@ -39,14 +40,20 @@
                             <label class="col-md-3">Título <span class="text-danger">*</span></label>
                             <div class="">
                                 <input type="text" formControlName="name" class="form-control" placeholder="Title">
-    
+
                             </div>
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                             <label class="col-md-3">Empresa </label>
                             <div class="">
-                                <input type="text" formControlName="company" class="form-control" placeholder="Empresa">
-    
+                                <select name="" id="" [(ngModel)]="company_id" [ngModelOptions]="{standalone: true}"
+                                    class="form-control" (change)="addEvento(event.id)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let company of companies" [value]="company.id"
+                                        [selected]="company_id === company.id">
+                                        {{ company.name }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -65,8 +72,8 @@
                                 <label class="col-12">Fecha inicio <span class="text-danger">*</span> </label>
                                 <div class="col-md-9">
                                     <div *ngIf="fecha_inicio.value" class="mt-1 text-muted">
-+                                        {{ fecha_inicio.value | date:'dd/MM/yyyy' }}
-+                                    </div>
+                                        + {{ fecha_inicio.value | date:'dd/MM/yyyy' }}
+                                        + </div>
                                     <input type="date" formControlName="fecha_inicio" class="form-control">
                                 </div>
                             </div>
@@ -77,8 +84,8 @@
                                 <label class="col-12">Fecha fin </label>
                                 <div class="col-md-9">
                                     <div *ngIf="fecha_fin.value" class="mt-1 text-muted">
-+                                        {{ fecha_fin.value | date:'dd/MM/yyyy' }}
-+                                    </div>
+                                        + {{ fecha_fin.value | date:'dd/MM/yyyy' }}
+                                        + </div>
                                     <input type="date" formControlName="fecha_fin" class="form-control">
                                 </div>
                             </div>
@@ -88,7 +95,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4">
                             <div class="form-group form-row">
-                                <label >Precio General ($) <span class="text-danger">*</span></label>
+                                <label>Precio General ($) <span class="text-danger">*</span></label>
                                 <div class="col-md-9">
                                     <input type="number" min="0" formControlName="precio_general" class="form-control">
                                 </div>
@@ -97,31 +104,33 @@
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="form-group form-row">
-                                <label >Precio Especialistas ($) </label>
+                                <label>Precio Especialistas ($) </label>
                                 <div class="col-md-9">
-                                    <input type="number" min="0" formControlName="precio_especialistas" class="form-control">
+                                    <input type="number" min="0" formControlName="precio_especialistas"
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="form-group form-row">
-                                <label >Precio Estudiantes ($) </label>
+                                <label>Precio Estudiantes ($) </label>
                                 <div class="col-md-9">
-                                    <input type="number" min="0" formControlName="precio_estudiantes" class="form-control">
+                                    <input type="number" min="0" formControlName="precio_estudiantes"
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    
 
 
-                    
+
+
 
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            
-                            
+
+
                             <div class="form-group form-row">
                                 <label class="col-12">Status</label>
                                 <div class="col-md-9">
@@ -150,16 +159,19 @@
                                         <!-- <label class="local-top"> {{'formulario.Picture'|translate}}<span class="login-danger">*</span></label> -->
                                         <div class="settings-btn upload-files-avator">
                                             <label for="file" class="upload labelgoogle">
-                                                <input type="file" accept="image/*" name="image" id="file" (change)="loadFile($event)" class="hide-input input">
+                                                <input type="file" accept="image/*" name="image" id="file"
+                                                    (change)="loadFile($event)" class="hide-input input">
                                                 <span class="label__name">
                                                     {{'Select a Photo'}}
                                                 </span>
                                             </label>
                                         </div>
                                     </div>
-                                    <img [src]="event?.avatar | imagenPipe: 'events'" class=" shadow" style="width: 100%; height: auto;">
+                                    <img [src]="event?.avatar | imagenPipe: 'events'" class=" shadow"
+                                        style="width: 100%; height: auto;">
                                     <div *ngIf="FILE_AVATAR">
-                                        <img [src]="IMAGE_PREVISUALIZA | imagenPipe: 'events'" style="width: 250px;" alt="">
+                                        <img [src]="IMAGE_PREVISUALIZA | imagenPipe: 'events'" style="width: 250px;"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
