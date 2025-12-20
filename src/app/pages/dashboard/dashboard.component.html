@@ -11,6 +11,7 @@
             </div>
         </div>
     </div>
+    <app-notificador *ngIf="role === 'SUPERADMIN' || role === 'ADMIN'"></app-notificador>
 
 <div *ngIf="role === 'GUEST' ">
     <div class="row animated fadeInUp">
@@ -133,6 +134,8 @@
         </div>
     </div>
 
+    
+
     <div class="col-12 col-sm-4 col-md-4 ">
         <div class="card shadow" style="padding: 10px; border-left: green 2px solid;">
             <app-tasadiabcv></app-tasadiabcv>
@@ -140,3 +143,4 @@
     </div>
     <app-recentpayments></app-recentpayments>
 </div>
+

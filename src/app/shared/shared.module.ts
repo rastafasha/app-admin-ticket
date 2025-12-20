@@ -12,6 +12,7 @@ import { BackbreadcumComponent } from './backbreadcum/backbreadcum.component';
 import { Breadc2Component } from './breadc2/breadc2.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { NotificadorComponent } from './notificador/notificador.component';
 
 // Pipes
 //import { PipesModule } from '../pipes/pipes.module';
@@ -34,7 +35,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
         LoadingComponent,
         BackbreadcumComponent,
         ProgressBarComponent,
-        Breadc2Component
+        Breadc2Component,
+        NotificadorComponent
     ],
     exports: [
         HeaderComponent,
@@ -43,7 +45,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
         BannerplanesComponent,
         LoadingComponent,
         BackbreadcumComponent,
-        Breadc2Component
+        Breadc2Component,
+        NotificadorComponent
     ]
 })
 
