@@ -8,12 +8,16 @@ import { Chart } from 'chart.js/auto';
 })
 export class LineChartComponent implements OnChanges {
   public chart: Chart;
+  @Input() tickets_disponibles: any;
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log('ngOnChanges called with calificaciones:', this.calificaciones);
-    // if (changes['calificaciones'] && this.calificaciones && this.calificaciones.length > 0) {
-    //   this.createChart();
-    // }
+    console.log('ngOnChanges called with tickets_disponibles:', this.tickets_disponibles);
+    if (changes['tickets_disponibles'] && this.tickets_disponibles !== undefined) {
+      this.createChart();
+    }
+  }
+  event(arg0: string, event: any) {
+    throw new Error('Method not implemented.');
   }
 
   createChart() {
@@ -42,7 +46,7 @@ export class LineChartComponent implements OnChanges {
       return color;
     }
 
-    // Group calificaciones by materia.name
+    // Group event by materia.name
     const grouped: { [key: string]: number[] } = {};
     // if (this.calificaciones) {
     //   this.calificaciones.forEach((calificacion) => {

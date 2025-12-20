@@ -70,6 +70,7 @@ export class EventoEditComponent {
             precio_general: res.event.precio_general,
             precio_estudiantes: res.event.precio_estudiantes,
             precio_especialistas: res.event.precio_especialistas,
+            tickets_disponibles: res.event.tickets_disponibles,
             fecha_inicio: res.event.fecha_inicio,
             fecha_fin: res.event.fecha_fin,
             status: res.event.status,
@@ -97,6 +98,7 @@ export class EventoEditComponent {
       precio_general: [''],
       precio_estudiantes: [''],
       precio_especialistas: [''],
+      tickets_disponibles: [''],
       fecha_inicio: [''],
       fecha_fin: [''],
       status: [''],
@@ -175,6 +177,7 @@ export class EventoEditComponent {
   get precio_general() { return this.eventoForm.get('precio_general'); }
   get precio_estudiantes() { return this.eventoForm.get('precio_estudiantes'); }
   get precio_especialistas() { return this.eventoForm.get('precio_especialistas'); }
+  get tickets_disponibles() { return this.eventoForm.get('tickets_disponibles'); }
   get fecha_inicio() { return this.eventoForm.get('fecha_inicio'); }
   get fecha_fin() { return this.eventoForm.get('fecha_fin'); }
   get status() { return this.eventoForm.get('status'); }
@@ -189,6 +192,7 @@ export class EventoEditComponent {
     formData.append('precio_general', this.eventoForm.get('precio_general').value);
     formData.append('precio_estudiantes', this.eventoForm.get('precio_estudiantes').value);
     formData.append('precio_especialistas', this.eventoForm.get('precio_especialistas').value);
+    formData.append('tickets_disponibles', this.eventoForm.get('tickets_disponibles').value);
     formData.append('fecha_inicio', this.eventoForm.get('fecha_inicio').value);
     formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
     formData.append('status', this.eventoForm.get('status').value);

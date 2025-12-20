@@ -7,6 +7,7 @@ export class Evento {
     user_id: number;
     client_id: number;
     company_id: number;
+    tickets_disponibles: number;
     name: string = "";
     description: string = "";
     fecha_inicio: Date;

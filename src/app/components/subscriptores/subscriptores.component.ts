@@ -40,6 +40,7 @@ export class SubscriptoresComponent implements OnChanges{
     payments: Payment[] = [];
     eventPaymentCounts: { [eventId: number]: number } = {};
     paymentscount: number = 0;
+    tickets_disponibles: number = 0;
     
     ServerUrl = environment.url_servicios;
   
@@ -73,6 +74,7 @@ export class SubscriptoresComponent implements OnChanges{
       this.eventoService.getClientsbyEvent(this.eventProfile.id).subscribe(
         (res: any) => {
           this.event = res.event;
+          this.tickets_disponibles = res.event.tickets_disponibles;
           console.log(res)
           this.clients = res.event.clients.map(client => ({
             ...client,

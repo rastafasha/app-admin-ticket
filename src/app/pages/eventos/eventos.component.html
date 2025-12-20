@@ -71,6 +71,7 @@
                                 <th>P General</th>
                                 <th>P Estudiantes</th>
                                 <th>P Especialistas</th>
+                                <th>Cantidad Tickets</th>
                                 <th>Status</th>
                                 <th>Destacado</th>
                                 <th class="text-nowrap">Acciones</th>
@@ -92,6 +93,7 @@
                                 <td>{{evento.precio_general | currency}}</td>
                                 <td>{{evento.precio_estudiantes | currency}}</td>
                                 <td>{{evento.precio_especialistas | currency}}</td>
+                                <td>{{evento.tickets_disponibles}}</td>
                                 <td>
                                     <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Publicado</span>
                                     <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
