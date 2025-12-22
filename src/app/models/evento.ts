@@ -1,4 +1,6 @@
 import { environment } from "src/environments/environment";
+import { Company } from "./company";
+import { Pais } from "./pais";
 const base_url = environment.url_media;
 
 export class Evento {
@@ -8,6 +10,8 @@ export class Evento {
     client_id: number;
     company_id: number;
     pais_id: number;
+    company: Company;
+    pais: Pais;
     tickets_disponibles: number;
     name: string = "";
     description: string = "";

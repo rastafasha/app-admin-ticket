@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { ClientService } from 'src/app/services/client.service';
 import { Payment } from 'src/app/models/payment';
 import { AuthService } from 'src/app/services/auth.service';
+import { Cliente } from 'src/app/models/cliente';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +21,7 @@ export class ListComponent {
   
     loading = false;
     usersCount = 0;
-    clientes: any;
+    clientes: Cliente;
     user: any;
     roles;
     isLoading:boolean=false;
@@ -59,7 +60,7 @@ export class ListComponent {
       this.isLoading = true;
       this.clientService.getAll().subscribe(
         (res:any) =>{
-          this.clientes = res.clientes;
+          this.clientes = res.clientes.data;
           error => this.error = error;
           this.isLoading = false;
           // console.log(this.parents);

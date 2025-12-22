@@ -1,8 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Dashboard } from 'src/app/models/dashboard';
 import { Evento } from 'src/app/models/evento';
-import { Parent } from 'src/app/models/parents';
 import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { EventoService } from 'src/app/services/evento.service';
@@ -24,7 +22,6 @@ export class DashboardComponent implements OnInit {
    showGenero: boolean = false;
      showNacimiento: boolean = false;
   user: any;
-  parentprofile:Parent;
   role:any;
   query:string ='';
   total_clients:Dashboard;

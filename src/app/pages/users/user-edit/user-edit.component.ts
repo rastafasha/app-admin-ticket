@@ -81,7 +81,7 @@ this.user = this.userService.user;
   getCompanies() {
       this.companyService.getAll().subscribe(
         (res:any) => {
-          this.companies = res.companies;
+          this.companies = res.companies.data;
         }
       );
     }

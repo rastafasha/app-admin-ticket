@@ -68,6 +68,7 @@
                             <tr>
                                 <th>Imagen</th>
                                 <th>Nombre</th>
+                                <th>País</th>
                                 
                                 <th class="text-nowrap">Acciones</th>
                             </tr>
@@ -83,6 +84,9 @@
                                 <td>
                                     <a [routerLink]="['/dashboard/company/detail/', company.id]">{{company.name}}</a>
 
+                                </td>
+                                 <td>
+                                    {{company.pais.title}}
                                 </td>
                                 <td class="text-nowrap text-center">
 

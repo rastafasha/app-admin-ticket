@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
 import { ClientService } from 'src/app/services/client.service';
-import { Parent } from 'src/app/models/parents';
+import { Cliente } from 'src/app/models/cliente';
 import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento';
 import { EventoService } from 'src/app/services/evento.service';
@@ -22,7 +22,7 @@ export class PaymentDetailsComponent implements OnInit {
   error: string;
   event_id: number;
   client_id: number;
-  cliente: Parent;
+  cliente: Cliente;
   event: Evento;
   isLoading: boolean = false;
 

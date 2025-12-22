@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Parent } from '../models/parents';
+import { Cliente } from '../models/cliente';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,9 +12,9 @@ const baseUrl = environment.url_servicios;
 })
 export class ClientService {
 
-   public user: Parent;
-    public recientes: Parent;
-    public identity: Parent;
+   public user: Cliente;
+    public recientes: Cliente;
+    public identity: Cliente;
     // public role: Role;
     error:string;
   

@@ -8,19 +8,20 @@ import { CompanyService } from 'src/app/services/company.service';
   templateUrl: './Companylist.component.html',
   styleUrls: ['./Companylist.component.css']
 })
-export class CompanyListComponent  {
+export class CompanyListComponent {
 
   public companies: Company[] = [];
-  isLoading:boolean=false;
+  isLoading: boolean = false;
   title = "Lista de Empresas";
   p: number = 1;
-      id: number = 1;
-      count: number = 8;
+  id: number = 1;
+  count: number = 8;
+  query: string = '';
 
   constructor(
     private companyService: CompanyService
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -31,9 +32,9 @@ export class CompanyListComponent  {
     this.isLoading = true;
     this.companyService.getAll().subscribe(
       (data: any) => {
-        this.companies = data.companies;
-         this.isLoading = false;
-      
+        this.companies = data.companies.data;
+        this.isLoading = false;
+
       },
       (error) => {
         console.error('Error fetching companies', error);
@@ -51,6 +52,21 @@ export class CompanyListComponent  {
         console.error('Error deleting company', error);
       }
     );
+  }
+
+  search() {
+    return this.companyService.search(this.query).subscribe(
+      (res: any) => {
+        this.companies = res
+        if (!this.query) {
+          this.loadCompanies();
+        }
+      });
+  }
+
+  public PageSize(): void {
+    this.loadCompanies();
+    this.query = '';
   }
 
 }

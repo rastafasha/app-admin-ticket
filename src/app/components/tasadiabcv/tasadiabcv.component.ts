@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Parent } from 'src/app/models/parents';
-import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/users';
 import { TasabcvService } from 'src/app/services/tasabcv.service';
 
 @Component({
@@ -11,8 +10,6 @@ import { TasabcvService } from 'src/app/services/tasabcv.service';
 export class TasadiabcvComponent {
 
   isLoading:boolean = false;
-  isProfile:boolean = false;
-  public profile: Parent = new Parent();
   precio_dia!:number;
   precio_fecha!:Date;
   user:any;

@@ -1,4 +1,5 @@
 import { environment } from "src/environments/environment";
+import { Pais } from "./pais";
 const base_url = environment.url_media;
 
 export class Company {
@@ -8,6 +9,7 @@ export class Company {
     client_id: number;
     event_id: number;
     pais_id: number;
+    pais: Pais;
     name: string = "";
     description: string = "";
     created_at: string = "";

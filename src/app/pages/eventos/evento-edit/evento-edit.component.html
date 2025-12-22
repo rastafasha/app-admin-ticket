@@ -46,11 +46,12 @@
                         <div class="form-group col-xs-12 col-sm-6">
                             <label class="col-md-3">Empresa </label>
                             <div class="">
-                                <select name="" id="" formControlName="company_id"
+                                <select name="company_id"  formControlName="company_id"
                                     class="form-control" >
                                     <option value="">Select</option>
+                                    <!-- [selected]="company_id === company.id" -->
                                     <option *ngFor="let company of companies" [value]="company.id"
-                                        [selected]="company_id === company.id">
+                                        >
                                         {{ company.name }}
                                     </option>
                                 </select>
@@ -60,6 +61,7 @@
                             <label class="col-md-3">Pais <span class="text-danger">*</span></label>
                             <div class="">
                                 <select formControlName="pais_id" class="form-control" name="pais_id">
+                                    <option value="">Select</option>
                                     <option *ngFor="let pais of countries" [value]="pais.id">
                                         {{pais.code}} | {{pais.title}}
                                     </option>

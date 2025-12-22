@@ -56,12 +56,11 @@ export class EventoEditComponent {
 
     this.user = this.authService.userprofile;
     this.getPaisesList();
+    this.getCompanies();
 
     const id = this.route.snapshot.paramMap.get('id');
 
     this.event_id = +this.route.snapshot.paramMap.get('id');
-
-
     if (id) {
       this.title = 'Edit Evento';
       this.loading = true;
@@ -79,12 +78,13 @@ export class EventoEditComponent {
             fecha_fin: res.event.fecha_fin,
             status: res.event.status,
             company_id: res.event.company_id,
+            pais_id: res.event.pais_id,
             is_featured: res.event.is_featured == 1 ? true : false,
             id: res.event.id,
             event_id: res.event.id
           });
           this.imagePath = res.event.image;
-          console.log(res)
+          // console.log(res)
 
           this.event = res.event;
           this.loading = false;
@@ -107,17 +107,18 @@ export class EventoEditComponent {
       fecha_fin: [''],
       status: [''],
       company_id: [''],
+      pais_id: [''],
       is_featured: [''],
       imagen: [''],
     });
 
-    this.getCompanies();
+    
   }
 
   getCompanies() {
     this.companyService.getAll().subscribe(
       (res: any) => {
-        this.companies = res.companies;
+        this.companies = res.companies.data;
       }
     );
   }
@@ -126,46 +127,11 @@ export class EventoEditComponent {
     this.paisService.getCountries().subscribe(
       (resp:any) =>{
         this.countries = resp.paises;
-        console.log(this.countries);
+        // console.log(this.countries);
 
       }
     )
   }
-
-
-
-  addEvento() {
-
-    // const data = {
-    //   event_id: this.event.id,
-    //   company_id: this.company_id
-    // }
-
-    // this.companyService.addEvent(this.company_id, data).subscribe(
-    //   (res: any) => {
-    //     Swal.fire({
-    //       position: 'top-end',
-    //       icon: 'success',
-    //       title: 'Evento agregado',
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //   },
-    //   (error) => {
-    //     console.error('Error:', error);
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Error',
-    //       text: 'Error al agregar evento',
-    //       showConfirmButton: false,
-    //       timer: 2000,
-    //     });
-    //   }
-    // )
-  }
-
-
-
 
   onSelectedFile(event) {
     if (event.target.files.length > 0) {

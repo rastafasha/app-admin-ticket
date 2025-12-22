@@ -1,6 +1,6 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { Parent } from 'src/app/models/parents';
+import { Cliente } from 'src/app/models/cliente';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
 import { environment } from 'src/environments/environment';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listapayments.component.css']
 })
 export class ListapaymentsComponent {
-   @Input() userprofile: Parent;
+   @Input() userprofile: Cliente;
   
     title = 'Padres';
     isLoading = false;

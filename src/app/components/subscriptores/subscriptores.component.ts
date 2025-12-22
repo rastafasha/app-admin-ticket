@@ -1,7 +1,7 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Evento } from 'src/app/models/evento';
-import { Parent } from 'src/app/models/parents';
+import { Cliente } from 'src/app/models/cliente';
 import { Payment } from 'src/app/models/payment';
 import { EventoService } from 'src/app/services/evento.service';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -22,8 +22,8 @@ export class SubscriptoresComponent implements OnChanges{
     usersCount = 0;
     event: Evento;
     eventos: Evento;
-    clients: Parent[];
-    filteredClients: Parent[];
+    clients: Cliente[];
+    filteredClients: Cliente[];
     client_id: number;
     events: Evento[] = [];
     clienteProfile: any;

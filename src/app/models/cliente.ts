@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
 const base_url = environment.url_media;
 
-export class Parent {
+export class Cliente {
 
     id: number;
     // role_id: number = 3; // 3 = Rol miembro

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientService } from 'src/app/services/client.service';
-import { Parent } from 'src/app/models/parents';
+import { Cliente } from 'src/app/models/cliente';
 import Swal from 'sweetalert2';
 import { Payment } from 'src/app/models/payment';
 import { Evento } from 'src/app/models/evento';
@@ -27,14 +27,14 @@ export class ClientdetailComponent {
   
     identity: any;
   
-    user: Parent;
-    parent: Parent;
+    user: Cliente;
+    parent: Cliente;
     payments: Payment;
     events: Evento;
-    userprofile: Parent;
+    userprofile: Cliente;
   
     roles:any;
-    profileSeleccionado: Parent;
+    profileSeleccionado: Cliente;
   
     user_id: any;
     representante_id: any;
