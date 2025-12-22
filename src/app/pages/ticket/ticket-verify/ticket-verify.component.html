@@ -1,0 +1,98 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+    <app-backbreadcum [title]="title"></app-backbreadcum>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="row animated fadeInUp" *ngIf="!isLoading">
+
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- buscador -->
+                    <form class="form-horizontal">
+                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                            <div class="input-group">
+                                <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                    placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                    class="form-control border-0 bg-light">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"
+                                        (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                            class="fa fa-search"></i></button>
+                                    <a href="javascript:;" (click)="PageSize()"
+                                        class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                            class="fa fa-refresh"></i></a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="card recent-sales overflow-auto border-radio" *ngIf="query">
+
+                <div class="card-body">
+
+                    <div class="card pagodetail border-radio">
+                        <div class="row">
+
+                            <div class="col-xs-12  col-md-6 col-sm-6">
+                                <p><b>Referencia:</b> {{ticket?.referencia}}</p>
+                                <p><b>Comprado:</b> {{client?.name}} {{client?.email}}</p>
+                                <p><b>Compartido por:</b> {{comprado?.name}} {{comprado?.email}}</p>
+                                <p><b>Usado por:</b> {{client?.name}} {{client?.email}}</p>
+                                <p><b>Evento:</b> {{event?.name}}</p>
+                                <p><b>Empresa:</b> {{company?.name}}</p>
+                                <p><b>Status: &nbsp;</b>
+                                    <span class="badge bg-success" *ngIf="ticket?.status === 'ACTIVE'">Activo</span>
+                                    <span class="badge bg-primary" *ngIf="ticket?.status === 'SHARED'">Compartido</span>
+                                    <span class="badge bg-success" *ngIf="ticket?.status === 'SHAREDACTIVE'">Recibido Activado</span>
+                                    <span class="badge bg-primary" *ngIf="ticket?.status === 'PENDING'">Pendiente</span>
+                                    <span class="badge bg-danger" *ngIf="ticket?.status === 'USADO'">Usado</span>
+                                    <span class="badge bg-danger" *ngIf="ticket?.status === 'EXPIRED'">Expirado</span>
+                                </p>
+                                <p><b>Fecha del Evento:</b> {{event?.fecha_inicio | date}}</p>
+                                
+    
+    
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-4">
+                                        <select class="form-control form-select-solid fw-bolder" name="status"
+                                            [(ngModel)]="ticket.status" (change)="cambiarStatus(ticket)"
+                                            placeholder="status">
+                                            <option value="">Seleccione</option>
+                                            <option value="ACTIVE">Activo</option>
+                                            <option value="USADO">Pendiente</option>
+                                            <option value="EXPIRED">Expirado </option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+    
+                                <div class="py-3" >
+                                    <a (click)="verifyTicket(ticket.referencia)" class="cursor" data-toggle="tooltip"
+                                        data-original-title="Edit">
+                                        <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Verificar</div>
+                                    </a>
+    
+                                </div>
+                            </div>
+                            <div class="col-xs-12  col-md-6 col-sm-6">
+    
+                                <img [src]="ticket?.qr_code " style="width:100%; padding: 10px;
+                    border: 1px solid #ccc;
+                    margin-top: 30px;" class="shadow" alt="">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+</div>
+<!--/main-->

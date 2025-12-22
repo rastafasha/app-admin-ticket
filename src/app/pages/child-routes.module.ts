@@ -23,6 +23,7 @@ import { EventoEditComponent } from './eventos/evento-edit/evento-edit.component
 import { CompanyListComponent } from './company/list/Companylist.component';
 import { EditCompanyComponent } from './company/edit/edit.component';
 import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
+import { TicketVerifyComponent } from './ticket/ticket-verify/ticket-verify.component';
 
 const childRoutes: Routes = [
 
@@ -62,6 +63,8 @@ const childRoutes: Routes = [
             { path: 'company/edit/:id', component: EditCompanyComponent},
             { path: 'company/detail/:id', component: CompanyDetailComponent},
             { path: 'companies/partner/:id', component: CompanyListComponent},
+
+            { path: 'ticket/verify', component: TicketVerifyComponent},
 
     { path: '', redirectTo: 'admin', pathMatch: 'full' },
     { path: '**', component:  DashboardComponent },

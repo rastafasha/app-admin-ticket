@@ -34,6 +34,7 @@ import { EventosModule } from './eventos/eventos.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ConfigModule } from './config/config.module';
 import { CompanyModule } from './company/company.module';
+import { TicketModule } from './ticket/ticket.module';
 
 
 
@@ -75,7 +76,8 @@ import { CompanyModule } from './company/company.module';
     EventosModule,
     NgxChartsModule,
      ConfigModule,
-     CompanyModule
+     CompanyModule,
+     TicketModule
 ]
 })
 
