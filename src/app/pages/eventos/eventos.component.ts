@@ -70,7 +70,7 @@ export class EventosComponent {
         this.isLoading = true;
         this.eventosService.getAll().subscribe(
           (res:any) =>{
-            this.eventos = res.events;
+            this.eventos = res.events.data;
             error => this.error = error;
             this.isLoading = false;
             // console.log(this.students);

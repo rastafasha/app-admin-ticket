@@ -227,9 +227,9 @@
                                             <div class="col-xs-12 col-md-6" *ngIf="user.roles[0] === 'SUPERADMIN' || user.roles[0] === 'ADMIN'">
                                                 <label for="exampleInputEmail1">Empresa</label>
                                                 <div class="">
-                                                    <select name="" id="" [(ngModel)]="company_id" [ngModelOptions]="{standalone: true}" class="form-control" (change)="addColaboradors(user.id)" >
+                                                    <select name="company_id" id="" [(ngModel)]="company_id" [ngModelOptions]="{standalone: true}" class="form-control" (change)="addColaboradors(user.id)" >
                                                         <option value="">Select</option>
-                                                        <option *ngFor="let company of companies" [value]="company.id" [selected]="company_id === company.id"  >
+                                                        <option *ngFor="let company of companies" [value]="company.id"   >
                                                             {{ company.name }}
                                                         </option>
                                                     </select>
