@@ -8,11 +8,11 @@ import { Chart } from 'chart.js/auto';
 })
 export class LineChartComponent implements OnChanges {
   public chart: Chart;
-  @Input() tickets_disponibles: any;
+  @Input() filteredClients: any;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges called with tickets_disponibles:', this.tickets_disponibles);
-    if (changes['tickets_disponibles'] && this.tickets_disponibles !== undefined) {
+    console.log('ngOnChanges called with filteredClients:', this.filteredClients);
+    if (changes['filteredClients'] && this.filteredClients !== undefined) {
       this.createChart();
     }
   }
@@ -46,25 +46,24 @@ export class LineChartComponent implements OnChanges {
       return color;
     }
 
-    // Group event by materia.name
+    // Group event by client.gender
     const grouped: { [key: string]: number[] } = {};
-    // if (this.calificaciones) {
-    //   this.calificaciones.forEach((calificacion) => {
-    //     const materiaName = calificacion.materia?.name || 'Unknown';
-    //     if (!grouped[materiaName]) {
-    //       grouped[materiaName] = new Array(12).fill(0);
-    //     }
-    //     const dataArray = grouped[materiaName];
-    //     // Use created_at date to get month index
-    //     const createdAt = calificacion['created_at'] ? new Date(calificacion['created_at']) : null;
-    //     const monthIndex = createdAt ? createdAt.getMonth() : 0;
-    //     dataArray[monthIndex] = calificacion.grade || 0;
-    //   });
-    // }
+    if (this.filteredClients) {
+      this.filteredClients.forEach((client) => {
+        const date = new Date(client.created_at);
+        const month = date.getMonth(); // 0-based month index
+        const gender = client.gender || 'Desconocido';
 
-    const datasets = Object.keys(grouped).map((materiaName) => ({
-      label: materiaName,
-      data: grouped[materiaName],
+        if (!grouped[gender]) {
+          grouped[gender] = new Array(12).fill(0);
+        }
+        grouped[gender][month] += 1; // Increment count for the month
+      });
+    }
+
+    const datasets = Object.keys(grouped).map((gender) => ({
+      label: gender,
+      data: grouped[gender],
       fill: false,
       borderColor: getRandomColor(),
       tension: 0.1,

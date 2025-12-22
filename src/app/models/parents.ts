@@ -12,6 +12,7 @@ export class Parent {
     email: string = "";
     password?: string = "";
     token: string = "";
+    pais_id: number;
     is_active: number = 0;
     created_at: string = "";
     image: string = "";

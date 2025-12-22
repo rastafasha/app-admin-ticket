@@ -30,7 +30,7 @@
 
                 </div>
             </div>
-            <div class="card recent-sales overflow-auto border-radio" *ngIf="query">
+            <div class="card recent-sales overflow-auto border-radio" *ngIf="query && ticket">
 
                 <div class="card-body">
 
@@ -43,20 +43,22 @@
                                 <p><b>Compartido por:</b> {{comprado?.name}} {{comprado?.email}}</p>
                                 <p><b>Usado por:</b> {{client?.name}} {{client?.email}}</p>
                                 <p><b>Evento:</b> {{event?.name}}</p>
+                                
+
                                 <p><b>Empresa:</b> {{company?.name}}</p>
                                 <p><b>Status: &nbsp;</b>
                                     <span class="badge bg-success" *ngIf="ticket?.status === 'ACTIVE'">Activo</span>
                                     <span class="badge bg-primary" *ngIf="ticket?.status === 'SHARED'">Compartido</span>
                                     <span class="badge bg-success" *ngIf="ticket?.status === 'SHAREDACTIVE'">Recibido Activado</span>
                                     <span class="badge bg-primary" *ngIf="ticket?.status === 'PENDING'">Pendiente</span>
-                                    <span class="badge bg-danger" *ngIf="ticket?.status === 'USADO'">Usado</span>
+                                    <span class="badge bg-success" *ngIf="ticket?.status === 'USED'">Verificado</span>
                                     <span class="badge bg-danger" *ngIf="ticket?.status === 'EXPIRED'">Expirado</span>
                                 </p>
                                 <p><b>Fecha del Evento:</b> {{event?.fecha_inicio | date}}</p>
                                 
     
     
-                                <div class="row">
+                                <div class="row" *ngIf="ticket?.status !== 'USED' && ticket?.status !== 'EXPIRED'">
                                     <div class="col-xs-12 col-sm-4">
                                         <select class="form-control form-select-solid fw-bolder" name="status"
                                             [(ngModel)]="ticket.status" (change)="cambiarStatus(ticket)"
@@ -70,7 +72,19 @@
                                 </div>
     
     
-                                <div class="py-3" >
+                                <div class="py-3" *ngIf="ticket?.status === 'USED' ">
+                                    <div class="alert alert-success" role="alert">
+                                        <strong>Ticket Verificado</strong>
+                                    </div>
+
+                                    <p><b>Verificar Asisitencia:</b>
+                                    <a [routerLink]="['/dashboard/evento/detail/', event_id]"><i class="fa fa-edit"></i> Ver
+                                            Evento
+                                    </a>
+                                </p>
+    
+                                </div>
+                                <div class="py-3" *ngIf="ticket?.status !== 'USED' && ticket?.status !== 'EXPIRED'">
                                     <a (click)="verifyTicket(ticket.referencia)" class="cursor" data-toggle="tooltip"
                                         data-original-title="Edit">
                                         <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Verificar</div>

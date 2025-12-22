@@ -50,6 +50,7 @@ export class TicketVerifyComponent {
       } else {
         this.verificationResult = 'Ticket is invalid.';
       }
+      this.search();
     }, (error) => {
       this.isLoading = false;
       this.verificationResult = 'Error verifying ticket.';
@@ -126,6 +127,23 @@ export class TicketVerifyComponent {
         this.company = res.company;
       }
     ) 
+  }
+
+  cambiarStatus(ticket:any){
+    const data = {
+      client_id: ticket.client_id,
+      event_id: ticket.event_id,
+      from_id: ticket.from_id,
+      company_id: ticket.company_id,
+      referencia: ticket.referencia,
+      status: ticket.status
+    };
+    this.ticketService.update( data, ticket.id).subscribe(
+      (res:any)=>{
+        console.log(res);
+        this.search();
+      }
+    )
   }
 
 }

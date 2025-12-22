@@ -1,5 +1,5 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Evento } from 'src/app/models/evento';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './pagos-evento.component.html',
   styleUrls: ['./pagos-evento.component.css']
 })
-export class PagosEventoComponent implements OnChanges{
+export class PagosEventoComponent implements OnInit, OnChanges{
   @Input() eventprofile:Evento;
 
   isLoading = false;
@@ -18,7 +18,7 @@ export class PagosEventoComponent implements OnChanges{
   
     loading = false;
     usersCount = 0;
-    payments: Payment;
+    payments: Payment[] = [];
     studentprofile: Evento;
     p: number = 1;
     count: number = 8;
@@ -29,10 +29,9 @@ export class PagosEventoComponent implements OnChanges{
     query: string = '';
   
     ServerUrl = environment.url_servicios;
-    doctores;
-    // role:any;
   
     selectedStudentProfile: Evento;
+    totalPagos: number = 0;
   
     constructor(
       private paymentService: PaymentService,
@@ -63,6 +62,7 @@ export class PagosEventoComponent implements OnChanges{
         (res: any) => {
           this.payments = res;
           this.isLoading = false;
+          this.totalPagos = this.payments.reduce((total, pago) => total + Number(pago.monto), 0);
         },
         (error) => {
           this.error = error;

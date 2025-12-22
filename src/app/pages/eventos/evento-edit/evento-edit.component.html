@@ -56,6 +56,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <label class="col-md-3">Pais <span class="text-danger">*</span></label>
+                            <div class="">
+                                <select formControlName="pais_id" class="form-control" name="pais_id">
+                                    <option *ngFor="let pais of countries" [value]="pais.id">
+                                        {{pais.code}} | {{pais.title}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group form-row">

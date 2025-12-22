@@ -1,12 +1,17 @@
 <!-- =======| Main |======= -->
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+
+     
     <app-backbreadcum [title]="title" ></app-backbreadcum>
     <app-loading *ngIf="isLoading"></app-loading>
     <div class="row animated fadeInUp" *ngIf="!isLoading">
         
         
         <section class="section dashboard">
-            <div class="row mb-5">
+
+            <details>
+            <summary class="h5"><i class="fa fa-line-chart "></i></summary>
+                 <div class="row mb-5">
                 <div class="col-xs-12 col-sm-8">
                 <app-bar-chart [payments]="payments"></app-bar-chart>
                 <!-- <app-line-chart  ></app-line-chart> -->
@@ -16,6 +21,8 @@
 
             </div>
         </div>
+        </details>
+           
             <div class="row">
                         <div class="col-xs-12">
                             <!-- buscador -->

@@ -74,11 +74,13 @@ export class TicketService {
         .pipe(catchError(this.handleError));
     }
   
-    update(ticket, id: number) {
-      return this.http
-        .post<any>(this.serverUrl + "/ticket/update/" + id, ticket)
-        .pipe(catchError(this.handleError));
-    }
+    update(data: any, id: number) {
+    return this.http.post<any>(
+      baseUrl + "/ticket/update/" + id,
+      data,
+      this.headers
+    );
+  }
   
     delete(id: number) {
       return this.http

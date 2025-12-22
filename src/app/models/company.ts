@@ -7,6 +7,7 @@ export class Company {
     user_id: number;
     client_id: number;
     event_id: number;
+    pais_id: number;
     name: string = "";
     description: string = "";
     created_at: string = "";

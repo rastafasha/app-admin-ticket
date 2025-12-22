@@ -11,6 +11,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { EventoService } from 'src/app/services/evento.service';
 import { Evento } from 'src/app/models/evento';
 import { CompanyService } from 'src/app/services/company.service';
+import { Pais } from 'src/app/models/pais';
+import { PaisService } from 'src/app/services/pais.service';
 @Component({
   selector: 'app-evento-edit',
   templateUrl: './evento-edit.component.html',
@@ -38,20 +40,22 @@ export class EventoEditComponent {
 
 
   companies: any[] = [];
+  public countries: Pais;
 
   constructor(
     private fb: FormBuilder,
     private evntoService: EventoService,
     private companyService: CompanyService,
-    private router: Router,
     private route: ActivatedRoute,
     private location: Location,
     private authService: AuthService,
+    private paisService: PaisService,
   ) { }
 
   ngOnInit() {
 
     this.user = this.authService.userprofile;
+    this.getPaisesList();
 
     const id = this.route.snapshot.paramMap.get('id');
 
@@ -116,6 +120,16 @@ export class EventoEditComponent {
         this.companies = res.companies;
       }
     );
+  }
+
+    getPaisesList(){
+    this.paisService.getCountries().subscribe(
+      (resp:any) =>{
+        this.countries = resp.paises;
+        console.log(this.countries);
+
+      }
+    )
   }
 
 
@@ -183,6 +197,7 @@ export class EventoEditComponent {
   get status() { return this.eventoForm.get('status'); }
   get company_id() { return this.eventoForm.get('company_id'); }
   get is_featured() { return this.eventoForm.get('is_featured' + ''); }
+  get pais_id() { return this.eventoForm.get('pais_id'); }
 
   onSubmit() {
 
@@ -197,6 +212,7 @@ export class EventoEditComponent {
     formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
     formData.append('status', this.eventoForm.get('status').value);
     formData.append('company_id', this.eventoForm.get('company_id').value);
+    formData.append('pais_id', this.eventoForm.get('pais_id').value);
     formData.append('is_featured', this.eventoForm.get('is_featured').value ? '1' : '0');
     // formData.append('image', this.eventoForm.get('image').value);
 
