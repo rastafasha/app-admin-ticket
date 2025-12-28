@@ -1,0 +1,84 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+    <app-backbreadcum [title]="title"></app-backbreadcum>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="row animated fadeInUp" *ngIf="!isLoading">
+
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- buscador -->
+                    <form class="form-horizontal">
+                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                            <div class="input-group">
+                                <input type="search" name="search" type="text" class="form-control col-xs-12"
+                                    placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1"
+                                    class="form-control border-0 bg-light">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"
+                                        (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                            class="fa fa-search"></i></button>
+                                    <a href="javascript:;" (click)="PageSize()"
+                                        class="btn btn-primary doctor-refresh ms-2 circle"><i
+                                            class="fa fa-refresh"></i></a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+                    <!-- buscador -->
+                    <div class="py-3" >
+                        <a [routerLink]="['/dashboard/category/create']" class="cursor" data-toggle="tooltip"
+                            data-original-title="Edit">
+                            <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card recent-sales overflow-auto border-radio">
+
+                <div class="card-body">
+
+                    <table [ngClass]="loading? 'table table-borderless datatable':'table table-borderless'">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th class="text-nowrap">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let cat of categories  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
+                                
+
+                                <td>{{cat.name}}</td>
+
+                                <td class="text-nowrap text-center">
+
+                                    <a [routerLink]="['/dashboard/category/edit/', cat.id]" class="cursor"
+                                        data-toggle="tooltip" data-original-title="Edit">
+                                        <div class="btn btn-success"><i class="fa fa-edit"></i></div>
+                                    </a>
+                                    <a (click)="eliminarCat(cat.id)" class="cursor" data-toggle="tooltip"
+                                        data-original-title="Borrar">
+                                        <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+</div>
+<!--/main-->

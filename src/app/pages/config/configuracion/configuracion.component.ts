@@ -17,6 +17,10 @@ export class ConfiguracionComponent implements OnInit, OnChanges {
   error: string;
   uploadError: string;
   imagePath: string;
+  isLoading: boolean = false;
+  
+   public option_selected: number = 1;
+  public solicitud_selected: any = null;
 
   configForm: UntypedFormGroup;
 
@@ -153,5 +157,18 @@ text_validation: any = null;
         editor.ui.getEditableElement()
     );
   }
+
+  optionSelected(value: number) {
+      this.option_selected = value;
+      if (this.option_selected === 1) {
+        // this.ngOnInit();
+      }
+      if (this.option_selected === 2) {
+        this.solicitud_selected = null;
+      }
+      if (this.option_selected === 3) {
+        this.solicitud_selected = null;
+      }
+    }
 
 }

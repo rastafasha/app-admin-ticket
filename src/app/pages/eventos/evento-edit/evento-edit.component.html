@@ -44,6 +44,19 @@
                             </div>
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
+                            <label class="col-md-3">Categoría </label>
+                            <div class="">
+                                <select name="category_id"  formControlName="category_id"
+                                    class="form-control" >
+                                    <option value="">Select</option>
+                                    <option *ngFor="let category of categories" [value]="category.id"
+                                        >
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6">
                             <label class="col-md-3">Empresa </label>
                             <div class="">
                                 <select name="company_id"  formControlName="company_id"

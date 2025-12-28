@@ -13,6 +13,8 @@ import { Evento } from 'src/app/models/evento';
 import { CompanyService } from 'src/app/services/company.service';
 import { Pais } from 'src/app/models/pais';
 import { PaisService } from 'src/app/services/pais.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { Category } from 'src/app/models/category';
 @Component({
   selector: 'app-evento-edit',
   templateUrl: './evento-edit.component.html',
@@ -41,11 +43,13 @@ export class EventoEditComponent {
 
   companies: any[] = [];
   public countries: Pais;
+  categories: Category;
 
   constructor(
     private fb: FormBuilder,
     private evntoService: EventoService,
     private companyService: CompanyService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private location: Location,
     private authService: AuthService,
@@ -54,9 +58,10 @@ export class EventoEditComponent {
 
   ngOnInit() {
 
-    this.user = this.authService.userprofile;
+    this.getCategories();
     this.getPaisesList();
     this.getCompanies();
+    this.user = this.authService.userprofile;
 
     const id = this.route.snapshot.paramMap.get('id');
 
@@ -79,6 +84,7 @@ export class EventoEditComponent {
             status: res.event.status,
             company_id: res.event.company_id,
             pais_id: res.event.pais_id,
+            category_id: res.event.category_id,
             is_featured: res.event.is_featured == 1 ? true : false,
             id: res.event.id,
             event_id: res.event.id
@@ -108,6 +114,7 @@ export class EventoEditComponent {
       status: [''],
       company_id: [''],
       pais_id: [''],
+      category_id: [''],
       is_featured: [''],
       imagen: [''],
     });
@@ -122,8 +129,16 @@ export class EventoEditComponent {
       }
     );
   }
+  
+  getCategories() {
+    this.categoryService.getAll().subscribe(
+      (res: any) => {
+        this.categories = res.categories;
+      }
+    );
+  }
 
-    getPaisesList(){
+  getPaisesList(){
     this.paisService.getCountries().subscribe(
       (resp:any) =>{
         this.countries = resp.paises;
@@ -164,6 +179,7 @@ export class EventoEditComponent {
   get company_id() { return this.eventoForm.get('company_id'); }
   get is_featured() { return this.eventoForm.get('is_featured' + ''); }
   get pais_id() { return this.eventoForm.get('pais_id'); }
+  get category_id() { return this.eventoForm.get('category_id'); }
 
   onSubmit() {
 
@@ -179,6 +195,7 @@ export class EventoEditComponent {
     formData.append('status', this.eventoForm.get('status').value);
     formData.append('company_id', this.eventoForm.get('company_id').value);
     formData.append('pais_id', this.eventoForm.get('pais_id').value);
+    formData.append('category_id', this.eventoForm.get('category_id').value);
     formData.append('is_featured', this.eventoForm.get('is_featured').value ? '1' : '0');
     // formData.append('image', this.eventoForm.get('image').value);
 

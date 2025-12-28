@@ -11,13 +11,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CategoriaComponent } from './categoria/categoria.component';
+import { CatEditComponent } from './categoria/cat-edit/cat-edit.component';
 
 
 
 @NgModule({
   declarations: [
     ConfigComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    CategoriaComponent,
+    CatEditComponent
   ],
   imports: [
     CommonModule,

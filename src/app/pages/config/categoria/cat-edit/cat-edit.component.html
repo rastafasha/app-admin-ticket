@@ -1,0 +1,48 @@
+
+
+<app-backbreadcum [title]="title"></app-backbreadcum>
+
+
+
+
+<div class="row">
+    <div class="col-12 animated fadeInUp">
+        <div class="card">
+            <div class="card-body slider-form">
+                <div *ngIf="loading" class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p>Cargando información...</p>
+                </div>
+                <form [formGroup]="categoryForm" method="POST" (ngSubmit)="onSubmit()"
+                    class="form-horizontal form-material" *ngIf="!loading">
+
+                    <div class="row">
+
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <label class="col-md-3">Título <span class="text-danger">*</span></label>
+                            <div class="">
+                                <input type="text" formControlName="name" class="form-control" placeholder="Nombre de la Categoría">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-row">
+                            <label class="col-md-3"></label>
+                            <div class="col-md-9">
+                                <input type="hidden" formControlName="id">
+                                <button type="submit" [disabled]="!eventoForm.valid"
+                                    class="btn btn-outline-success">Guardar</button>
+                            </div>
+                        </div>
+
+                </form>
+
+
+            </div>
+            {{error}}
+        </div>
+    </div>
+</div>

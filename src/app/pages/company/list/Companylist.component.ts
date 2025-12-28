@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Company } from 'src/app/models/company';
+import { AuthService } from 'src/app/services/auth.service';
 import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
@@ -19,12 +20,14 @@ export class CompanyListComponent {
   query: string = '';
 
   constructor(
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    public authService: AuthService,
   ) {
 
   }
 
   ngOnInit(): void {
+    this.authService.closeMenu();
     this.loadCompanies();
   }
 
