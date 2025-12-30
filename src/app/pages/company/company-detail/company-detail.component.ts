@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 export class CompanyDetailComponent {
 
   title = 'Detalles del Evento';
+  detino = 'companies';
     profileForm: FormGroup;
     imagePath: string;
     error: string;

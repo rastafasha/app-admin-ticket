@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { single } from './data';
+import { Component, Input, SimpleChanges, OnInit } from '@angular/core';
 import { GraficoService } from 'src/app/services/grafico.service';
 import { EventoService } from 'src/app/services/evento.service';
+import { PaisService } from 'src/app/services/pais.service';
+import { Pais } from 'src/app/models/pais';
 
 interface Grafico {
   name: string;
@@ -12,9 +13,9 @@ interface Grafico {
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss']
 })
-export class PieChartComponent {
+export class PieChartComponent implements OnInit {
   //  single: any[];
-  view: [number,number] = [700, 400];
+  view: [number,number] = [500, 300];
   @Input() event;
 
   // options
@@ -26,9 +27,22 @@ export class PieChartComponent {
   error: string;
   filteredClients: any[];
   clients: any[];
+  pais_id:number;
+  pais:Pais;
+  paises: Pais[] = [];
+  
+  // Data for charts
+  dataCountry: Grafico[] = [];
+  dataGender: Grafico[] = [];
+  dataGenderLabel: { [key: number]: string } = {
+    0: 'Femenino',
+    1: 'Masculino',
+    2: 'Otro',
+    3: 'Prefiero no decir'
+  };
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#FF8042', '#00b5ad']
   };
 
 
@@ -51,47 +65,47 @@ export class PieChartComponent {
   }
 ];
 
-  getgraficoData(){
-    return this.data;
-  }
 
-  randomData(){
-      this.data = [
-  {
-    "name": "Germany",
-    "value": Math.random() * 1000000
-  },
-  {
-    "name": "USA",
-    "value": Math.random() * 1000000
-  },
-  {
-    "name": "France",
-    "value": Math.random() * 1000000
-  },
-    {
-    "name": "UK",
-    "value": Math.random() * 1000000
-  }
-]
-  }
+  
 
   constructor(
      private eventoService: EventoService,
-
+     private paiservice: PaisService,
   ) {
     // Object.assign(this, { single });
   }
 
+  ngOnInit(): void {
+    // this.loadPaises();
+  }
+
+  loadPaises(callback?: () => void): void {
+    this.paiservice.getPaises().subscribe(
+      (res: any) => {
+        this.paises = res.paises;
+        // Execute callback if provided (to process data after countries are loaded)
+        if (callback) {
+          callback();
+        }
+      },
+      (error) => {
+        console.error('Error loading countries:', error);
+      }
+    );
+  }
+
+   ngOnChanges(changes: SimpleChanges) {
+      console.log('ngOnChanges called with filteredClients:', this.event);
+      if (changes['event'] && this.event !== undefined) {
+       this.getClientesEvento()
+      }
+    }
+
   get single(){
-    return this.getgraficoData();
+    return this.getClientesEvento();
   }
 
-  onRandomData(){
-    this.randomData();
-  }
-
-  getEventos(): void {
+  getClientesEvento(): void {
       if (!this.event || !this.event.id) {
         this.isLoading = false;
         this.error = 'User profile is not defined';
@@ -108,12 +122,14 @@ export class PieChartComponent {
           }));
 
           this.filteredClients = this.clients;
-          // this.name = this.event.name;
-          // this.value = this.event.name;
 
           this.filteredClients = this.event.clients;
-
-
+          console.log(this.event);
+          
+          // Process data for charts
+          this.processDataByCountry();
+          this.processDataByGender();
+          
           this.isLoading = false;
         },
         (error) => {
@@ -121,6 +137,71 @@ export class PieChartComponent {
           this.isLoading = false;
         }
       );
+    }
+
+    /**
+     * Process clients data to group by country
+     */
+    processDataByCountry(): void {
+      if (!this.event?.clients) {
+        this.dataCountry = [];
+        return;
+      }
+
+      // Ensure paises is initialized
+      if (!this.paises || !this.paises.length) {
+        this.loadPaises(() => this.processDataByCountry());
+        return;
+      }
+
+      const countryCount: { [key: number]: number } = {};
+
+      // Count clients per country
+      this.event.clients.forEach(client => {
+        if (client.pais_id) {
+          countryCount[client.pais_id] = (countryCount[client.pais_id] || 0) + 1;
+        }
+      });
+
+      // Create chart data with country names
+      this.dataCountry = Object.keys(countryCount).map(paisId => {
+        const pais = this.paises.find(p => p.id === Number(paisId));
+        return {
+          name: pais ? pais.title : `País ${paisId}`,
+          value: countryCount[Number(paisId)]
+        };
+      });
+
+      console.log('Data by country:', this.dataCountry);
+    }
+
+    /**
+     * Process clients data to group by gender
+     */
+    processDataByGender(): void {
+      if (!this.event?.clients) {
+        this.dataGender = [];
+        return;
+      }
+
+      const genderCount: { [key: number]: number } = {};
+
+      // Count clients per gender
+      this.event.clients.forEach(client => {
+        if (client.gender !== undefined && client.gender !== null) {
+          genderCount[client.gender] = (genderCount[client.gender] || 0) + 1;
+        }
+      });
+
+      // Create chart data with gender labels
+      this.dataGender = Object.keys(genderCount).map(genderId => {
+        return {
+          name: this.dataGenderLabel[Number(genderId)] || `Género ${genderId}`,
+          value: genderCount[Number(genderId)]
+        };
+      });
+
+      console.log('Data by gender:', this.dataGender);
     }
 
   onSelect(data:any): void {

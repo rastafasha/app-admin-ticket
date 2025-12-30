@@ -1,7 +1,7 @@
 <!-- =======| Main |======= -->
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
 
-    <app-breadc2 [title]="title" ></app-breadc2>
+    <app-breadc2 [title]="title" [detino]="detino" ></app-breadc2>
     <app-loading *ngIf="isLoading"></app-loading>
     <div class="row animated fadeInUp" *ngIf="!isLoading">
         <section class="section dashboard">

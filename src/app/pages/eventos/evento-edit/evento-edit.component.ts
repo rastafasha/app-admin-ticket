@@ -24,6 +24,7 @@ export class EventoEditComponent {
 
   imageUrl = environment.url_media;
 
+  detino: 'eventos';
   title: string;
   error: string;
   uploadError: string;

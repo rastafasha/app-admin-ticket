@@ -15,6 +15,7 @@ import { Evento } from 'src/app/models/evento';
 export class ClientdetailComponent {
   
     title = "Detalles de la cuenta";
+    detino = "clientes";
     profileForm: FormGroup;
     imagePath: string;
     error: string;

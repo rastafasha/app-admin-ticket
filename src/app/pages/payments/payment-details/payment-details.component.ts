@@ -18,6 +18,7 @@ export class PaymentDetailsComponent implements OnInit {
   @Input() eventProfile: Evento;
   
   title = "Detalle Pago";
+  detino = 'payments';
   payment: Payment;
   error: string;
   event_id: number;

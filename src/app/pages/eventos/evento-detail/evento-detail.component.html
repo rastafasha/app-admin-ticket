@@ -24,8 +24,8 @@
         </ol>
     </nav>
 </div> -->
-<app-backbreadcum [title]="title"></app-backbreadcum>
-
+<app-breadc2 [title]="title" [detino]="detino " *ngIf="role === 'SUPERADMIN' || role === 'ADMIN'"></app-breadc2>
+<app-backbreadcum [title]="title" *ngIf="role === 'PARTNER' "></app-backbreadcum>
 
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="users" *ngIf="!isLoading">
 

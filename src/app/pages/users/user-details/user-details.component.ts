@@ -18,7 +18,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class UserDetailsComponent implements OnInit {
 
   @Output() directorioUser : any;
-
+  detino = 'partners';
   title = "Detalles de la cuenta";
   profileForm: FormGroup;
   imagePath: string;

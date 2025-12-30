@@ -12,6 +12,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
+
+    
+  detino = 'partners';
    userForm: FormGroup;
     passwordForm: FormGroup;
     public formSumitted = false;

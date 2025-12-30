@@ -17,7 +17,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
-                <li class="breadcrumb-item"><a routerLink="/dashboard/payments">Pagos</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/dashboard/', detino]">{{detino}}</a></li>
                 <li class="breadcrumb-item active">{{title}}</li>
             </ol>
         </nav>

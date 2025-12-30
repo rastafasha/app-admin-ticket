@@ -16,7 +16,9 @@
     </div>
 </div> -->
 
-<app-backbreadcum [title]="title"></app-backbreadcum>
+<app-breadc2 [title]="title" [detino]="detino " *ngIf="user.roles[0] === 'SUPERADMIN' || user.roles[0] === 'ADMIN'"></app-breadc2>
+<app-backbreadcum [title]="title" *ngIf="user.roles[0] === 'PARTNER' "></app-backbreadcum>
+
 
 
 

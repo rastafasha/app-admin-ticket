@@ -16,6 +16,7 @@ import { CompanyService } from 'src/app/services/company.service';
 })
 export class EventoDetailComponent {
   title = 'Detalles del Evento';
+  detino = 'eventos';
   profileForm: FormGroup;
   imagePath: string;
   error: string;

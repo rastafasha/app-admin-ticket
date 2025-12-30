@@ -1,27 +1,5 @@
 <!-- =======| Main |======= -->
-<div class="col-12 animated fadeInUp">
-    <div class="card cardtop">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12 col-md-10 align-self-center">
-                    <h3 class="text-themecolor">{{title}}</h3>
-                </div>
-
-                <div class="col-12 col-sm-2">
-                    <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
-            <!-- <li class="breadcrumb-item"><a routerLink="/dashboard/directorio">Directorio</a></li> -->
-            <li class="breadcrumb-item active">{{title}}</li>
-        </ol>
-    </nav>
-</div>
+<app-breadc2 [title]="title" [detino]="detino "></app-breadc2>
 
 
 <div class="container animated fadeInUp" id="main" class="main" role="main" name="users">

@@ -22,6 +22,7 @@ interface HtmlInputEvent extends Event{
 })
 export class UserEditComponent implements OnInit {
 
+  detino = 'partners';
   userForm: FormGroup;
   passwordForm: FormGroup;
   profileForm: FormGroup;

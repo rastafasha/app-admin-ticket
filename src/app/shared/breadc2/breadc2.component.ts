@@ -8,6 +8,7 @@ import {  Location } from '@angular/common';
 })
 export class Breadc2Component {
     @Input() title
+    @Input() detino
     
     constructor (
         private location: Location,
