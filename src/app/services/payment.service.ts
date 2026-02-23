@@ -84,6 +84,14 @@ export class PaymentService {
         map((resp:{ok: boolean}) => resp)
         );
   }
+  getPagosStatusbyYear(year:number): Observable<any> {
+
+    const url = `${baseUrl}/payment/year/${year}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean}) => resp)
+        );
+  }
 
   deleteFoto(id) {
     return this.http.delete(baseUrl + '/payment/delete-foto/' + id);

@@ -25,6 +25,10 @@ export class PaymentsComponent implements OnInit {
   public user;
   query: string = '';
 
+  public selectedValue: number = new Date().getFullYear();
+  public query_income_year: any = [];
+   public ventasDataYear: any[] = [];
+
   constructor(
     private location: Location,
     private paymentService: PaymentService,
@@ -92,4 +96,33 @@ export class PaymentsComponent implements OnInit {
       }
     )
   }
+
+  selectedYear() {
+    console.log(this.selectedValue);
+    this.getDashboardAdminYear();
+  }
+  selecedList: any = [
+    { value: '2022' },
+    { value: '2023' },
+    { value: '2024' },
+    { value: '2025' },
+    { value: '2026' },
+    { value: '2027' },
+    { value: '2028' },
+    { value: '2029' },
+    { value: '2030' },
+  ];
+
+  getDashboardAdminYear() {
+    this.paymentService.getPagosStatusbyYear(this.selectedValue).subscribe((resp: any) => {
+      this.payments = resp.payments;
+      console.log(this.payments)
+
+    })
+  }
+
+
+
+
+
 }
