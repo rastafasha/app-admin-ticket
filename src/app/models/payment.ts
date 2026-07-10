@@ -1,6 +1,7 @@
 
 import { environment } from "src/environments/environment";
 import { User } from "./users";
+import { Cliente } from "./cliente";
 
 const base_url = environment.url_media;
 
@@ -8,6 +9,7 @@ export class Payment {
    id:number;
    user_id?:User;
    client_id?:number;
+   client?:Cliente;
    event_id?:number;
    metodo?:string;
    bank_name?:string;

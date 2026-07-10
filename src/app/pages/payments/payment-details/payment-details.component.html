@@ -1,66 +1,61 @@
 <!-- =======| Main |======= -->
-<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
 
-    <app-breadc2 [title]="title" [detino]="detino" ></app-breadc2>
-    <app-loading *ngIf="isLoading"></app-loading>
-    <div class="row animated fadeInUp" *ngIf="!isLoading">
-        <section class="section dashboard">
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="modal fade" id="viewPayment" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="catModalLabel">{{title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                 <section class="section dashboard">
 
             <div class="card pagodetail border-radio">
                 <div class="col-xs-12 col-sm-6">
-                    <p><b>Referencia:</b> {{payment.referencia}}</p>
+                    <p><b>Referencia:</b> {{pagoSeleccionado?.referencia}}</p>
                     <p><b>Status: &nbsp;</b>
-                        <span class="badge bg-success" *ngIf="payment.status === 'APPROVED'">Aprobado</span>
-                        <span class="badge bg-primary" *ngIf="payment.status === 'PENDING'">Pendiente</span>
-                        <span class="badge bg-danger" *ngIf="payment.status === 'REJECTED'">Rechazado</span>
+                        <span class="badge bg-success" *ngIf="pagoSeleccionado?.status === 'APPROVED'">Aprobado</span>
+                        <span class="badge bg-primary" *ngIf="pagoSeleccionado?.status === 'PENDING'">Pendiente</span>
+                        <span class="badge bg-danger" *ngIf="pagoSeleccionado?.status === 'REJECTED'">Rechazado</span>
                     </p>
                     <p><b>Status deuda: &nbsp;</b> 
-                        <!-- {{payment.status_deuda}} -->
-                    <span class="badge bg-success" *ngIf="payment.status_deuda === 'PAID'">Pagado</span>
-                        <span class="badge bg-warning" *ngIf="payment.status_deuda === null">Pendiente</span>
-                        <span class="badge bg-danger" *ngIf="payment.status_deuda === 'DEUDA'">Deuda</span>
+                        <!-- {{pagoSeleccionado?.status_deuda}} -->
+                    <span class="badge bg-success" *ngIf="pagoSeleccionado?.status_deuda === 'PAID'">Pagado</span>
+                        <span class="badge bg-warning" *ngIf="pagoSeleccionado?.status_deuda === null">Pendiente</span>
+                        <span class="badge bg-danger" *ngIf="pagoSeleccionado?.status_deuda === 'DEUDA'">Deuda</span>
                     </p>
-                    <p><b>Nombre de la cuenta:</b> {{payment.nombre}}</p>
-                    <p><b>email de la cuenta:</b> {{payment.email}}</p>
+                    <p><b>Nombre de la cuenta:</b> {{pagoSeleccionado?.nombre}}</p>
+                    <p><b>email de la cuenta:</b> {{pagoSeleccionado?.email}}</p>
                     <p><b>Cliente:</b> {{cliente?.name}} {{cliente?.surname}}</p>
                     <p><b>Evento:</b> {{event?.name}}</p>
                     <p><b>Fecha del Evento:</b> {{event?.fecha_inicio | date}}</p>
-                    <button class="btn btn-outline-primary" [routerLink]="['/dashboard/evento/detail/', payment.event_id]"> <i class="fa fa-eye"></i> </button>
-                    <p><b>Fecha | Hora del pago:</b> {{payment.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>Metodo de Pago:</b> {{payment.metodo}}</p>
-                    <div *ngIf="payment.bank_name">
-                        <p><b>Nombre del Banco:</b> {{payment.bank_name}}</p>
+                    <button class="btn btn-outline-primary" [routerLink]="['/dashboard/evento/detail/', pagoSeleccionado?.event_id]"> <i class="fa fa-eye"></i> </button>
+                    <p><b>Fecha | Hora del pago:</b> {{pagoSeleccionado?.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Metodo de Pago:</b> {{pagoSeleccionado?.metodo}}</p>
+                    <div *ngIf="pagoSeleccionado?.bank_name">
+                        <p><b>Nombre del Banco:</b> {{pagoSeleccionado?.bank_name}}</p>
                     </div>
                     <div >
-                        <p><b>Banco Destino:</b> {{payment.bank_destino}}</p>
+                        <p><b>Banco Destino:</b> {{pagoSeleccionado?.bank_destino}}</p>
                     </div>
 
                     <p><b>Monto:</b>
-                        <span *ngIf="payment.metodo ==='Transferencia Bolívares' || payment.metodo ==='payment Móvil'">
-                            {{payment.monto|currency:'Bs.'}}
+                        <span *ngIf="pagoSeleccionado?.metodo ==='Transferencia Bolívares' || pagoSeleccionado?.metodo ==='payment Móvil'">
+                            {{pagoSeleccionado?.monto|currency:'Bs.'}}
 
                         </span>
-                        <span *ngIf="payment.metodo ==='Transferencia Dólares'">
-                            {{payment.monto|currency}}
+                        <span *ngIf="pagoSeleccionado?.metodo ==='Transferencia Dólares'">
+                            {{pagoSeleccionado?.monto|currency}}
                         </span>
                     </p>
               
                     
-                    <div class="row">
-                    <div class="col-xs-12 col-sm-4">
-                        <select class="form-control form-select-solid fw-bolder" name="status" [(ngModel)]="payment.status"
-                        (change)="cambiarStatus(payment)" placeholder="status">
-                        <option value="">Seleccione</option>
-                        <option value="APPROVED">Aprobado</option>
-                        <option value="PENDING">Pendiente</option>
-                        <option value="REJECTED">Rechazado</option>
-                    </select>
-                    </div>
-                </div>
                 </div>
                 <div class="col-xs-12 col-sm-6">
 
-                    <img [src]="payment.avatar | imagenPipe: 'payments'" style="width:100%; padding: 10px;
+                    <img [src]="pagoSeleccionado?.avatar | imagenPipe: 'payments'" style="width:100%; padding: 10px;
                 border: 1px solid #ccc;
                 margin-top: 30px;" class="shadow" alt="">
                 </div>
@@ -70,6 +65,11 @@
 
 
         </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="onClose()">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
-<!-- End #main-->

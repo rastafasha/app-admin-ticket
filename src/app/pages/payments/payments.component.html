@@ -82,9 +82,15 @@
                                         alt="">
                                 </td>
                                 <th scope="row">
-                                    <a [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a>
+                                    <a class="cursor" data-toggle="tooltip" data-original-title="Edit"
+                                            (click)="openViewDetailPago(pago)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#viewPayment">{{pago.referencia}}</a>
                                 </th>
-                                <th><a [routerLink]="['/dashboard/cliente/detail/', pago.client_id]">{{pago.nombre}}</a>
+                                <th><a class="cursor" data-toggle="tooltip" data-original-title="Edit"
+                                            (click)="openViewDetail(pago.client)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#viewClient">{{pago.nombre}}</a>
                                 </th>
                                 <td>{{pago.bank_name}}</td>
                                 <td>{{pago.bank_destino}}</td>
@@ -140,6 +146,8 @@
                                     </select>
 
                                 </td>
+
+
                             </tr>
 
 
@@ -153,3 +161,5 @@
     </div>
 </div>
 <!-- End #main-->
+ <app-clientdetail [clientSeleccionado]="clientSeleccionado" #viewClient></app-clientdetail>
+ <app-payment-details [pagoSeleccionado]="pagoSeleccionado" #viewPayment></app-payment-details>

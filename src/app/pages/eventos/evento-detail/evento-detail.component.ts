@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -9,12 +9,16 @@ import { User } from 'src/app/models/users';
 import { UserService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CompanyService } from 'src/app/services/company.service';
+declare var bootstrap: any;
 @Component({
   selector: 'app-evento-detail',
   templateUrl: './evento-detail.component.html',
   styleUrls: ['./evento-detail.component.css'],
 })
-export class EventoDetailComponent {
+export class EventoDetailComponent implements OnInit, OnChanges {
+  @Input() eventoSeleccionado: Evento;
+
+
   title = 'Detalles del Evento';
   detino = 'eventos';
   profileForm: FormGroup;
@@ -41,10 +45,11 @@ export class EventoDetailComponent {
   errors: any = null;
   users: User[] = [];
   usersevento: User[] = [];
-user_empresa: any;
-event: Evento;
+  user_empresa: any;
+  event: Evento;
+  isOpen = false;
 
-role: any;
+  role: any;
   constructor(
     private location: Location,
     private eventoService: EventoService,
@@ -52,42 +57,43 @@ role: any;
     private userService: UserService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // window.scrollTo(0,0);
-    let USER = localStorage.getItem("user");
-    this.user = JSON.parse(USER);
-    this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
-
-    
-    this.closeMenu();
-    this.activatedRoute.params.subscribe(({ id }) => this.getEvento(id));
-    this.getUser();
-    
-    
   }
-  closeMenu() {
-    var menuLateral = document.getElementsByClassName('sidebar');
-    for (var i = 0; i < menuLateral.length; i++) {
-      menuLateral[i].classList.remove('active');
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
+    if (changes['eventoSeleccionado'] && this.eventoSeleccionado) {
+      console.log(this.eventoSeleccionado)
+      this.getEvento(this.eventoSeleccionado.id);
+      this.isOpen = true;
+
+      let USER = localStorage.getItem("user");
+      this.user = JSON.parse(USER);
+      this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
+
+      this.getUser();
     }
   }
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
+
+  
+    onClose() {
+    this.eventoSeleccionado = null;
   }
 
-   getUser() {
+  getUser() {
     const id = this.user.id
     this.userService.getUserById(+id).subscribe(
       (res: any) => {
         this.user = res.user;
         this.user_empresa = res.user.empresa;
         // this.getUsersEmpresa()
-        if(this.role === 'PARTNER' ){
+        if (this.role === 'PARTNER') {
           this.getUsersEmpresa();
         }
-        if(this.role ===  'ADMIN' || this.role ===  'SUPERADMIN'){
+        if (this.role === 'ADMIN' || this.role === 'SUPERADMIN') {
           this.activatedRoute.params.subscribe(({ id }) => this.getUserbyEvento(id));
         }
       },
@@ -96,8 +102,8 @@ role: any;
       }
     );
   }
- 
-  
+
+
 
   getEvento(id: number) {
     this.isLoading = true;
@@ -122,13 +128,13 @@ role: any;
       }
     );
     this.getUserbyEvento(+id);
-    
+
   }
 
-  
 
 
-  getUsersEmpresa(){
+
+  getUsersEmpresa() {
     this.companyService.usersById(this.company_id).subscribe(
       (res: any) => {
         this.users = res.company.users;
@@ -160,7 +166,7 @@ role: any;
       user_id: user_id,
       event_id: this.event_id
     }
-    this.eventoService.addColaborador( this.event_id, data).subscribe(
+    this.eventoService.addColaborador(this.event_id, data).subscribe(
       (res: any) => {
         Swal.fire({
           position: 'top-end',
@@ -171,15 +177,15 @@ role: any;
         });
         this.ngOnInit();
       }
-       )       
-    }
+    )
+  }
   removeColab(user_id: number) {
     this.event_id = this.event.id;
     const data = {
       user_id: user_id,
       event_id: this.event_id
     }
-    this.eventoService.removeColaborador( this.event_id, data).subscribe(
+    this.eventoService.removeColaborador(this.event_id, data).subscribe(
       (res: any) => {
         Swal.fire({
           position: 'top-end',
@@ -189,8 +195,8 @@ role: any;
           timer: 1500,
         });
         this.ngOnInit();
-      })       
-    }
+      })
+  }
 
 
   public onReady(editor: any) {
@@ -216,24 +222,4 @@ role: any;
     }
   }
 
-  cambiarStatus(eventprofile: any) {
-    const VALUE = eventprofile.status;
-
-    const data = {
-      status: VALUE 
-    }
-
-
-    this.eventoService.updateStatus(data, eventprofile.id ).subscribe((resp) => {
-      // console.log(resp);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Actualizado',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      this.ngOnInit();
-    });
-  }
 }

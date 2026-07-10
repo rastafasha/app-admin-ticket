@@ -1,231 +1,211 @@
-<!-- <div class="row page-titles">
-    <div class="col-12 animated fadeInLeft">
-        <div class="card cardtop">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-md-10 align-self-center">
-                        <h3 class="text-themecolor">{{pageTitle}}</h3>
-                    </div>
-                    <div class="col-12 col-sm-2">
-                        <button class="btn btn-outline-danger" href="javascript:void(0)"
-                            (click)="goBack()">Volver</button>
-                    </div>
-                </div>
+<div class="modal fade" id="editEvent" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="catModalLabel">{{title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onClose()"></button>
             </div>
-        </div>
-    </div>
-</div> -->
-
-<app-breadc2 [title]="title" [detino]="detino " *ngIf="user.roles[0] === 'SUPERADMIN' || user.roles[0] === 'ADMIN'"></app-breadc2>
-<app-backbreadcum [title]="title" *ngIf="user.roles[0] === 'PARTNER' "></app-backbreadcum>
-
-
-
-
-
-<div class="row">
-    <div class="col-12 animated fadeInUp">
-        <div class="card">
-            <div class="card-body slider-form">
-                <div *ngIf="loading" class="text-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <p>Cargando información...</p>
-                </div>
-                <form [formGroup]="eventoForm" method="POST" (ngSubmit)="onSubmit()"
-                    class="form-horizontal form-material" *ngIf="!loading">
-
+            <div class="modal-body">
+                <!-- <app-loading *ngIf="isLoading"></app-loading> -->
+                <div class="container">
                     <div class="row">
+                        <app-loading *ngIf="loading"></app-loading>
+                        <form [formGroup]="eventoForm" method="POST"  (ngSubmit)="onSubmit()"
+                            class="form-horizontal form-material" *ngIf="!loading">
 
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label class="col-md-3">Título <span class="text-danger">*</span></label>
-                            <div class="">
-                                <input type="text" formControlName="name" class="form-control" placeholder="Title">
+                            <div class="row">
 
-                            </div>
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label class="col-md-3">Categoría </label>
-                            <div class="">
-                                <select name="category_id"  formControlName="category_id"
-                                    class="form-control" >
-                                    <option value="">Select</option>
-                                    <option *ngFor="let category of categories" [value]="category.id"
-                                        >
-                                        {{ category.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label class="col-md-3">Empresa </label>
-                            <div class="">
-                                <select name="company_id"  formControlName="company_id"
-                                    class="form-control" >
-                                    <option value="">Select</option>
-                                    <!-- [selected]="company_id === company.id" -->
-                                    <option *ngFor="let company of companies" [value]="company.id"
-                                        >
-                                        {{ company.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label class="col-md-3">Pais <span class="text-danger">*</span></label>
-                            <div class="">
-                                <select formControlName="pais_id" class="form-control" name="pais_id">
-                                    <option value="">Select</option>
-                                    <option *ngFor="let pais of countries" [value]="pais.id">
-                                        {{pais.code}} | {{pais.title}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="form-group col-xs-12 col-sm-6">
+                                    <label class="col-md-3">Título <span class="text-danger">*</span></label>
+                                    <div class="">
+                                        <input type="text" formControlName="name" class="form-control"
+                                            placeholder="Title">
 
-                    <div class="form-group form-row">
-                        <label class="col-md-3">Descripción </label>
-                        <div class="col-xs-12">
-                            <!-- <ckeditor [(data)]="editorData" formControlName="description"  class="form-control"> </ckeditor> -->
-                            <textarea formControlName="description" class="form-control" rows="5"></textarea>
-                        </div>
-                    </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6">
+                                    <label class="col-md-3">Lugar <span class="text-danger">*</span></label>
+                                    <div class="">
+                                        <input type="text" formControlName="lugar" class="form-control"
+                                            placeholder="Lugar">
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="form-group form-row">
-                                <label class="col-12">Fecha inicio <span class="text-danger">*</span> </label>
-                                <div class="col-md-9">
-                                    <div *ngIf="fecha_inicio.value" class="mt-1 text-muted">
-                                        + {{ fecha_inicio.value | date:'dd/MM/yyyy' }}
-                                        + </div>
-                                    <input type="date" formControlName="fecha_inicio" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-4">
+                                    <label class="col-md-3">Categoría </label>
+                                    <div class="">
+                                        <select  formControlName="category_id" class="form-control">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let category of categories" [value]="category.id">
+                                                {{ category.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-4">
+                                    <label class="col-md-3">Empresa </label>
+                                    <div class="">
+                                        <select  formControlName="company_id" class="form-control">
+                                            <option value="">Select</option>
+                                            <!-- [selected]="company_id === company.id" -->
+                                            <option *ngFor="let company of companies" [value]="company.id">
+                                                {{ company.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-4">
+                                    <label class="col-md-3">Pais <span class="text-danger">*</span></label>
+                                    <div class="">
+                                        <select formControlName="pais_id" class="form-control" >
+                                            <option value="">Select</option>
+                                            <option *ngFor="let pais of countries" [value]="pais.id">
+                                                {{pais.code}} | {{pais.title}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
                             <div class="form-group form-row">
-                                <label class="col-12">Fecha fin </label>
-                                <div class="col-md-9">
-                                    <div *ngIf="fecha_fin.value" class="mt-1 text-muted">
-                                        + {{ fecha_fin.value | date:'dd/MM/yyyy' }}
-                                        + </div>
-                                    <input type="date" formControlName="fecha_fin" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="form-group form-row">
-                                <label>Precio General ($) <span class="text-danger">*</span></label>
-                                <div class="col-md-9">
-                                    <input type="number" min="0" formControlName="precio_general" class="form-control">
+                                <label class="col-md-3">Descripción </label>
+                                <div class="col-xs-12">
+                                    <!-- <ckeditor [(data)]="editorData" formControlName="description"  class="form-control"> </ckeditor> -->
+                                    <textarea formControlName="description" class="form-control" rows="5"></textarea>
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="form-group form-row">
-                                <label>Precio Especialistas ($) </label>
-                                <div class="col-md-9">
-                                    <input type="number" min="0" formControlName="precio_especialistas"
-                                        class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="form-group form-row">
-                                <label>Precio Estudiantes ($) </label>
-                                <div class="col-md-9">
-                                    <input type="number" min="0" formControlName="precio_estudiantes"
-                                        class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="form-group form-row">
-                                <label>Cantidad tickets  </label>
-                                <div class="col-md-9">
-                                    <input type="number" min="0" formControlName="tickets_disponibles"
-                                        class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-
-
-                            <div class="form-group form-row">
-                                <label class="col-12">Status</label>
-                                <div class="col-md-9">
-                                    <input type="radio" formControlName="status" value="PUBLISHED" /> Publicado
-                                    <input type="radio" formControlName="status" value="INACTIVE" /> Inactivo
-                                    <input type="radio" formControlName="status" value="FINISHED" /> Finalizado
-                                    <input type="radio" formControlName="status" value="RETIRED" /> Retirado
-                                </div>
-                            </div>
-                            <div class="form-group form-row">
-                                <label class="col-12">Destacado en el banner principal</label>
-                                <div class="col-md-9">
-                                    <input type="radio" formControlName="is_featured" [value]="true" /> Activo
-                                    <input type="radio" formControlName="is_featured" [value]="false" /> Inactivo
-                                    <!-- <p>Valor actual: {{ event?.is_featured ? '1' : '0' }}</p> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <div class="form-group form-row">
-                                <label class="col-12">Imagen Fondo (peso max: 500kb | medidas max:
-                                    1920x1080px)</label>
-                                <div class="col-md-9">
-                                    <!-- Foto -->
-                                    <div class="form-group local-top-form">
-                                        <!-- <label class="local-top"> {{'formulario.Picture'|translate}}<span class="login-danger">*</span></label> -->
-                                        <div class="settings-btn upload-files-avator">
-                                            <label for="file" class="upload labelgoogle">
-                                                <input type="file" accept="image/*" name="image" id="file"
-                                                    (change)="loadFile($event)" class="hide-input input">
-                                                <span class="label__name">
-                                                    {{'Select a Photo'}}
-                                                </span>
-                                            </label>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group form-row">
+                                        <label class="col-12">Fecha inicio <span class="text-danger">*</span> </label>
+                                        <div class="col-md-9">
+                                            <div *ngIf="fecha_inicio.value" class="mt-1 text-muted">
+                                                + {{ fecha_inicio.value | date:'dd/MM/yyyy' }}
+                                                + </div>
+                                            <input type="date" formControlName="fecha_inicio" class="form-control">
                                         </div>
                                     </div>
-                                    <img [src]="event?.avatar | imagenPipe: 'events'" class=" shadow"
-                                        style="width: 100%; height: auto;">
-                                    <div *ngIf="FILE_AVATAR">
-                                        <img [src]="IMAGE_PREVISUALIZA | imagenPipe: 'events'" style="width: 250px;"
-                                            alt="">
+
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group form-row">
+                                        <label class="col-12">Fecha fin </label>
+                                        <div class="col-md-9">
+                                            <div *ngIf="fecha_fin.value" class="mt-1 text-muted">
+                                                + {{ fecha_fin.value | date:'dd/MM/yyyy' }}
+                                                + </div>
+                                            <input type="date" formControlName="fecha_fin" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group form-row">
-                            <label class="col-md-3"></label>
-                            <div class="col-md-9">
-                                <input type="hidden" formControlName="id">
-                                <button type="submit" [disabled]="!eventoForm.valid"
-                                    class="btn btn-outline-success">Guardar</button>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-3">
+                                    <div class="form-group form-row">
+                                        <label>Precio General ($) <span class="text-danger">*</span></label>
+                                        <div class="col-md-9">
+                                            <input type="number" min="0" formControlName="precio_general"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <div class="form-group form-row">
+                                        <label>Precio Especialistas ($) </label>
+                                        <div class="col-md-9">
+                                            <input type="number" min="0" formControlName="precio_especialistas"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <div class="form-group form-row">
+                                        <label>Precio Estudiantes ($) </label>
+                                        <div class="col-md-9">
+                                            <input type="number" min="0" formControlName="precio_estudiantes"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <div class="form-group form-row">
+                                        <label>Cantidad tickets </label>
+                                        <div class="col-md-9">
+                                            <input type="number" min="0" formControlName="tickets_disponibles"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="form-group form-row">
+                                        <label class="col-12">Status</label>
+                                        <div class="col-md-9">
+                                            <input type="radio" formControlName="status" value="PUBLISHED" /> Publicado
+                                            <input type="radio" formControlName="status" value="INACTIVE" /> Inactivo
+                                            <input type="radio" formControlName="status" value="FINISHED" /> Finalizado
+                                            <input type="radio" formControlName="status" value="RETIRED" /> Retirado
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-row">
+                                        <label class="col-12">Destacado en el banner principal</label>
+                                        <div class="col-md-9">
+                                            <input type="radio" formControlName="is_featured" [value]="true" /> Activo
+                                            <input type="radio" formControlName="is_featured" [value]="false" />
+                                            Inactivo
+                                            <!-- <p>Valor actual: {{ event?.is_featured ? '1' : '0' }}</p> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="form-group form-row">
+                                        <label class="col-12">Imagen Fondo (peso max: 500kb | medidas max:
+                                            1920x1080px)</label>
+                                        <div class="col-md-9">
+                                            <!-- Foto -->
+                                            <div class="form-group local-top-form">
+                                                <!-- <label class="local-top"> {{'formulario.Picture'|translate}}<span class="login-danger">*</span></label> -->
+                                                <div class="settings-btn upload-files-avator">
+                                                    <label for="file" class="upload labelgoogle">
+                                                        <input type="file" accept="image/*" name="image" id="file"
+                                                            (change)="loadFile($event)" class="hide-input input">
+                                                        <span class="label__name">
+                                                            {{'Select a Photo'}}
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <img [src]="event?.avatar | imagenPipe: 'events'" class=" shadow"
+                                                style="width: 100%; height: auto;">
+                                            <div *ngIf="FILE_AVATAR">
+                                                <img [src]="IMAGE_PREVISUALIZA | imagenPipe: 'events'"
+                                                    style="width: 250px;" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-row">
+                                    <label class="col-md-3"></label>
+                                    <div class="col-md-9">
+                                        <input type="hidden" formControlName="id">
+                                        <button type="submit" [disabled]="!eventoForm.valid"
+                                            class="btn btn-outline-success">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
-
-
+                </div>
             </div>
-            {{error}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="onClose()">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>

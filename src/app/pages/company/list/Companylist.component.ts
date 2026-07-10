@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Company } from 'src/app/models/company';
 import { AuthService } from 'src/app/services/auth.service';
 import { CompanyService } from 'src/app/services/company.service';
@@ -10,6 +10,7 @@ import { CompanyService } from 'src/app/services/company.service';
   styleUrls: ['./Companylist.component.css']
 })
 export class CompanyListComponent {
+  @ViewChild('viewCompany', { static: false }) offcanvasElement!: ElementRef;
 
   public companies: Company[] = [];
   isLoading: boolean = false;
@@ -18,7 +19,7 @@ export class CompanyListComponent {
   id: number = 1;
   count: number = 8;
   query: string = '';
-
+  companySeleccionado: Company;
   constructor(
     private companyService: CompanyService,
     public authService: AuthService,
@@ -70,6 +71,28 @@ export class CompanyListComponent {
   public PageSize(): void {
     this.loadCompanies();
     this.query = '';
+  }
+
+   onEditProject(company: Company) {
+    this.companySeleccionado = company;
+  }
+
+  openEditModal(): void {
+    this.companySeleccionado = null;
+  }
+
+  openViewDetail(company: Company) {
+    this.companySeleccionado = company;
+    
+  }
+  
+
+  onCloseModal(): void {
+    this.companySeleccionado = null;
+  }
+
+  onClose() {
+    this.ngOnInit();
   }
 
 }

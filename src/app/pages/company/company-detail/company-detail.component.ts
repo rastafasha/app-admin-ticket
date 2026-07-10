@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from 'src/app/models/company';
@@ -14,7 +14,9 @@ import Swal from 'sweetalert2';
   templateUrl: './company-detail.component.html',
   styleUrls: ['./company-detail.component.css']
 })
-export class CompanyDetailComponent {
+export class CompanyDetailComponent implements OnInit, OnChanges{
+
+  @Input() companySeleccionado: Company;
 
   title = 'Detalles del Evento';
   detino = 'companies';
@@ -44,12 +46,11 @@ export class CompanyDetailComponent {
   user_empresa: any;
   company: Company;
   events: Evento;
+  isOpen = false;
   
   role: any;
     constructor(
       private companyService: CompanyService,
-      private userService: UserService,
-      private authService: AuthService,
       private activatedRoute: ActivatedRoute
     ) {}
   
@@ -58,15 +59,17 @@ export class CompanyDetailComponent {
       let USER = localStorage.getItem("user");
       this.user = JSON.parse(USER);
       this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
-  
-      
       this.closeMenu();
-      this.activatedRoute.params.subscribe(({ id }) => this.getCompany(id));
-      // this.getUser();
-      
-      
-      
     }
+
+    ngOnChanges(changes: SimpleChanges): void {
+    // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
+    if (changes['companySeleccionado'] && this.companySeleccionado) {
+      console.log(this.companySeleccionado)
+      this.getCompany(this.companySeleccionado.id);
+      this.isOpen = true;
+    }
+  }
     closeMenu() {
       var menuLateral = document.getElementsByClassName('sidebar');
       for (var i = 0; i < menuLateral.length; i++) {
@@ -74,7 +77,9 @@ export class CompanyDetailComponent {
       }
     }
    
-    
+    onClose() {
+    this.companySeleccionado = null;
+  }
   
     getCompany(id: number) {
       this.isLoading = true;

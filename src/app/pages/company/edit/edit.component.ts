@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -12,12 +12,18 @@ import { User } from 'src/app/models/users';
 import { AuthService } from 'src/app/services/auth.service';
 import { PaisService } from 'src/app/services/pais.service';
 import { Pais } from 'src/app/models/pais';
+
+declare var bootstrap: any;
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditCompanyComponent {
+export class EditCompanyComponent implements OnInit, OnChanges{
+
+  @Input() companySeleccionado;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshCatList: EventEmitter<void> = new EventEmitter<void>();
 
 
   imageUrl = environment.url_media;
@@ -31,12 +37,12 @@ export class EditCompanyComponent {
   company_id: number;
   public FILE_AVATAR: any;
   public IMAGE_PREVISUALIZA: any = "assets/img/user-06.jpg";
+  text_validation: any = null;
   public loading: boolean = false;
 
   companyForm: FormGroup;
   public Editor = ClassicEditor;
   public editorData = `<p>This is a CKEditor 4 WYSIWYG editor instance created with Angular.</p>`;
-  text_validation: any = null;
 
 
   public countries: Pais;
@@ -52,36 +58,59 @@ export class EditCompanyComponent {
   ) { }
 
   ngOnInit() {
-
     this.user = this.authService.userprofile;
-    this.getPaisesList();
+   this.validarFormulario();
 
-    const id = this.route.snapshot.paramMap.get('id');
+  }
 
-    this.company_id = +this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.title = 'Edit Empresa';
-      this.loading = true;
-      this.companyService.getById(+id).subscribe(
-        (res: any) => {
-          this.companyForm.patchValue({
-            name: res.company.name,
-            description: res.company.description,
-            pais_id: res.company.pais_id,
-            // image: res.company.image,
-          });
-          this.imagePath = res.company.image;
-          console.log(res)
+  ngOnChanges(changes: SimpleChanges): void {
 
-          this.event = res.event;
-          this.loading = false;
+    if (
+      changes['companySeleccionado'] &&
+      changes['companySeleccionado'].currentValue
+    ) {
+      this.title = 'Edit Company';
+      const company = changes['companySeleccionado'].currentValue;
+      
 
-        }
-      );
+      this.companyForm.patchValue({
+        id: company._id,
+        name: company.name,
+        description: company.description,
+        pais_id: company.pais_id,
+      });
+
+      this.companySeleccionado = company;
+      this.title = 'Editando Company';
     } else {
-      this.title = 'Create Evento';
+      this.title = 'Creando Company';
     }
+    this.getPaisesList();
+  }
 
+   onClose() {
+    this.companySeleccionado = null;
+    this.title = 'Creando Producto';
+
+    // 1. Reseteamos el formulario pasándole los valores iniciales limpios de un solo golpe
+    this.companyForm.reset({
+      id: null,
+      name: '',
+      description: '',
+      pais_id: '',
+      imagen: '',
+    });
+
+    // 2. 🚀 LA CLAVE: Forzamos a Angular a limpiar los estados de validación visuales (los bordes rojos/verdes)
+    this.companyForm.markAsPristine();
+    this.companyForm.markAsUntouched();
+    this.companyForm.updateValueAndValidity();
+
+    // Emitimos el evento al padre para limpiar cualquier variable externa
+    this.closeModal.emit();
+  }
+  
+ validarFormulario() {
     this.companyForm = this.fb.group({
       id: [''],
       name: [''],
@@ -91,23 +120,15 @@ export class EditCompanyComponent {
     });
   }
 
-
   getPaisesList(){
     this.paisService.getCountries().subscribe(
       (resp:any) =>{
         this.countries = resp.paises;
-        console.log(this.countries);
 
       }
     )
   }
 
-  onSelectedFile(event) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.companyForm.get('imagen').setValue(file);
-    }
-  }
 
   loadFile($event: any) {
     if ($event.target.files[0].type.indexOf("image")) {
@@ -138,8 +159,6 @@ export class EditCompanyComponent {
       formData.append("imagen", this.FILE_AVATAR);
     }
 
-
-
     const id = this.companyForm.get('id').value;
     formData.append('company_id', this.company_id.toString());
     formData.append('user_id', this.user.id.toString());
@@ -162,7 +181,13 @@ export class EditCompanyComponent {
               title: 'Exito!',
               text: 'Se Actualizó Correctamente'
             });
-            // this.router.navigate(['/prensa']);
+            const modalElement = document.getElementById('editCompany');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
+          this.refreshCatList.emit();
+          this.ngOnInit();
             this.loading = false;
 
           }
@@ -186,7 +211,13 @@ export class EditCompanyComponent {
               title: 'Exito!',
               text: 'Se Creó Correctamente!'
             });
-            // this.router.navigateByUrl('/');
+            const modalElement = document.getElementById('editCompany');
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
+          this.refreshCatList.emit();
+          this.ngOnInit();
             this.loading = false;
           }
         },

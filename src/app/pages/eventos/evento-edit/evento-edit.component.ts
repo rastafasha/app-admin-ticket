@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/users';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-
-import { Location } from '@angular/common';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { EventoService } from 'src/app/services/evento.service';
 import { Evento } from 'src/app/models/evento';
@@ -15,12 +13,18 @@ import { Pais } from 'src/app/models/pais';
 import { PaisService } from 'src/app/services/pais.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category';
+
+declare var bootstrap: any;
 @Component({
   selector: 'app-evento-edit',
   templateUrl: './evento-edit.component.html',
   styleUrls: ['./evento-edit.component.css']
 })
-export class EventoEditComponent {
+export class EventoEditComponent implements OnInit, OnChanges {
+
+  @Input() eventSeleccionado: Evento;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshCatList: EventEmitter<void> = new EventEmitter<void>();
 
   imageUrl = environment.url_media;
 
@@ -52,60 +56,115 @@ export class EventoEditComponent {
     private companyService: CompanyService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private location: Location,
     private authService: AuthService,
     private paisService: PaisService,
   ) { }
 
   ngOnInit() {
-
+    this.user = this.authService.userprofile;
+    this.validarFormulario();
     this.getCategories();
     this.getPaisesList();
     this.getCompanies();
-    this.user = this.authService.userprofile;
 
-    const id = this.route.snapshot.paramMap.get('id');
+  }
 
-    this.event_id = +this.route.snapshot.paramMap.get('id');
-    if (id) {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loading = true;
+
+    if (
+      changes['eventSeleccionado'] &&
+      changes['eventSeleccionado'].currentValue
+    ) {
       this.title = 'Edit Evento';
-      this.loading = true;
-      this.evntoService.getById(+id).subscribe(
-        (res: any) => {
-          this.eventoForm.patchValue({
-            name: res.event.name,
-            description: res.event.description,
-            boton: res.event.boton,
-            precio_general: res.event.precio_general,
-            precio_estudiantes: res.event.precio_estudiantes,
-            precio_especialistas: res.event.precio_especialistas,
-            tickets_disponibles: res.event.tickets_disponibles,
-            fecha_inicio: res.event.fecha_inicio,
-            fecha_fin: res.event.fecha_fin,
-            status: res.event.status,
-            company_id: res.event.company_id,
-            pais_id: res.event.pais_id,
-            category_id: res.event.category_id,
-            is_featured: res.event.is_featured == 1 ? true : false,
-            id: res.event.id,
-            event_id: res.event.id
-          });
-          this.imagePath = res.event.image;
-          // console.log(res)
+      const evento = changes['eventSeleccionado'].currentValue;
 
-          this.event = res.event;
-          this.loading = false;
-
-        }
-      );
-    } else {
-      this.title = 'Create Evento';
+      if (this.eventoForm.get('id')?.value === evento.id) {
+      return; 
     }
 
+      // 1. Corregir y formatear la fecha de inicio (Cambiar / por -)
+      const fechaInicioFormateada = evento.fecha_inicio
+        ? evento.fecha_inicio.replace(/\//g, '-')
+        : '';
+
+      // 2. Corregir y formatear la fecha de fin (Cambiar / por -)
+      const fechaFinFormateada = evento.fecha_fin
+        ? evento.fecha_fin.replace(/\//g, '-')
+        : '';
+
+      // 3. Aplicar el patchValue con los datos sanitizados e IDs extraídos
+     setTimeout(() => {
+      this.eventoForm.patchValue({
+        name: evento.name,
+        description: evento.description,
+        lugar: evento.lugar,
+        precio_general: Number(evento.precio_general),
+        precio_estudiantes: Number(evento.precio_estudiantes),
+        precio_especialistas: Number(evento.precio_especialistas),
+        tickets_disponibles: evento.tickets_disponibles,
+
+        // Aseguramos conversión explícita a número por si la base de datos lo mandó como String
+        category_id: Number(evento.category_id || (evento.category ? evento.category.id : 0)),
+        company_id: Number(evento.company_id || (evento.company ? evento.company.id : 0)),
+        pais_id: Number(evento.pais_id || (evento.pais ? evento.pais.id : 0)),
+
+        fecha_inicio: fechaInicioFormateada,
+        fecha_fin: fechaFinFormateada,
+
+        status: evento.status,
+        is_featured: Number(evento.is_featured) === 1,
+        id: evento.id,
+        event_id: evento.id
+      });
+    }, 50); 
+
+    } else {
+      this.title = 'Creando Evento';
+    }
+    this.loading = false;
+    
+  }
+
+  onClose() {
+    this.eventSeleccionado = null;
+    this.title = 'Creando Evento';
+
+    // 1. Reseteamos el formulario pasándole los valores iniciales limpios de un solo golpe
+    this.eventoForm.reset({
+      id: null,
+      name: '',
+      description: '',
+      lugar: '',
+      precio_general: '',
+      precio_estudiantes: '',
+      precio_especialistas: '',
+      tickets_disponibles: '',
+      fecha_inicio: '',
+      fecha_fin: '',
+      status: '',
+      company_id: '',
+      pais_id: '',
+      category_id: '',
+      is_featured: '',
+      imagen: '',
+    });
+
+    // 2. 🚀 LA CLAVE: Forzamos a Angular a limpiar los estados de validación visuales (los bordes rojos/verdes)
+    this.eventoForm.markAsPristine();
+    this.eventoForm.markAsUntouched();
+    this.eventoForm.updateValueAndValidity();
+
+    // Emitimos el evento al padre para limpiar cualquier variable externa
+    this.closeModal.emit();
+  }
+
+  validarFormulario() {
     this.eventoForm = this.fb.group({
       id: [''],
       name: [''],
       description: [''],
+      lugar: [''],
       precio_general: [''],
       precio_estudiantes: [''],
       precio_especialistas: [''],
@@ -119,8 +178,6 @@ export class EventoEditComponent {
       is_featured: [''],
       imagen: [''],
     });
-
-    
   }
 
   getCompanies() {
@@ -130,7 +187,7 @@ export class EventoEditComponent {
       }
     );
   }
-  
+
   getCategories() {
     this.categoryService.getAll().subscribe(
       (res: any) => {
@@ -139,11 +196,10 @@ export class EventoEditComponent {
     );
   }
 
-  getPaisesList(){
+  getPaisesList() {
     this.paisService.getCountries().subscribe(
-      (resp:any) =>{
+      (resp: any) => {
         this.countries = resp.paises;
-        // console.log(this.countries);
 
       }
     )
@@ -177,9 +233,10 @@ export class EventoEditComponent {
   get fecha_inicio() { return this.eventoForm.get('fecha_inicio'); }
   get fecha_fin() { return this.eventoForm.get('fecha_fin'); }
   get status() { return this.eventoForm.get('status'); }
-  get company_id() { return this.eventoForm.get('company_id'); }
   get is_featured() { return this.eventoForm.get('is_featured' + ''); }
+  get lugar() { return this.eventoForm.get('lugar'); }
   get pais_id() { return this.eventoForm.get('pais_id'); }
+  get company_id() { return this.eventoForm.get('company_id'); }
   get category_id() { return this.eventoForm.get('category_id'); }
 
   onSubmit() {
@@ -194,6 +251,7 @@ export class EventoEditComponent {
     formData.append('fecha_inicio', this.eventoForm.get('fecha_inicio').value);
     formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
     formData.append('status', this.eventoForm.get('status').value);
+    formData.append('lugar', this.eventoForm.get('lugar').value);
     formData.append('company_id', this.eventoForm.get('company_id').value);
     formData.append('pais_id', this.eventoForm.get('pais_id').value);
     formData.append('category_id', this.eventoForm.get('category_id').value);
@@ -227,7 +285,12 @@ export class EventoEditComponent {
               title: 'Exito!',
               text: 'Se Actualizó Correctamente'
             });
-            // this.router.navigate(['/prensa']);
+            const modalElement = document.getElementById('editEvent');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal) {
+              modal.hide();
+            }
+            this.refreshCatList.emit();
             this.loading = false;
 
           }
@@ -251,7 +314,12 @@ export class EventoEditComponent {
               title: 'Exito!',
               text: 'Se Creó Correctamente!'
             });
-            // this.router.navigateByUrl('/');
+            const modalElement = document.getElementById('editEvent');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal) {
+              modal.hide();
+            }
+            this.refreshCatList.emit();
             this.loading = false;
           }
         },
@@ -261,9 +329,6 @@ export class EventoEditComponent {
     // console.log(this.eventoForm.value)
   }
 
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 
   public onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(

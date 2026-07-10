@@ -9,10 +9,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 import { PaymentEditComponent } from './payment-edit/payment-edit.component';
 import { PaymentsComponent } from './payments.component';
-import { ImagenPipe } from 'src/app/pipes/imagen.pipe';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { ParentsModule } from '../clientes/clientes.module';
+import { PagesModule } from "../pages.module";
 
 
 
@@ -23,19 +24,22 @@ import { ComponentsModule } from 'src/app/components/components.module';
     PaymentsComponent,
     
     
+    
   ],
   imports: [
     CommonModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
-        BrowserAnimationsModule,
-        NgxPaginationModule,
-        CKEditorModule,
-        SharedModule,
-        PipesModule,
-        ComponentsModule
-  ]
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    NgxPaginationModule,
+    CKEditorModule,
+    SharedModule,
+    PipesModule,
+    ComponentsModule,
+    ParentsModule,
+    PagesModule
+]
 })
 export class PaymentsModule { }

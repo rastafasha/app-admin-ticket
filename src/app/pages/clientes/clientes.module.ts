@@ -13,7 +13,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
-  declarations: [ListComponent, ClientdetailComponent],
+  declarations: [
+    ListComponent, ClientdetailComponent
+  ],
+  exports:[
+    ClientdetailComponent
+  ],
   imports: [
     CommonModule,
     HttpClientModule,

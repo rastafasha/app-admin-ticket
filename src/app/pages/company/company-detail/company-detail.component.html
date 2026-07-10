@@ -1,15 +1,16 @@
 <!-- =======| Main |======= -->
 
 <app-loading *ngIf="isLoading"></app-loading>
-
-<app-breadc2 [title]="title" [detino]="detino "></app-breadc2>
-
-
-<div class="container animated fadeInUp" id="main" class="main" role="main" name="users" *ngIf="!isLoading">
-
-    <div class="col-xs-12">
-
-        <section class="section profile">
+<div class="modal fade" id="viewCompany" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="catModalLabel">{{title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onClose()"></button>
+            </div>
+            <div class="modal-body">
+                 <section class="section profile">
             <div class="row">
                 <div class="col-xs-12 cols-sm-12 col-md-3 col-xl-3">
 
@@ -19,10 +20,7 @@
                             <div class="inffichasmall">
                                 <div class="fotoeditprofile">
                                     <div class="col-xs-6 col-sm-3" *ngIf="role==='SUPERADMIN' || role==='ADMIN' || role==='PARTNER'">
-                                    <a [routerLink]="['/dashboard/company/edit/', companySelected.id]" class="cursor"
-                                        data-toggle="tooltip" data-original-title="Edit">
-                                        <div class="btn btn-outline-primary"><i class="fa fa-edit"></i></div>
-                                    </a>
+                                   
 
                                 </div>
                                 <img [src]="companySelected?.avatar | imagenPipe: 'companies'" class="imagecircle shadow"
@@ -93,29 +91,26 @@
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> Nombre
                                             </div>
-                                            <p>{{companySelected?.name}} </p>
+                                            <p>{{companySeleccionado?.name}} </p>
                                         </div>
                                         <div class="col-xs-6 col-sm-6">
                                             <div class="col-md-4 label"><i class="fa fa-globe"></i>Pais</div>
-                                            <p>{{companySelected.pais.code}} | {{companySelected.pais.title}}</p>
+                                            <p>{{companySeleccionado?.pais.code}} | {{companySeleccionado?.pais.title}}</p>
                                         </div>
                                         
                                         <div class="col-xs-6 col-sm-4">
                                             <div class=" label"><i class="fa fa-calendar-check-o"></i> Creada
                                             </div>
-                                            <p>{{companySelected?.created_at | date}}</p>
+                                            <p>{{companySeleccionado?.created_at | date}}</p>
                                         </div>
                                        <div class="col-xs-12">
                                             <div class=" label ">
                                                 <i class="fa fa-user-circle"></i> descripcion
                                             </div>
-                                            <p>{{companySelected?.description}} </p>
+                                            <p>{{companySeleccionado?.description}} </p>
                                         </div>
 
                                     </div>
-
-                                    
-
                                 </div>
                                 <!-- fin detalles -->
                                 <!-- subcriptores -->
@@ -144,8 +139,11 @@
                 </div>
             </div>
         </section>
-
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="onClose()">Cerrar</button>
+            </div>
+        </div>
     </div>
-
 </div>
-<!--/main-->

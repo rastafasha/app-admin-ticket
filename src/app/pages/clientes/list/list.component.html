@@ -39,6 +39,7 @@
                                 <th>Email</th>
                                 <th>País</th>
                                 <th>Status</th>
+                                <th>Ch. Status</th>
                                 <!-- <th class="text-nowrap">Acciones</th> -->
                             </tr>
                         </thead>
@@ -51,7 +52,10 @@
                                 </td>
                                 <!-- <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">{{client.id}}</a></td> -->
                                 <td>
-                                    <a [routerLink]="['/dashboard/cliente/detail/', client.id]">{{client.name}}</a>
+                                    <a class="cursor" data-toggle="tooltip" data-original-title="Edit"
+                                            (click)="openViewDetail(client)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#viewClient">{{client.name}}</a>
 
                                 </td>
                                 <td>{{client.email}}</td>
@@ -59,6 +63,15 @@
                                 <td>
                                     <span class="badge bg-success" *ngIf="client.status === 'ACTIVE'">Activo</span>
                                     <span class="badge bg-danger" *ngIf="client.status === 'INACTIVE'">Inactivo</span>
+                                </td>
+                                <td>
+                                <select class="form-control form-select-solid fw-bolder" name="status"
+                                    [(ngModel)]="client.status" (change)="cambiarStatus(client)"
+                                    placeholder="status">
+                                    <option value="">Seleccione</option>
+                                    <option value="ACTIVE">Activo</option>
+                                    <option value="INACTIVE">Inactivo</option>
+                                </select>
                                 </td>
 
                                 <td class="text-nowrap text-center">
@@ -88,3 +101,4 @@
 
 </div>
 <!--/main-->
+<app-clientdetail [clientSeleccionado]="clientSeleccionado" #viewClient></app-clientdetail>

@@ -1,14 +1,13 @@
 <!-- =======| Main |======= -->
-<div class="container animated fadeInUp" id="main" class="main" role="main" name="users">
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="container animated fadeInUp" *ngIf="!isLoading" id="main" class="main" role="main" name="users">
     <app-backbreadcum [title]="title"></app-backbreadcum>
-    <app-loading *ngIf="isLoading"></app-loading>
-    <div class="row animated fadeInUp" *ngIf="!isLoading">
+    <div class="row animated fadeInUp" >
 
         <section class="section dashboard">
             <div class="row">
-                <div class="col-xs-12">
-                    <!-- buscador -->
-                    <form class="form-horizontal">
+                <!-- buscador -->
+                    <form class="form-horizontal col-11">
                         <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                             <div class="input-group">
                                 <input type="search" name="search" type="text" class="form-control col-xs-12"
@@ -50,14 +49,13 @@
                         </div>
                     </form>
                     <!-- buscador -->
-                    <div class="py-3" >
-                        <a [routerLink]="['/dashboard/company/create']" class="cursor" data-toggle="tooltip"
-                            data-original-title="Edit">
-                            <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear Empresa</div>
-                        </a>
+                    <div class="col-1" >
+                        <button (click)="openEditModal()" class="btn btn-outline-success" data-toggle="tooltip"
+                                data-original-title="Edit" data-bs-toggle="modal" data-bs-target="#editCompany">
+                                <i class="fa fa-plus"></i>
+                            </button>
 
                     </div>
-                </div>
             </div>
             <div class="card recent-sales overflow-auto border-radio">
 
@@ -82,7 +80,10 @@
                                 </td>
 
                                 <td>
-                                    <a [routerLink]="['/dashboard/company/detail/', company.id]">{{company.name}}</a>
+                                    <a class="cursor" data-toggle="tooltip" data-original-title="Edit"
+                                            (click)="openViewDetail(company)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#viewCompany">{{company.name}}</a>
 
                                 </td>
                                  <td>
@@ -90,10 +91,13 @@
                                 </td>
                                 <td class="text-nowrap text-center">
 
-                                    <a [routerLink]="['/dashboard/company/edit/', company.id]" class="cursor"
-                                        data-toggle="tooltip" data-original-title="Edit">
-                                        <div class="btn btn-success"><i class="fa fa-edit"></i></div>
-                                    </a>
+                                    <button  class="btn btn-outline-success"
+                                            data-toggle="tooltip" data-original-title="Edit"
+                                            (click)="onEditProject(company)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editCompany">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
                                     <a (click)="eliminarCompany(company.id)" class="cursor" data-toggle="tooltip"
                                         data-original-title="Borrar">
                                         <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
@@ -115,3 +119,5 @@
 
 </div>
 <!--/main-->
+<app-edit (refreshCatList)="loadCompanies()" [companySeleccionado]="companySeleccionado" (closeModal)="onClose()" #editCompany></app-edit>
+<app-company-detail [companySeleccionado]="companySeleccionado" #viewCompany></app-company-detail>

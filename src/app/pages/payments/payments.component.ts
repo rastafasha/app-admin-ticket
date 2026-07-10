@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, Location, NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
@@ -6,6 +6,7 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
+import { Cliente } from 'src/app/models/cliente';
 
 @Component({
   selector: 'app-payments',
@@ -14,6 +15,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./payments.component.css'],
 })
 export class PaymentsComponent implements OnInit {
+
+  @ViewChild('viewClient', { static: false }) offcanvasElement!: ElementRef;
+  @ViewChild('viewPayment', { static: false }) offcanvasElement1!: ElementRef;
+
   title = 'Pagos';
 
   payments: Payment;
@@ -28,6 +33,8 @@ export class PaymentsComponent implements OnInit {
   public selectedValue: number = new Date().getFullYear();
   public query_income_year: any = [];
    public ventasDataYear: any[] = [];
+   clientSeleccionado:Cliente;
+   pagoSeleccionado:Payment;
 
   constructor(
     private location: Location,
@@ -121,7 +128,15 @@ export class PaymentsComponent implements OnInit {
     })
   }
 
+openViewDetail(pago: Cliente) {
+    this.clientSeleccionado = pago;
+    console.log(pago)
 
+  }
+openViewDetailPago(pago: Payment) {
+    this.pagoSeleccionado = pago;
+
+  }
 
 
 

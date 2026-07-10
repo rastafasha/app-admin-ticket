@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -14,9 +14,10 @@ import { EventoService } from 'src/app/services/evento.service';
   templateUrl: './payment-details.component.html',
   styleUrls: ['./payment-details.component.css']
 })
-export class PaymentDetailsComponent implements OnInit {
+export class PaymentDetailsComponent implements OnInit, OnChanges {
   @Input() eventProfile: Evento;
-  
+  @Input() pagoSeleccionado: Payment;
+
   title = "Detalle Pago";
   detino = 'payments';
   payment: Payment;
@@ -26,6 +27,7 @@ export class PaymentDetailsComponent implements OnInit {
   cliente: Cliente;
   event: Evento;
   isLoading: boolean = false;
+  isOpen = false;
 
   constructor(
     private location: Location,
@@ -38,9 +40,21 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    console.log(this.eventProfile);
-    this.activatedRoute.params.subscribe(({ id }) => this.getPagoById(id));
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
+    if (changes['pagoSeleccionado'] && this.pagoSeleccionado) {
+      console.log(this.pagoSeleccionado)
+      this.getPagoById(this.pagoSeleccionado.id);
+      this.isOpen = true;
+    }
+  }
+
+  onClose() {
+    this.pagoSeleccionado = null;
+  }
+
   getUser(id: number) {
     this.paymentService.getPagosbyUser(id).subscribe(
       res => {
@@ -79,27 +93,6 @@ export class PaymentDetailsComponent implements OnInit {
     })
   }
 
-  goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 
-  cambiarStatus(data: any) {
-    const VALUE = data.status;
-
-    this.paymentService.updateStatus(data, data.id).subscribe(
-      resp => {
-
-        console.log(resp);
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Actualizado',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.ngOnInit();
-      }
-    )
-  }
 
 }

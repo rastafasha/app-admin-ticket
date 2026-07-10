@@ -6,9 +6,8 @@
 
         <section class="section dashboard">
             <div class="row">
-                <div class="col-xs-12">
-                    <!-- buscador -->
-                    <form class="form-horizontal">
+                 <!-- buscador -->
+                    <form class="form-horizontal col-11">
                         <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                             <div class="input-group">
                                 <input type="search" name="search" type="text" class="form-control col-xs-12"
@@ -23,8 +22,6 @@
                                             class="fa fa-refresh"></i></a>
                                 </div>
                             </div>
-
-
                         </div>
                         <div class="row" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' ">
                             <div class="form-group col-xs-12 col-sm-6">
@@ -50,14 +47,13 @@
                         </div>
                     </form>
                     <!-- buscador -->
-                    <div class="py-3" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role === 'PARTNER'">
-                        <a [routerLink]="['/dashboard/evento/create']" class="cursor" data-toggle="tooltip"
-                            data-original-title="Edit">
-                            <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear Evento</div>
-                        </a>
+                    <div class="col-1" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role === 'PARTNER'">
+                        <button (click)="openEditModal()" class="btn btn-outline-success" data-toggle="tooltip"
+                                data-original-title="Edit" data-bs-toggle="modal" data-bs-target="#editEvent">
+                                <i class="fa fa-plus"></i>
+                            </button>
 
                     </div>
-                </div>
             </div>
             <div class="card recent-sales overflow-auto border-radio">
 
@@ -75,6 +71,7 @@
                                 <th>Pais</th>
                                 <th>Status</th>
                                 <th>Destacado</th>
+                                <th>Ch. Status</th>
                                 <th class="text-nowrap">Acciones</th>
                             </tr>
                         </thead>
@@ -87,7 +84,10 @@
                                 </td>
 
                                 <td>
-                                    <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}}
+                                    <a class="cursor" data-toggle="tooltip" data-original-title="Edit"
+                                            (click)="openViewDetail(evento)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#viewEvento">{{evento.name}}
                                         {{evento.surname}}</a>
 
                                 </td>
@@ -106,15 +106,30 @@
                                     <span class="badge bg-success" *ngIf="evento.is_featured== '1'">Activo</span>
                                     <span class="badge bg-danger" *ngIf="evento.is_featured== '0'">Inactivo</span>
                                 </td>
+                                <td>
+                                    <select class="form-control form-select-solid fw-bolder" name="status"
+                                            [(ngModel)]="evento.status" (change)="cambiarStatus(evento)"
+                                            placeholder="status">
+                                            <option value="">Seleccione</option>
+                                            <option value="PUBLISHED">Publicado</option>
+                                            <option value="ACTIVE">Activo</option>
+                                            <option value="INACTIVE">Inactivo</option>
+                                            <option value="RETIRED">Retirado</option>
+                                            <option value="FINISHED">Terminado</option>
+                                        </select>
+                                </td>
 
 
 
                                 <td class="text-nowrap text-center">
 
-                                    <a [routerLink]="['/dashboard/evento/edit/', evento.id]" class="cursor"
-                                        data-toggle="tooltip" data-original-title="Edit">
-                                        <div class="btn btn-success"><i class="fa fa-edit"></i></div>
-                                    </a>
+                                   <button  class="btn btn-outline-success"
+                                            data-toggle="tooltip" data-original-title="Edit"
+                                            (click)="onEditProject(evento)"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editEvent">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
                                     <!-- <a (click)="eliminarUser(evento.id)" class="cursor" data-toggle="tooltip"
                                         data-original-title="Borrar">
                                         <div class="btn btn-danger"><i class="fa fa-trash"></i></div>
@@ -136,3 +151,5 @@
 
 </div>
 <!--/main-->
+<app-evento-detail [eventoSeleccionado]="eventoSeleccionado" #viewEvento></app-evento-detail>
+<app-evento-edit (refreshCatList)="ngOnInit()" [eventSeleccionado]="eventSeleccionado" (closeModal)="onClose()" #editEvent></app-evento-edit>
