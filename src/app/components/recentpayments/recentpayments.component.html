@@ -25,7 +25,7 @@
                                                 class="fa fa-search"></i></button>
                                         <a href="javascript:;" (click)="PageSize()"
                                             class="btn btn-primary doctor-refresh ms-2 circle"><i
-                                                class="fa fa-refresh"></i></a>
+                                                class="fa fa-sync"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -62,12 +62,8 @@
                                         <img [src]="pago?.avatar| imagenPipe: 'payments' " class="imagecircle shadow"
                                             alt="">
                                     </td>
-                                    <th scope="row"><a
-                                            [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a>
-                                    </th>
-                                    <th><a
-                                            [routerLink]="['/dashboard/cliente/detail/', pago.client_id]">{{pago.nombre}}</a>
-                                    </th>
+                                    <th scope="row"> {{pago.referencia}} </th>
+                                    <th>{{pago.nombre}} </th>
                                     <td>{{pago.bank_name}}</td>
                                     <td>{{pago.bank_destino}}</td>
                                     <td>{{pago.metodo}}</td>

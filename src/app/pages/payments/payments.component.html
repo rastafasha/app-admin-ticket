@@ -20,16 +20,16 @@
                 </select>
             </div>
 
-           <div class="row mb-5">
-                    <div class="col-xs-12 col-sm-8">
-                        <app-bar-chart [payments]="payments"></app-bar-chart>
-                        <!-- <app-line-chart  ></app-line-chart> -->
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <app-pie-chart2 [payments]="payments"></app-pie-chart2>
-
-                    </div>
+            <div class="row mb-5">
+                <div class="col-xs-12 col-sm-8">
+                    <app-bar-chart [payments]="payments"></app-bar-chart>
+                    <!-- <app-line-chart  ></app-line-chart> -->
                 </div>
+                <div class="col-xs-12 col-sm-4">
+                    <app-pie-chart2 [payments]="payments"></app-pie-chart2>
+
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-xs-12">
@@ -46,7 +46,7 @@
                                             class="fa fa-search"></i></button>
                                     <a href="javascript:;" (click)="PageSize()"
                                         class="btn btn-primary doctor-refresh ms-2 circle"><i
-                                            class="fa fa-refresh"></i></a>
+                                            class="fa fa-sync"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -83,14 +83,12 @@
                                 </td>
                                 <th scope="row">
                                     <a class="cursor" data-toggle="tooltip" data-original-title="Edit"
-                                            (click)="openViewDetailPago(pago)"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#viewPayment">{{pago.referencia}}</a>
+                                        (click)="openViewDetailPago(pago)" data-bs-toggle="modal"
+                                        data-bs-target="#viewPayment">{{pago.referencia}}</a>
                                 </th>
                                 <th><a class="cursor" data-toggle="tooltip" data-original-title="Edit"
-                                            (click)="openViewDetail(pago.client)"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#viewClient">{{pago.nombre}}</a>
+                                        (click)="openViewDetail(pago.client)" data-bs-toggle="modal"
+                                        data-bs-target="#viewClient">{{pago.nombre}}</a>
                                 </th>
                                 <td>{{pago.bank_name}}</td>
                                 <td>{{pago.bank_destino}}</td>
@@ -161,5 +159,5 @@
     </div>
 </div>
 <!-- End #main-->
- <app-clientdetail [clientSeleccionado]="clientSeleccionado" #viewClient></app-clientdetail>
- <app-payment-details [pagoSeleccionado]="pagoSeleccionado" #viewPayment></app-payment-details>
+<app-clientdetail [clientSeleccionado]="clientSeleccionado" #viewClient></app-clientdetail>
+<app-payment-details [pagoSeleccionado]="pagoSeleccionado" #viewPayment></app-payment-details>

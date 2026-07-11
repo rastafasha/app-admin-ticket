@@ -77,7 +77,8 @@ import { TicketModule } from './ticket/ticket.module';
     NgxChartsModule,
      ConfigModule,
      CompanyModule,
-     TicketModule
+     TicketModule,
+     EventosModule
 ]
 })
 

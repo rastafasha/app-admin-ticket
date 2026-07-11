@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   roles: any;
   isLoading = false;
   eventos:Evento
+  eventSeleccionado:Evento
 
   constructor(
     private dashboardService: DashboardService,
@@ -67,7 +68,12 @@ export class DashboardComponent implements OnInit {
       // this.dashboardDoctorProfile();
     }
 
-  
+   openEditModal(): void {
+    this.eventSeleccionado = null;
+  }
 
+   onClose() {
+    this.ngOnInit();
+  }
 }
 

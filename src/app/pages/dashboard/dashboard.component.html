@@ -1,17 +1,17 @@
-<div class="col-12 animated fadeInUp " >
-        <div class="card  shadow" style="border-radius: 14px;">
-            <div class="card-body ">
-                <div class="cardtop">
-                    <div class="">
-                        <h3 class="text-themecolor">{{title}}</h3>
-                    </div>
-                    
+<div class="col-12 animated fadeInUp ">
+    <div class="card  shadow" style="border-radius: 14px;">
+        <div class="card-body ">
+            <div class="cardtop">
+                <div class="">
+                    <h3 class="text-themecolor">{{title}}</h3>
                 </div>
-                
+
             </div>
+
         </div>
     </div>
-    <app-notificador *ngIf="role === 'SUPERADMIN' || role === 'ADMIN'"></app-notificador>
+</div>
+<app-notificador *ngIf="role === 'SUPERADMIN' || role === 'ADMIN'"></app-notificador>
 
 <div *ngIf="role === 'GUEST' ">
     <div class="row animated fadeInUp">
@@ -19,11 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3>Info Perfil</h3>
-                    <!-- <h4 class="animated fadeInDown">{{user.name  }} </h4> -->
                     <p>Solicita la Actualización de Usuario con el Administrador</p>
-                    <!-- <p>Status : <span class="badge bg-success">active</span></p> -->
-                    <!-- <button class="btn btn-outline-primary pull-right"
-                        [routerLink]="['/dashboard/usuario/detail/', user.id]">Perfil</button> -->
                 </div>
             </div>
         </div>
@@ -34,34 +30,7 @@
 <div *ngIf="role === 'PARTNER' ">
     <div class="row animated fadeInUp">
         <div class="col-xs-12 col-sm-8">
-            <!-- <div class="col-6 col-sm-6  ">
-                <div class="card d-flex justify-content-center shadow">
-                    <a [routerLink]="['/dashboard/eventos/partner/', user.id]">
-                        <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
-                            <i class="fa fa-users fa-2x"></i>
-                            <p>Eventos</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-6 col-sm-6  ">
-                <div class="card d-flex justify-content-center shadow">
-                    <a routerLink="../dashboard/payments">
-                        <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
-                            <i class="fa fa-line-chart fa-2x"></i>
-                            <p>Pagos</p>
-                        </div>
-                    </a>
-                </div>
-            </div> -->
-            <!-- <div class="col-6 col-sm-6  ">
-                <select class="form-control" [(ngModel)]="event_id" class="form-control select" (selectionChange)="selectDoctor()">
-                    <option value="">-- Seleccione Evento --</option>
-                    <option *ngFor="let data of eventos" [value]="data.name">
-                        {{data.name}}
-                    </option>
-                </select>
-            </div> -->
+
             <div class="col-6 col-sm-6  ">
                 <div class="card d-flex justify-content-center shadow">
                     <a routerLink="../dashboard/ticket/verify">
@@ -71,7 +40,7 @@
                         </div>
                     </a>
                 </div>
-            </div> 
+            </div>
             <div class="col-xs-12 col-sm-6 p-3">
                 <a [routerLink]="['/dashboard/evento/create']" class="cursor" data-toggle="tooltip"
                     data-original-title="Edit">
@@ -85,8 +54,7 @@
             </div>
         </div>
     </div>
-    <!-- <app-recentpayments></app-recentpayments> -->
-     <app-listahijos [userprofile]="userprofile"></app-listahijos>
+    <app-listahijos [userprofile]="userprofile"></app-listahijos>
 
 </div>
 
@@ -98,9 +66,8 @@
                 <div class="card d-flex justify-content-center shadow">
                     <a routerLink="../dashboard/clientes">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
-                            <i class="fa fa-vcard fa-2x"></i>
+                            <i class="fas fa-id-card fa-2x"></i>
                             <p>Clientes: {{clients_nodeuda}}</p>
-                            <!-- <p>Padres con deuda: {{total_clients}}</p> -->
                         </div>
                     </a>
                 </div>
@@ -109,7 +76,7 @@
                 <div class="card d-flex justify-content-center shadow">
                     <a routerLink="../dashboard/eventos">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
-                            <i class="fa fa-users fa-2x"></i>
+                            <i class="fa fa-star fa-2x"></i>
                             <p>Eventos: {{total_events}}</p>
                         </div>
                     </a>
@@ -119,17 +86,17 @@
                 <div class="card d-flex justify-content-center shadow">
                     <a routerLink="../dashboard/ticket/verify">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
-                            <i class="fa fa-line-chart fa-2x"></i>
+                            <i class="fa fa-qrcode fa-2x"></i>
                             <p>Verificar Ticket</p>
                         </div>
                     </a>
                 </div>
-            </div> 
+            </div>
             <div class="col-6 col-sm-6  ">
                 <div class="card d-flex justify-content-center shadow">
                     <a routerLink="../dashboard/partners">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
-                            <i class="fa fa-users fa-2x"></i>
+                            <i class="fas fa-handshake fa-2x"></i>
                             <p>Partners</p>
                         </div>
                     </a>
@@ -139,29 +106,29 @@
                 <div class="card d-flex justify-content-center shadow">
                     <a routerLink="../dashboard/payments">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
-                            <i class="fa fa-line-chart fa-2x"></i>
+                            <i class="fas fa-money-bill fa-2x"></i>
                             <p>Pagos</p>
                         </div>
                     </a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 p-3">
-                <a [routerLink]="['/dashboard/evento/create']" class="cursor" data-toggle="tooltip"
-                    data-original-title="Edit">
-                    <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear Evento</div>
-                </a>
+
+                <button (click)="openEditModal()" class="btn btn-outline-success" data-toggle="tooltip"
+                    data-original-title="Edit" data-bs-toggle="modal" data-bs-target="#editEvent">
+                    <i class="fa fa-plus"></i> Crear Evento
+                </button>
             </div>
         </div>
     </div>
 
-    
+
 
     <div class="col-12 col-sm-4 col-md-4 ">
         <div class="card shadow" style="padding: 10px; border-left: green 2px solid;">
             <app-tasadiabcv></app-tasadiabcv>
         </div>
     </div>
-    <!-- <app-listapayments></app-listapayments> -->
     <app-recentpayments></app-recentpayments>
 </div>
-
+<app-evento-edit [eventSeleccionado]="eventSeleccionado" (closeModal)="onClose()" #editEvent></app-evento-edit>

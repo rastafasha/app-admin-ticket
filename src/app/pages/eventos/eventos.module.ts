@@ -21,6 +21,11 @@ import { EventoEditComponent } from './evento-edit/evento-edit.component';
     EventoDetailComponent, 
     EventoEditComponent
   ],
+  exports: [
+    EventosComponent, 
+    EventoDetailComponent, 
+    EventoEditComponent
+  ],
   imports: [
    CommonModule,
        HttpClientModule,
