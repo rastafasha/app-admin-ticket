@@ -12,6 +12,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { EventosModule } from '../eventos/eventos.module';
 
 
 
@@ -32,7 +33,8 @@ import { CompanyDetailComponent } from './company-detail/company-detail.componen
     CKEditorModule,
     ComponentsModule,
     SharedModule,
-    PipesModule
+    PipesModule,
+    EventosModule
   ]
 })
 export class CompanyModule { }

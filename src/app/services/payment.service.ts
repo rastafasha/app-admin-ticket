@@ -60,6 +60,14 @@ export class PaymentService {
         map((resp:{ok: boolean, payment: Payment}) => resp.payment)
         );
   }
+  getTransferenciaByTiendaId(_id: string){
+    const url = `${baseUrl}/payment/tienda/${_id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, payments: Payment[]}) => resp.payments)
+        );
+
+  }
 
   create(data:any): Observable<any> {
     const url = `${baseUrl}/payment/store`;
@@ -84,9 +92,18 @@ export class PaymentService {
         map((resp:{ok: boolean}) => resp)
         );
   }
+
   getPagosStatusbyYear(year:number): Observable<any> {
 
     const url = `${baseUrl}/payment/year/${year}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean}) => resp)
+        );
+  }
+  getPagosStatusbyYearTienda(year:number, company_id:number): Observable<any> {
+
+    const url = `${baseUrl}/payment/tienda/year/${company_id}/${year}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
         map((resp:{ok: boolean}) => resp)
@@ -132,6 +149,13 @@ export class PaymentService {
 
    getRecientes(): Observable<any> {
     const url = `${baseUrl}/payment/recientes`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
+      )
+  }
+   getRecientesTienda(company_id:number): Observable<any> {
+    const url = `${baseUrl}/payment/recientes/tienda/${company_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
         map((resp:{ok: boolean, payments: Payment}) => resp.payments)

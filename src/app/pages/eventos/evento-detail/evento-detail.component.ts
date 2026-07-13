@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -17,7 +17,7 @@ declare var bootstrap: any;
 })
 export class EventoDetailComponent implements OnInit, OnChanges {
   @Input() eventoSeleccionado: Evento;
-
+  @Output() onSolicitarEdicion = new EventEmitter<any>();
 
   title = 'Detalles del Evento';
   detino = 'eventos';
@@ -66,7 +66,6 @@ export class EventoDetailComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
     if (changes['eventoSeleccionado'] && this.eventoSeleccionado) {
-      console.log(this.eventoSeleccionado)
       this.getEvento(this.eventoSeleccionado.id);
       this.isOpen = true;
 
@@ -78,10 +77,7 @@ export class EventoDetailComponent implements OnInit, OnChanges {
     }
   }
 
-  
-    onClose() {
-    this.eventoSeleccionado = null;
-  }
+
 
   getUser() {
     const id = this.user.id
@@ -138,7 +134,6 @@ export class EventoDetailComponent implements OnInit, OnChanges {
     this.companyService.usersById(this.company_id).subscribe(
       (res: any) => {
         this.users = res.company.users;
-        console.log(this.users)
       },
       (error) => {
         console.error('Error fetching users:', error);
@@ -151,7 +146,6 @@ export class EventoDetailComponent implements OnInit, OnChanges {
       (res: any) => {
         this.event = res.event;
         this.usersevento = res.event.users;
-        // console.log(this.usersevento)
       },
       (error) => {
         console.error('Error fetching user by id:', error);
@@ -219,6 +213,18 @@ export class EventoDetailComponent implements OnInit, OnChanges {
     }
     if (this.option_selected === 3) {
       this.solicitud_selected = null;
+    }
+  }
+
+
+  onClose() {
+    this.eventoSeleccionado = null;
+  }
+
+  solicitarEdicion(eventoSeleccionado:any) {
+    this.eventoSeleccionado = eventoSeleccionado;
+    if (this.eventoSeleccionado) {
+      this.onSolicitarEdicion.emit(this.eventoSeleccionado);
     }
   }
 

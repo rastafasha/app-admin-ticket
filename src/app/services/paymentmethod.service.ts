@@ -45,6 +45,14 @@ export class PaimentmethodService {
         map((resp:{ok: boolean, tipodepago: Paymentmethod}) => resp.tipodepago)
         );
   }
+  getPaymentMethodByTiendaId(_id: string){
+    const url = `${baseUrl}/paymentmethods/tienda/${_id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, tiposdepago: Paymentmethod[]}) => resp.tiposdepago)
+        );
+
+  }
 
 
   createPaymentmethod(paymentmethod:any) {

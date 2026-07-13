@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from 'src/app/models/company';
@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 export class CompanyDetailComponent implements OnInit, OnChanges{
 
   @Input() companySeleccionado: Company;
+  @Output() onAbrirModalEvento = new EventEmitter<number>();
 
   title = 'Detalles del Evento';
   detino = 'companies';
@@ -65,7 +66,6 @@ export class CompanyDetailComponent implements OnInit, OnChanges{
     ngOnChanges(changes: SimpleChanges): void {
     // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
     if (changes['companySeleccionado'] && this.companySeleccionado) {
-      console.log(this.companySeleccionado)
       this.getCompany(this.companySeleccionado.id);
       this.isOpen = true;
     }
@@ -79,6 +79,10 @@ export class CompanyDetailComponent implements OnInit, OnChanges{
    
     onClose() {
     this.companySeleccionado = null;
+  }
+
+  redireccionarEvento(eventoId: number) {
+    this.onAbrirModalEvento.emit(eventoId);
   }
   
     getCompany(id: number) {

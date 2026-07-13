@@ -1,4 +1,5 @@
 import { environment } from "src/environments/environment";
+import { Company } from "./company";
 const base_url = environment.url_media;
 
 export class User {
@@ -7,6 +8,7 @@ export class User {
     // role_id: number = 3; // 3 = Rol miembro
     username: string = "";
     company_id: number ;
+    company: Company ;
     name: string = "";
     surname: string = "";
     n_doc: string = "";

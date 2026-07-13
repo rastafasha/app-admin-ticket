@@ -19,19 +19,18 @@ import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { PieChart2Component } from './charts/pie-chart2/pie-chart2.component';
-import { ListahijosComponent } from './listahijos/listahijos.component';
 import { ListemployeesComponent } from './listemployees/listemployees.component';
 @NgModule({
   declarations: [EventosclienteComponent, ListapaymentsComponent,  
     RecentpaymentsComponent, TasadiabcvComponent, SubscriptoresComponent, 
     PagosEventoComponent, PieChartComponent, LineChartComponent, BarChartComponent, 
-    PieChart2Component, ListahijosComponent, ListemployeesComponent 
+    PieChart2Component,  ListemployeesComponent 
   ],
 
   exports: [EventosclienteComponent, ListapaymentsComponent,
     RecentpaymentsComponent, TasadiabcvComponent, SubscriptoresComponent,
      PagosEventoComponent, PieChartComponent,LineChartComponent, BarChartComponent,
-    PieChart2Component,ListahijosComponent, ListemployeesComponent
+    PieChart2Component, ListemployeesComponent
   ],
   imports: [
     CommonModule,

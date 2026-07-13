@@ -43,9 +43,9 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-xs-12 col-sm-4">
+                                <div class="form-group col-xs-12 col-sm-4" *ngIf="user.roles[0]==='SUPERADMIN'">
                                     <label class="col-md-3">Empresa </label>
-                                    <div class="">
+                                    <div class="" >
                                         <select  formControlName="company_id" class="form-control">
                                             <option value="">Select</option>
                                             <!-- [selected]="company_id === company.id" -->

@@ -50,7 +50,7 @@
                                     </a> </td>
                                     <td><a [routerLink]="['/dashboard/partner/detail/', user.id]">{{user.name}}</a> </td>
                                     <td>{{user.email}}</td>
-                                    <td>{{user?.company[0]?.name}}</td>
+                                    <td>{{user?.company?.name}}</td>
                                     <td>
                                         <!-- {{user.role }}  -->
                                         <span class="badge bg-dark" *ngIf="user.roles.name === 'SUPERADMIN'">SuperAdmin</span>

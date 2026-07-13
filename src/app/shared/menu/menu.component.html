@@ -19,76 +19,55 @@
                         <i class="fas fa-user"></i><span class="hide-menu">Mi Perfil </span>
                     </a>
                 </li>
-                <li>
-                    <a (click)="logout()"
-                        class="waves-effect waves-dark">
-                        <i class="fa fa-power-off"></i><span class="hide-menu">Salir</span>
-                    </a>
-                </li>
+                
                 
             </ul>
-            <ul id="sidebarnav" *ngIf="role === 'PARTNER'">
-                <li>
+            
+            <ul id="sidebarnav" >
+                <li >
                     <a routerLink="/" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fas fa-home"></i><span class="hide-menu">Inicio </span>
                     </a>
                 </li>
-                <li>
-                    <a [routerLink]="['/dashboard/eventos/partner/', user.id]" routerLinkActive="active" class="waves-effect waves-dark">
-                        <i class="fa fa-users"></i><span class="hide-menu">Eventos </span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a [routerLink]="['/dashboard/partner/edit/', user.id]" routerLinkActive="active"
-                        class="waves-effect waves-dark">
-                        <i class="fa fa-user"></i><span class="hide-menu">Mi Perfil </span>
-                    </a>
-                </li>
-               
-            </ul>
-            <ul id="sidebarnav" *ngIf="role === 'SUPERADMIN' || role === 'ADMIN'">
-                <li>
-                    <a routerLink="/" routerLinkActive="active" class="waves-effect waves-dark">
-                        <i class="fas fa-home"></i><span class="hide-menu">Inicio </span>
-                    </a>
-                </li>
-                <li>
+                <li *ngIf="role === 'SUPERADMIN'">
                     <a routerLink="../dashboard/companies" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fas fa-building"></i><span class="hide-menu">Empresas </span>
                     </a>
                 </li>
-                <li>
+                <li *ngIf="role === 'SUPERADMIN' || role === 'ADMIN'">
                     <a routerLink="../dashboard/partners" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fas fa-handshake"></i><span class="hide-menu">Partners </span>
                     </a>
                 </li>
-                <li>
+                <li *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role ==='PARTNER'">
                     <a routerLink="../dashboard/eventos" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fa fa-star"></i><span class="hide-menu">Eventos </span>
                     </a>
                 </li>
                 
-                <li>
+                <li *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role ==='PARTNER'">
                     <a routerLink="../dashboard/clientes" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fa fa-address-book"></i><span class="hide-menu">Clientes </span>
                     </a>
                 </li>
-                <li>
+                <li *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role ==='PARTNER'">
                     <a routerLink="../dashboard/payments" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fas fa-money-bill"></i><span class="hide-menu">Pagos </span>
                     </a>
                 </li>
             
-                <li> <a routerLink="../dashboard/config" routerLinkActive="active" class="waves-effect waves-dark">
+                <li *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role ==='PARTNER'"> 
+                    <a routerLink="../dashboard/config" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fa fa-cogs"></i><span class="hide-menu">Configuración </span>
                     </a>
                 </li>
-                <li> <a routerLink="../dashboard/categories" routerLinkActive="active" class="waves-effect waves-dark">
+                <li *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role ==='PARTNER'"> 
+                    <a routerLink="../dashboard/categories" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fa fa-bookmark"></i><span class="hide-menu">Categorias </span>
                     </a>
                 </li>
-                <li> <a routerLink="../dashboard/tasabcv" routerLinkActive="active" class="waves-effect waves-dark">
+                <li *ngIf="role === 'SUPERADMIN' || role === 'ADMIN' || role ==='PARTNER'"> 
+                    <a routerLink="../dashboard/tasabcv" routerLinkActive="active" class="waves-effect waves-dark">
                         <i class="fa fa-chart-bar"></i><span class="hide-menu">Tasa BCV </span>
                     </a>
                 </li>

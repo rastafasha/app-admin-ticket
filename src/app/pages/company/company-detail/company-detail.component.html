@@ -12,30 +12,24 @@
             <div class="modal-body">
                  <section class="section profile">
             <div class="row">
-                <div class="col-xs-12 cols-sm-12 col-md-3 col-xl-3">
+                <div class="col-12">
 
                     <div class="card border-radio shadow">
                         <div class="card-body profile-card pt-4  fichasmall">
-                            
                             <div class="inffichasmall">
                                 <div class="fotoeditprofile">
                                     <div class="col-xs-6 col-sm-3" *ngIf="role==='SUPERADMIN' || role==='ADMIN' || role==='PARTNER'">
-                                   
-
                                 </div>
                                 <img [src]="companySelected?.avatar | imagenPipe: 'companies'" class="imagecircle shadow"
                                     alt="">
                                 </div>
                                 <h5 style="margin-top: 15px;">{{companySelected?.name}} </h5>
-
                             </div>
                         </div>
                     </div>
-                    
-
                 </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-9 col-xl-9">
+                <div class="col-12 ">
 
                     <div class="card border-radio">
                         <div class="card-body pt-3">
@@ -118,7 +112,7 @@
                                     id="hijos">
                                     <br />
                                     <div class="row">
-                                        <app-eventoscliente [companySelected]="companySelected"></app-eventoscliente>
+                                        <app-eventoscliente [companySelected]="companySelected" (onEventoSeleccionado)="redireccionarEvento($event)"></app-eventoscliente>
                                     </div>
                                 </div>
                                 <!-- fin subcriptores -->

@@ -10,6 +10,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { Payment } from 'src/app/models/payment';
 import { AuthService } from 'src/app/services/auth.service';
 import { Cliente } from 'src/app/models/cliente';
+import { UserService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-list',
@@ -47,6 +48,7 @@ export class ListComponent {
     private location: Location,
     private http: HttpClient,
     public accountService: AuthService,
+    public userService: UserService,
     handler: HttpBackend
   ) {
     this.http = new HttpClient(handler);
@@ -55,9 +57,32 @@ export class ListComponent {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.accountService.closeMenu();
-    this.getUsers();
+     this.user = this.accountService.userprofile;
+      
+      if(this.user.roles[0] === 'SUPERADMIN'){
+        this.getUsers();
+      }else{
+        this.getUserRemoto()
+      }
+  }
+ getUserRemoto(){
+    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+      this.user = resp.user;
+      this.getClientesTienda();
+    })
   }
 
+  getClientesTienda(): void {
+    this.isLoading = true;
+    this.clientService.getClientesByTiendaId(this.user.company_id).subscribe(
+      (res: any) => {
+        this.clientes = res.clientes;
+        error => this.error = error;
+        this.isLoading = false;
+        // console.log(this.parents);
+      }
+    );
+  }
 
   getUsers(): void {
     this.isLoading = true;
@@ -137,7 +162,7 @@ export class ListComponent {
   }
 
   public PageSize(): void {
-    this.getUsers();
+    this.ngOnInit();
     this.query = '';
   }
 

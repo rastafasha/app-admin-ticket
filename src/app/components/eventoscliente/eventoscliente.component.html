@@ -32,6 +32,9 @@
                         <th>Imagen</th>
                         <th>Nombre</th>
                         <th>tickets</th>
+                        <th>Status</th>
+                        <th>Destacado</th>
+                        <th>Ch. Status</th>
                         <!-- <th class="text-nowrap" *ngIf="companySelected">Acciones</th> -->
                     </tr>
                 </thead>
@@ -41,25 +44,38 @@
 
                         <!-- <td><a [routerLink]="['/dashboard/padre/detail/', evento.id]">{{evento.id}}</a></td> -->
                         <td>
-                            <a [routerLink]="['/dashboard/evento/detail/', evento.id]">
+                            <a class="cursor" (click)="seleccionarYSalir(evento.id)">
                                 <img [src]="evento.avatar| imagenPipe: 'eventos' " class=" shadow"
                                     style="width: 40px; height: 40px; border-radius: 100px;" alt="">
 
                             </a>
                         </td>
-
-                        <td>
-                            <a [routerLink]="['/dashboard/evento/detail/', evento.id]">{{evento.name}}
-                                </a>
-
-                        </td>
+                        <td><a class="cursor" (click)="seleccionarYSalir(evento.id)">{{evento.name}}</a></td>
                         <td>{{evento.ticketcount ? evento.ticketcount : 1}}</td>
-                        <!-- <td *ngIf="companySelected">
-                            <button class="btn btn-outline-danger" 
-                                (click)="removeEvento(evento)">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </td> -->
+                        <td>
+                            <span class="badge bg-success" *ngIf="evento.status === 'PUBLISHED'">Publicado</span>
+                            <span class="badge bg-danger" *ngIf="evento.status === 'INACTIVE'">Inactivo</span>
+                            <span class="badge bg-primary" *ngIf="evento.status === 'RETIRED'">Retirado</span>
+                            <span class="badge bg-warning" *ngIf="evento.status === 'FINISHED'">Terminado</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-success" *ngIf="evento.is_featured== '1'">Activo</span>
+                            <span class="badge bg-danger" *ngIf="evento.is_featured== '0'">Inactivo</span>
+                        </td>
+                        <td>
+                            <select class="form-control form-select-solid fw-bolder" name="status"
+                                [(ngModel)]="evento.status" (change)="cambiarStatus(evento)" placeholder="status">
+                                <option value="">Seleccione</option>
+                                <option value="PUBLISHED">Publicado</option>
+                                <option value="ACTIVE">Activo</option>
+                                <option value="INACTIVE">Inactivo</option>
+                                <option value="RETIRED">Retirado</option>
+                                <option value="FINISHED">Terminado</option>
+                            </select>
+                        </td>
+
+
+
                     </tr>
                 </tbody>
 
@@ -72,8 +88,4 @@
     </div>
 
     <!-- Button trigger modal -->
-
-
-
-
 </div>

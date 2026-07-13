@@ -12,6 +12,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EventoEditComponent } from './evento-edit/evento-edit.component';
+import { ListahijosComponent } from './listahijos/listahijos.component';
 
 
 
@@ -19,12 +20,14 @@ import { EventoEditComponent } from './evento-edit/evento-edit.component';
   declarations: [
     EventosComponent, 
     EventoDetailComponent, 
-    EventoEditComponent
+    EventoEditComponent,
+    ListahijosComponent
   ],
   exports: [
     EventosComponent, 
     EventoDetailComponent, 
-    EventoEditComponent
+    EventoEditComponent,
+    ListahijosComponent
   ],
   imports: [
    CommonModule,

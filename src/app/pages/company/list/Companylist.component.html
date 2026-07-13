@@ -120,4 +120,6 @@
 </div>
 <!--/main-->
 <app-edit (refreshCatList)="loadCompanies()" [companySeleccionado]="companySeleccionado" (closeModal)="onClose()" #editCompany></app-edit>
-<app-company-detail [companySeleccionado]="companySeleccionado" #viewCompany></app-company-detail>
+<app-company-detail [companySeleccionado]="companySeleccionado" #viewCompany (onAbrirModalEvento)="manejarCambioModal($event)"></app-company-detail>
+<app-evento-detail [eventoSeleccionado]="eventoSeleccionado" #viewEvento></app-evento-detail>
+<app-evento-edit  [eventSeleccionado]="eventSeleccionado"  #editEvent (onSolicitarEdicion)="abrirEditarDesdeVer($event)"></app-evento-edit>

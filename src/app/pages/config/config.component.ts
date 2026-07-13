@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Paymentmethod } from 'src/app/models/paymentmethod';
 import { AuthService } from 'src/app/services/auth.service';
 import { PaimentmethodService } from 'src/app/services/paymentmethod.service';
+import { UserService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,15 +31,19 @@ export class ConfigComponent {
   tipo: string;
   public option_selected: number = 1;
   public solicitud_selected: any = null;
+  user:any
 
   constructor(
     private paymentMethodService: PaimentmethodService,
-    private accountService: AuthService
+    private accountService: AuthService,
+    private userService: UserService,
   ) {}
 
   ngOnInit(): void {
-    this.getTiposdePago();
+    
     this.accountService.closeMenu();
+    this.user = this.accountService.userprofile;
+    this.getUserRemoto()
   }
 
   selectedTypeEdit(tipo: any) {
@@ -50,14 +55,18 @@ export class ConfigComponent {
     this.tipoSeleccionado = tipodepago;
     // console.log(this.tipoSeleccionado);
   }
+  getUserRemoto(){
+    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+      this.user = resp.user;
+      this.getTiposdePago();
+    })
+  }
 
   getTiposdePago() {
     this.isLoading = true;
-    this.paymentMethodService.getPaymentmethods().subscribe((resp: any) => {
-      // console.log(resp);
+    this.paymentMethodService.getPaymentMethodByTiendaId(this.user.company_id).subscribe((resp: any) => {
       this.tiposdepagos = resp;
       this.isLoading = false;
-      // console.log(this.tiposdepagos);
     });
   }
 

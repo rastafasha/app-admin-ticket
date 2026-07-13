@@ -42,10 +42,10 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 p-3">
-                <a [routerLink]="['/dashboard/evento/create']" class="cursor" data-toggle="tooltip"
-                    data-original-title="Edit">
-                    <div class="btn btn-outline-success"><i class="fa fa-edit"></i> Crear Evento</div>
-                </a>
+                <button (click)="openEditModal()" class="btn btn-outline-success" data-toggle="tooltip"
+                    data-original-title="Edit" data-bs-toggle="modal" data-bs-target="#editEvent">
+                    <i class="fa fa-plus"></i> Crear Evento
+                </button>
             </div>
         </div>
         <div class="col-12 col-sm-4 col-md-4 ">
@@ -67,7 +67,7 @@
                     <a routerLink="../dashboard/clientes">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
                             <i class="fas fa-id-card fa-2x"></i>
-                            <p>Clientes: {{clients_nodeuda}}</p>
+                            <p>Clientes</p>
                         </div>
                     </a>
                 </div>
@@ -77,7 +77,7 @@
                     <a routerLink="../dashboard/eventos">
                         <div class="card-body cuadroicondatos" style=" border-left: green 2px solid;">
                             <i class="fa fa-star fa-2x"></i>
-                            <p>Eventos: {{total_events}}</p>
+                            <p>Eventos</p>
                         </div>
                     </a>
                 </div>

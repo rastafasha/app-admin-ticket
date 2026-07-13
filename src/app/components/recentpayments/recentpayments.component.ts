@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/users.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-recentpayments',
@@ -23,27 +24,44 @@ export class RecentpaymentsComponent {
   query: string = '';
 
   constructor(
-    private location: Location,
     private paymentService: PaymentService,
     private userService: UserService,
+    private accountService: AuthService,
     private http: HttpClient
   ) {
     this.user = this.userService.user;
   }
 
   ngOnInit(): void {
-    this.getPagos();
     window.scrollTo(0, 0);
-    // this.getPagos_list();
-    // if (this.user.role != 'PARTNER') {
-    //   // this.router.navigateByUrl('/dashboard');
-    //   // this.loadPaymentsbyEvent();
-    // }
+    this.user = this.accountService.userprofile;
+    if(this.user.role === 'SUPERADMIN'){
+      this.getPagosRecientes();
+    }else{
+      this.getPagosRecientesTienda();
+    }
+    this.getUserRemoto()
   }
 
-  getPagos(): void {
+  getUserRemoto(){
+    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+      this.user = resp.user;
+       this.getPagosRecientesTienda();
+    })
+  }
+
+  getPagosRecientes(): void {
     this.isLoading = true;
     this.paymentService.getRecientes().subscribe((res: any) => {
+      this.payments = res.data;
+      (error) => (this.error = error);
+      this.isLoading = false;
+      // console.log(this.payments);
+    });
+  }
+  getPagosRecientesTienda(): void {
+    this.isLoading = true;
+    this.paymentService.getRecientesTienda(this.user.company_id).subscribe((res: any) => {
       this.payments = res.data;
       (error) => (this.error = error);
       this.isLoading = false;
@@ -60,7 +78,7 @@ export class RecentpaymentsComponent {
   }
 
   public PageSize(): void {
-    this.getPagos();
+    this.ngOnInit();
     this.query = '';
   }
 
@@ -76,7 +94,7 @@ export class RecentpaymentsComponent {
       //   caption:'Mensaje de Validación',
       //   type:'success',
       // })
-      this.getPagos();
+      this.ngOnInit();
     });
   }
 }

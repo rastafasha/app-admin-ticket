@@ -84,6 +84,12 @@ export class EventoService {
     return this.http.get(URL, { headers: headers });
   }
 
+  getByTiendaId(company_id: number) {
+    const url = `${baseUrl}/event/tienda/${company_id}`;
+    return this.http.get<any>(url, this.headers)
+
+  }
+
   eventsbyClient(id:number): Observable<any> {
       
           let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});

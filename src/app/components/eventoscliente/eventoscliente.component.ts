@@ -1,5 +1,6 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { Evento } from 'src/app/models/evento';
 import { Payment } from 'src/app/models/payment';
 import { CompanyService } from 'src/app/services/company.service';
@@ -14,6 +15,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./eventoscliente.component.css']
 })
 export class EventosclienteComponent implements OnChanges {
+  @Output() onEventoSeleccionado = new EventEmitter<number>();
+  
+  @Input() eventoSeleccionado: any;
   @Input() userprofile: any;
   @Input() companySelected: any;
   isLoading = false;
@@ -43,6 +47,7 @@ export class EventosclienteComponent implements OnChanges {
   constructor(
     private eventosService: EventoService,
     private companyService: CompanyService,
+    private router: Router,
     private http: HttpClient,
     handler: HttpBackend
   ) {
@@ -51,9 +56,6 @@ export class EventosclienteComponent implements OnChanges {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    console.log(this.userprofile);
-    console.log(this.companySelected);
-    // Removed this.getUsers() from here to avoid calling before userprofile is set
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -150,6 +152,31 @@ export class EventosclienteComponent implements OnChanges {
         });
         this.getEventsporCompany();
       })
+  }
+
+  cambiarStatus(eventprofile: any) {
+      const VALUE = eventprofile.status;
+  
+      const data = {
+        status: VALUE
+      }
+  
+  
+      this.eventosService.updateStatus(data, eventprofile.id).subscribe((resp) => {
+        // console.log(resp);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Actualizado',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.ngOnInit();
+      });
+    }
+
+  seleccionarYSalir(eventoId: number) {
+    this.onEventoSeleccionado.emit(eventoId);
   }
 
 }

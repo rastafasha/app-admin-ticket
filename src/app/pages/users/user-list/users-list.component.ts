@@ -19,7 +19,7 @@ export class UsersListComponent implements OnInit {
 
   isLoading = false;
   usersCount = 0;
-  usuarios: any;
+  usuarios: User[] = [];
   user: any;
   roles;
 
@@ -50,14 +50,38 @@ export class UsersListComponent implements OnInit {
     this.config();
     this.accountService.closeMenu();
     this.getUsers();
+
+    this.user = this.accountService.userprofile;
+      
+      if(this.user.roles[0] === 'SUPERADMIN'){
+        this.getUsers();
+      }else{
+        this.getUserRemoto()
+      }
   }
 
-
+getUserRemoto(){
+    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+      this.user = resp.user;
+      this.getUsersByTienda()
+    })
+  }
 
 
   getUsers(): void {
     this.isLoading = true;
     this.userService.getAll().subscribe(
+      (res:any) =>{
+        this.usuarios = res.users.data;
+        error => this.error = error;
+        this.isLoading = false;
+        // console.log(this.usuarios);
+      }
+    );
+  }
+  getUsersByTienda(): void {
+    this.isLoading = true;
+    this.userService.getUserByEmpresa(this.user.company_id).subscribe(
       (res:any) =>{
         this.usuarios = res.users.data;
         error => this.error = error;
@@ -139,7 +163,7 @@ export class UsersListComponent implements OnInit {
   }
 
   public PageSize(): void {
-    this.getUsers();
+    this.ngOnInit();
     this.query = '';
   }
 

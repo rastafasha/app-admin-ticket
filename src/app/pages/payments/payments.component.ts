@@ -48,18 +48,36 @@ export class PaymentsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.closeMenu();
-
     this.accountService.closeMenu();
-    this.getPagos();
     window.scrollTo(0, 0);
-    // this.getPagos_list();
+    this.user = this.accountService.userprofile;
+
+    if(this.user.roles[0] === 'SUPERADMIN'){
+        this.getPagos();
+      }else{
+        this.getUserRemoto()
+      }
   }
 
-  
+  getUserRemoto(){
+    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+      this.user = resp.user;
+       this.getPagosTienda();
+    })
+  }
 
   getPagos(): void {
     this.isLoading = true;
     this.paymentService.getAll().subscribe((res: any) => {
+      this.payments = res.data;
+      (error) => (this.error = error);
+      this.isLoading = false;
+      // console.log(this.payments);
+    });
+  }
+  getPagosTienda(): void {
+    this.isLoading = true;
+    this.paymentService.getTransferenciaByTiendaId(this.user.company_id).subscribe((res: any) => {
       this.payments = res.data;
       (error) => (this.error = error);
       this.isLoading = false;
@@ -106,7 +124,11 @@ export class PaymentsComponent implements OnInit {
 
   selectedYear() {
     console.log(this.selectedValue);
-    this.getDashboardAdminYear();
+    if(this.user.role === 'SUPERADMIN' || this.user.role === 'ADMIN'){
+      this.getDashboardAdminYear();
+    }else{
+      this.getDashboardAdminYearTienda();
+    }
   }
   selecedList: any = [
     { value: '2022' },
@@ -123,14 +145,18 @@ export class PaymentsComponent implements OnInit {
   getDashboardAdminYear() {
     this.paymentService.getPagosStatusbyYear(this.selectedValue).subscribe((resp: any) => {
       this.payments = resp.payments;
-      console.log(this.payments)
+
+    })
+  }
+  getDashboardAdminYearTienda() {
+    this.paymentService.getPagosStatusbyYearTienda(this.selectedValue, this.user.company_id).subscribe((resp: any) => {
+      this.payments = resp.payments;
 
     })
   }
 
 openViewDetail(pago: Cliente) {
     this.clientSeleccionado = pago;
-    console.log(pago)
 
   }
 openViewDetailPago(pago: Payment) {

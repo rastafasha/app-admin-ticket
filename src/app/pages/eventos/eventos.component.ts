@@ -8,6 +8,8 @@ import { EventoService } from 'src/app/services/evento.service';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from 'src/app/models/evento';
 import Swal from 'sweetalert2';
+import { UsersListComponent } from '../users/user-list/users-list.component';
+import { UserService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-eventos',
   standalone: false,
@@ -53,6 +55,7 @@ export class EventosComponent {
     private http: HttpClient,
     public accountService: AuthService,
     public activatedRoute: ActivatedRoute,
+    public userService: UserService,
     handler: HttpBackend
   ) {
     this.http = new HttpClient(handler);
@@ -62,15 +65,23 @@ export class EventosComponent {
     window.scrollTo(0, 0);
     this.accountService.closeMenu();
     this.role = this.accountService.role;
-    if (this.activatedRoute.snapshot.params['id']) {
-      this.activatedRoute.params.subscribe(({ id }) => this.getEventsbyUser(id));
-    } else {
-      this.getEvents();
-
-    }
-
-
+    
+     this.user = this.accountService.userprofile;
+      
+      if(this.user.roles[0] === 'SUPERADMIN'){
+        this.getEvents();
+      }else{
+        this.getUserRemoto()
+      }
   }
+getUserRemoto(){
+    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+      this.user = resp.user;
+      this.getEventsbyTienda()
+    })
+  }
+
+
 
 
   getEvents(): void {
@@ -85,15 +96,13 @@ export class EventosComponent {
     );
   }
 
-  getEventsbyUser(id: number): void {
+  getEventsbyTienda(): void {
     this.isLoading = true;
-    this.user_id = id.toString();
-    this.eventosService.eventsbyUser(+id).subscribe(
+    this.eventosService.getByTiendaId(this.user.company_id).subscribe(
       (res: any) => {
-        this.eventos = res.user.eventos;
+        this.eventos = res.events;
         error => this.error = error;
         this.isLoading = false;
-        console.log(this.eventos);
       }
     );
   }
@@ -153,7 +162,6 @@ export class EventosComponent {
 
   openViewDetail(evento: Evento) {
     this.eventoSeleccionado = evento;
-
   }
 
 

@@ -13,6 +13,7 @@ import { Pais } from 'src/app/models/pais';
 import { PaisService } from 'src/app/services/pais.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category';
+import { UserService } from 'src/app/services/users.service';
 
 declare var bootstrap: any;
 @Component({
@@ -34,7 +35,7 @@ export class EventoEditComponent implements OnInit, OnChanges {
   uploadError: string;
   imagePath: string;
   event: Evento;
-  user: User;
+  user: any;
   event_id: number;
   public FILE_AVATAR: any;
   public IMAGE_PREVISUALIZA: any = "assets/img/user-06.jpg";
@@ -44,7 +45,7 @@ export class EventoEditComponent implements OnInit, OnChanges {
   public Editor = ClassicEditor;
   public editorData = `<p>This is a CKEditor 4 WYSIWYG editor instance created with Angular.</p>`;
   text_validation: any = null;
-
+  companyId:any;
 
   companies: any[] = [];
   public countries: Pais;
@@ -57,6 +58,7 @@ export class EventoEditComponent implements OnInit, OnChanges {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private userService: UserService,
     private paisService: PaisService,
   ) { }
 
@@ -67,6 +69,18 @@ export class EventoEditComponent implements OnInit, OnChanges {
     this.getPaisesList();
     this.getCompanies();
 
+    if(this.user.roles[0] === 'SUPERADMIN'){
+        this.getCompanies();
+      }else{
+        this.getUserRemoto()
+      }
+      
+  }
+  getUserRemoto(){
+    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+      this.user = resp.user;
+      this.companyId = this.user.company_id;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -252,7 +266,14 @@ export class EventoEditComponent implements OnInit, OnChanges {
     formData.append('fecha_fin', this.eventoForm.get('fecha_fin').value)
     formData.append('status', this.eventoForm.get('status').value);
     formData.append('lugar', this.eventoForm.get('lugar').value);
-    formData.append('company_id', this.eventoForm.get('company_id').value);
+    if (this.user.roles[0] === 'SUPERADMIN') {
+  // Si es SUPERADMIN, toma la empresa seleccionada en el formulario
+  formData.append('company_id', this.eventoForm.get('company_id')?.value);
+  } else {
+    // Si no, asigna directamente la empresa a la que pertenece el usuario logueado
+    formData.append('company_id', `${this.companyId}`);
+  }
+    
     formData.append('pais_id', this.eventoForm.get('pais_id').value);
     formData.append('category_id', this.eventoForm.get('category_id').value);
     formData.append('is_featured', this.eventoForm.get('is_featured').value ? '1' : '0');
