@@ -24,7 +24,7 @@ export class CompanyListComponent {
   companySeleccionado: Company;
   eventoSeleccionado: Evento;
   eventSeleccionado: Evento;
-  evento:any;
+  evento: any;
   constructor(
     private companyService: CompanyService,
     public authService: AuthService,
@@ -79,7 +79,7 @@ export class CompanyListComponent {
     this.query = '';
   }
 
-   onEditProject(company: Company) {
+  onEditProject(company: Company) {
     this.companySeleccionado = company;
   }
 
@@ -89,9 +89,9 @@ export class CompanyListComponent {
 
   openViewDetail(company: Company) {
     this.companySeleccionado = company;
-    
+
   }
-  
+
 
   onCloseModal(): void {
     this.companySeleccionado = null;
@@ -109,20 +109,20 @@ export class CompanyListComponent {
 
     // 2. Esperamos 350ms a que termine de ocultarse (evita congelar la pantalla o el fondo gris)
     setTimeout(() => {
-  this.cargarDatosDelEvento(eventoId);
+      this.cargarDatosDelEvento(eventoId);
 
-  const modalEventoEl = document.getElementById('viewEvento');
-  
-  // Validación de seguridad para evitar el error de 'classList'
-  if (!modalEventoEl) {
-    console.error("ERROR: No se encontró ningún elemento en el DOM con el id 'viewEvento'. Verifica tu HTML.");
-    return; // Detiene la ejecución antes de que rompa la aplicación
-  }
+      const modalEventoEl = document.getElementById('viewEvento');
 
-  // Si existe, lo inicializa y lo muestra con seguridad
-  const modalEvento = new bootstrap.Modal(modalEventoEl);
-  modalEvento.show();
-}, 350);
+      // Validación de seguridad para evitar el error de 'classList'
+      if (!modalEventoEl) {
+        console.error("ERROR: No se encontró ningún elemento en el DOM con el id 'viewEvento'. Verifica tu HTML.");
+        return; // Detiene la ejecución antes de que rompa la aplicación
+      }
+
+      // Si existe, lo inicializa y lo muestra con seguridad
+      const modalEvento = new bootstrap.Modal(modalEventoEl);
+      modalEvento.show();
+    }, 350);
   }
 
   cargarDatosDelEvento(id: number) {
@@ -135,34 +135,34 @@ export class CompanyListComponent {
   // Variable para saber qué evento se va a editar (opcional)
 
 
-abrirEditarDesdeVer(eventoObjeto: any) {
-  if (!eventoObjeto) return;
+  abrirEditarDesdeVer(eventoObjeto: any) {
+    if (!eventoObjeto) return;
 
-  // 1. Guardamos el objeto completo recibido del hijo
-  this.eventSeleccionado = eventoObjeto;
-  
-  // O si usas un formulario reactivo en el padre, puedes rellenarlo directamente aquí:
-  // this.editarForm.patchValue(eventoObjeto);
+    // 1. Guardamos el objeto completo recibido del hijo
+    this.eventSeleccionado = eventoObjeto;
 
-  // 2. Buscamos y cerramos el modal de visualización
-  const modalVerEl = document.getElementById('viewEvento');
-  const modalVer = bootstrap.Modal.getInstance(modalVerEl);
-  modalVer?.hide();
+    // O si usas un formulario reactivo en el padre, puedes rellenarlo directamente aquí:
+    // this.editarForm.patchValue(eventoObjeto);
 
-  // 3. Esperamos la animación de cierre (350ms)
-  setTimeout(() => {
-    const modalEditarEl = document.getElementById('editEvento');
-    
-    if (!modalEditarEl) {
-      console.error("No se encontró el elemento HTML con id 'editEvento'");
-      return;
-    }
+    // 2. Buscamos y cerramos el modal de visualización
+    const modalVerEl = document.getElementById('viewEvento');
+    const modalVer = bootstrap.Modal.getInstance(modalVerEl);
+    modalVer?.hide();
 
-    // 4. Abrimos el modal de edición de forma segura
-    const modalEditar = new bootstrap.Modal(modalEditarEl);
-    modalEditar.show();
-  }, 350);
-}
+    // 3. Esperamos la animación de cierre (350ms)
+    setTimeout(() => {
+      const modalEditarEl = document.getElementById('editEvento');
+
+      if (!modalEditarEl) {
+        console.error("No se encontró el elemento HTML con id 'editEvento'");
+        return;
+      }
+
+      // 4. Abrimos el modal de edición de forma segura
+      const modalEditar = new bootstrap.Modal(modalEditarEl);
+      modalEditar.show();
+    }, 350);
+  }
 
 
 

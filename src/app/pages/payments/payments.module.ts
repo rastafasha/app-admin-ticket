@@ -14,6 +14,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ParentsModule } from '../clientes/clientes.module';
 import { PagesModule } from "../pages.module";
+import { ReportarPagoComponent } from './reportar-pago/reportar-pago.component';
 
 
 
@@ -22,10 +23,16 @@ import { PagesModule } from "../pages.module";
     PaymentDetailsComponent,
     PaymentEditComponent,
     PaymentsComponent,
-    
-    
-    
+    ReportarPagoComponent
   ],
+  
+  exports: [
+    PaymentDetailsComponent,
+    PaymentEditComponent,
+    PaymentsComponent,
+    ReportarPagoComponent
+  ],
+
   imports: [
     CommonModule,
     HttpClientModule,
@@ -39,7 +46,6 @@ import { PagesModule } from "../pages.module";
     PipesModule,
     ComponentsModule,
     ParentsModule,
-    PagesModule
 ]
 })
 export class PaymentsModule { }

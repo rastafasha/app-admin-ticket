@@ -11,6 +11,8 @@ import { Payment } from 'src/app/models/payment';
 import { AuthService } from 'src/app/services/auth.service';
 import { Cliente } from 'src/app/models/cliente';
 import { UserService } from 'src/app/services/users.service';
+import { PaymentService } from 'src/app/services/payment.service';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-list',
@@ -42,6 +44,7 @@ export class ListComponent {
   ServerUrl = environment.url_servicios;
   doctores;
   clientSeleccionado: Cliente;
+   pagoSeleccionado: Payment;
 
   constructor(
     private clientService: ClientService,
@@ -49,6 +52,7 @@ export class ListComponent {
     private http: HttpClient,
     public accountService: AuthService,
     public userService: UserService,
+    public paymentService: PaymentService,
     handler: HttpBackend
   ) {
     this.http = new HttpClient(handler);
@@ -169,5 +173,37 @@ export class ListComponent {
   openViewDetail(client: Cliente) {
     this.clientSeleccionado = client;
 
+  }
+
+
+  manejarCambioModalPago(pagoId: number) {
+    console.log('recibe final',pagoId)
+    // 1. Instanciamos y cerramos el modal de la empresa de forma limpia
+    const modalEventoEl = document.getElementById('viewEvento');
+    const modalEvento = bootstrap.Modal.getInstance(modalEventoEl);
+    modalEvento?.hide();
+
+    // 2. Esperamos 350ms a que termine de ocultarse (evita congelar la pantalla o el fondo gris)
+    setTimeout(() => {
+      this.cargarDatosDelPago(pagoId);
+
+      const modalPagoEl = document.getElementById('viewPayment');
+
+      // Validación de seguridad para evitar el error de 'classList'
+      if (!modalPagoEl) {
+        console.error("ERROR: No se encontró ningún elemento en el DOM con el id 'viewPayment'. Verifica tu HTML.");
+        return; // Detiene la ejecución antes de que rompa la aplicación
+      }
+
+      // Si existe, lo inicializa y lo muestra con seguridad
+      const modalPago = new bootstrap.Modal(modalPagoEl);
+      modalPago.show();
+    }, 350);
+  }
+
+  cargarDatosDelPago(id: number) {
+    this.paymentService.getPagoById(id).subscribe(resp => {
+      this.pagoSeleccionado = resp;
+    });
   }
 }

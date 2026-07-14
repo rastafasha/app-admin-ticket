@@ -1,5 +1,5 @@
 import { HttpClient, HttpBackend } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Cliente } from 'src/app/models/cliente';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listapayments.component.css']
 })
 export class ListapaymentsComponent {
+
    @Input() userprofile: Cliente;
   
     title = 'Padres';
@@ -108,4 +109,6 @@ export class ListapaymentsComponent {
       this.getPayments();
     });
   }
+
+   
 }

@@ -1,7 +1,4 @@
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Component, Input, OnChanges, OnInit,  SimpleChanges } from '@angular/core';
 import { ClientService } from 'src/app/services/client.service';
 import { Cliente } from 'src/app/models/cliente';
 import { Payment } from 'src/app/models/payment';
@@ -16,14 +13,14 @@ export class ClientdetailComponent implements OnInit, OnChanges {
 
   title = "Detalles de la cuenta";
   detino = "clientes";
-  profileForm: FormGroup;
   imagePath: string;
   error: string;
   uploadError: boolean;
   display = false;
+  isLoading: boolean = false;
+
   public option_selected: number = 1;
   public solicitud_selected: any = null;
-  isLoading: boolean = false;
   public selectedValue!: string;
 
   identity: any;
@@ -43,9 +40,7 @@ export class ClientdetailComponent implements OnInit, OnChanges {
   isOpen = false;
 
   constructor(
-    private location: Location,
     private clientService: ClientService,
-    private activatedRoute: ActivatedRoute,
   ) {
   }
 
@@ -56,8 +51,7 @@ export class ClientdetailComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
     if (changes['clientSeleccionado'] && this.clientSeleccionado) {
-      console.log(this.clientSeleccionado)
-      this.getUserServer(this.clientSeleccionado.id );
+      // this.getUserServer(this.clientSeleccionado.id );
       this.isOpen = true;
     }
   }
@@ -74,12 +68,6 @@ export class ClientdetailComponent implements OnInit, OnChanges {
     this.clientService.getUserById(+id).subscribe(
       (res: any) => {
         this.userprofile = res.cliente;
-        if (res.representante && res.representante.id) {
-          this.representante_id = res.representante.id;
-        } else {
-          this.representante_id = null;
-          console.error('User or user.id is undefined in response:', res);
-        }
         this.isLoading = false;
       },
       (error) => {
@@ -112,6 +100,7 @@ export class ClientdetailComponent implements OnInit, OnChanges {
 
     }
   }
+  
 
   
 }

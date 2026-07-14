@@ -12,12 +12,15 @@ import { CompanyService } from 'src/app/services/company.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-evento-detail',
+  standalone: false,
   templateUrl: './evento-detail.component.html',
   styleUrls: ['./evento-detail.component.css'],
 })
 export class EventoDetailComponent implements OnInit, OnChanges {
   @Input() eventoSeleccionado: Evento;
   @Output() onSolicitarEdicion = new EventEmitter<any>();
+  @Output() onAbrirModalPago = new EventEmitter<number>();
+  @Output() onAbrirModalClient = new EventEmitter<number>();
 
   title = 'Detalles del Evento';
   detino = 'eventos';
@@ -221,11 +224,20 @@ export class EventoDetailComponent implements OnInit, OnChanges {
     this.eventoSeleccionado = null;
   }
 
-  solicitarEdicion(eventoSeleccionado:any) {
+  solicitarEdicion(eventoSeleccionado: any) {
     this.eventoSeleccionado = eventoSeleccionado;
     if (this.eventoSeleccionado) {
       this.onSolicitarEdicion.emit(this.eventoSeleccionado);
     }
+  }
+
+  redireccionarPagoOd(pagoId: number) {
+    console.log('recibe',pagoId)
+    this.onAbrirModalPago.emit(pagoId);
+  }
+  redireccionarClient(clientId: number) {
+    console.log('recibe',clientId)
+    this.onAbrirModalClient.emit(clientId);
   }
 
 }

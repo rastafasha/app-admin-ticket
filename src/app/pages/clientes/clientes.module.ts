@@ -11,10 +11,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ComponentsModule } from '../../components/components.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { PaymentsModule } from '../payments/payments.module';
 
 @NgModule({
   declarations: [
-    ListComponent, ClientdetailComponent
+    ListComponent, 
+    ClientdetailComponent
   ],
   exports:[
     ClientdetailComponent
@@ -30,7 +32,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     CKEditorModule,
     ComponentsModule,
     SharedModule,
-    PipesModule
+    PipesModule,
   ],
 })
 export class ParentsModule {}

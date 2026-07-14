@@ -126,9 +126,11 @@
 
     <div class="col-12 col-sm-4 col-md-4 ">
         <div class="card shadow" style="padding: 10px; border-left: green 2px solid;">
-            <app-tasadiabcv></app-tasadiabcv>
+            <app-tasadiabcv ></app-tasadiabcv>
         </div>
     </div>
-    <app-recentpayments></app-recentpayments>
+    <app-recentpayments (onAbrirModalPago)="manejarCambioModalPago($event)" (onAbrirModalClient)="manejarCambioModalClient($event)"></app-recentpayments>
 </div>
 <app-evento-edit [eventSeleccionado]="eventSeleccionado" (closeModal)="onClose()" #editEvent></app-evento-edit>
+<app-payment-details [pagoSeleccionado]="pagoSeleccionado" #viewPayment></app-payment-details>
+<app-clientdetail [clientSeleccionado]="clientSeleccionado" #viewClient></app-clientdetail>

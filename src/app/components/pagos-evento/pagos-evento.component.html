@@ -17,7 +17,7 @@
                                 (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
                                     class="fa fa-search"></i></button>
                             <a href="javascript:;" (click)="PageSize()"
-                                class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
+                                class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-sync"></i></a>
                         </div>
                     </div>
                 </div>
@@ -58,9 +58,9 @@
                                 style="width: 40px; height: 40px; border-radius: 100px;" class="imagecircle shadow"
                                 alt="">
                         </td>
-                        <th scope="row"><a [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a>
+                        <th scope="row"><a class="cursor" (click)="seleccionarSalirAbrirPago(pago.id)">{{pago.referencia}}</a>
                         </th>
-                        <th><a [routerLink]="['/dashboard/cliente/detail/', pago.client_id]">{{pago.nombre}}</a></th>
+                        <th><a class="cursor" (click)="seleccionarSalirAbrirClient(pago.client_id)">{{pago.nombre}}</a></th>
                         <td>{{pago.bank_name}}</td>
                         <td>{{pago.bank_destino}}</td>
                         <td>{{pago.metodo}}</td>

@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-payment-edit',
-  
+  standalone: false,
   templateUrl: './payment-edit.component.html',
   styleUrls: ['./payment-edit.component.css']
 })

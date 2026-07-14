@@ -10,7 +10,7 @@ import { Cliente } from 'src/app/models/cliente';
 
 @Component({
   selector: 'app-payments',
-
+  standalone: false,
   templateUrl: './payments.component.html',
   styleUrls: ['./payments.component.css'],
 })

@@ -18,6 +18,7 @@ import { UserService } from 'src/app/services/users.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-evento-edit',
+  standalone: false,
   templateUrl: './evento-edit.component.html',
   styleUrls: ['./evento-edit.component.css']
 })

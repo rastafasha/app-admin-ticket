@@ -62,12 +62,17 @@
                                         <img [src]="pago?.avatar| imagenPipe: 'payments' " class="imagecircle shadow"
                                             alt="">
                                     </td>
-                                    <th scope="row"> {{pago.referencia}} </th>
-                                    <th>{{pago.nombre}} </th>
+                                    <th scope="row"><a class="cursor"
+                                            (click)="redireccionarPago(pago.id)">{{pago.referencia}}</a>
+                                    </th>
+                                    <th><a class="cursor"
+                                            (click)="redireccionarClient(pago.client_id)">{{pago.nombre}}</a>
+                                    </th>
                                     <td>{{pago.bank_name}}</td>
                                     <td>{{pago.bank_destino}}</td>
                                     <td>{{pago.metodo}}</td>
-                                    <td>
+                                    <td>{{pago.monto|currency}}</td>
+                                    <!-- <td>
                                         <span
                                             *ngIf="pago.metodo ==='Transferencia Bolívares' || pago.metodo ==='Pago Móvil'">
                                             {{pago.monto|currency:'Bs.'}}
@@ -76,34 +81,9 @@
                                         <span *ngIf="pago.metodo ==='Transferencia Dólares'">
                                             {{pago.monto|currency}}
                                         </span>
-                                    </td>
-
-                                    <!-- <td>
-                                        <span
-                                            *ngIf="pago.metodo ==='Transferencia Bolívares' || pago.metodo ==='Pago Móvil'">
-                                            {{pago.deuda|currency:'Bs.'}}
-
-                                        </span>
-                                        <span *ngIf="pago.metodo ==='Transferencia Dólares'">
-                                            {{pago.deuda|currency}}
-                                        </span>
                                     </td> -->
-                                    <!-- <td>
-                                        <span
-                                            *ngIf="pago.metodo ==='Transferencia Bolívares' || pago.metodo ==='Pago Móvil'">
-                                            {{pago.monto_pendiente|currency:'Bs.'}}
 
-                                        </span>
-                                        <span *ngIf="pago.metodo ==='Transferencia Dólares'">
-                                            {{pago.monto_pendiente|currency}}
-                                        </span>
-                                    </td> -->
-                                    <!-- <td>
-                                        {{pago.status_deuda}}
-                                        <span class="badge bg-success"
-                                            *ngIf="pago.status_deuda !== 'DEUDA'">Pagado</span>
-                                        <span class="badge bg-danger" *ngIf="pago.status_deuda === 'DEUDA'">Deuda</span>
-                                    </td> -->
+
 
                                     <td>
                                         <span class="badge bg-success"

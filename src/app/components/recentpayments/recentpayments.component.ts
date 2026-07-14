@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, Location, NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Payment } from 'src/app/models/payment';
@@ -13,13 +13,17 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./recentpayments.component.css'],
 })
 export class RecentpaymentsComponent {
+
+  @Output() onAbrirModalPago = new EventEmitter<number>();
+  @Output() onAbrirModalClient = new EventEmitter<number>();
+
   title = 'Pagos';
 
   payments: Payment;
   error: string;
   p: number = 1;
   count: number = 8;
-  isLoading:boolean = false;
+  isLoading: boolean = false;
   public user;
   query: string = '';
 
@@ -35,18 +39,18 @@ export class RecentpaymentsComponent {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.user = this.accountService.userprofile;
-    if(this.user.role === 'SUPERADMIN'){
+    if (this.user.roles[0] === 'SUPERADMIN') {
       this.getPagosRecientes();
-    }else{
-      this.getPagosRecientesTienda();
+    } else {
+
+      this.getUserRemoto()
     }
-    this.getUserRemoto()
   }
 
-  getUserRemoto(){
-    this.userService.getUserById(this.user.id).subscribe((resp:any)=>{
+  getUserRemoto() {
+    this.userService.getUserById(this.user.id).subscribe((resp: any) => {
       this.user = resp.user;
-       this.getPagosRecientesTienda();
+      this.getPagosRecientesTienda();
     })
   }
 
@@ -56,7 +60,6 @@ export class RecentpaymentsComponent {
       this.payments = res.data;
       (error) => (this.error = error);
       this.isLoading = false;
-      // console.log(this.payments);
     });
   }
   getPagosRecientesTienda(): void {
@@ -65,7 +68,6 @@ export class RecentpaymentsComponent {
       this.payments = res.data;
       (error) => (this.error = error);
       this.isLoading = false;
-      // console.log(this.payments);
     });
   }
   search() {
@@ -96,5 +98,14 @@ export class RecentpaymentsComponent {
       // })
       this.ngOnInit();
     });
+  }
+
+  
+
+  redireccionarPago(pagoId: number) {
+    this.onAbrirModalPago.emit(pagoId);
+  }
+  redireccionarClient(clientId: number) {
+    this.onAbrirModalClient.emit(clientId);
   }
 }

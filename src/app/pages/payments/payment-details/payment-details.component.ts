@@ -1,22 +1,22 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
 import { ClientService } from 'src/app/services/client.service';
 import { Cliente } from 'src/app/models/cliente';
-import Swal from 'sweetalert2';
 import { Evento } from 'src/app/models/evento';
 import { EventoService } from 'src/app/services/evento.service';
 @Component({
   selector: 'app-payment-details',
+  standalone: false,
   templateUrl: './payment-details.component.html',
   styleUrls: ['./payment-details.component.css']
 })
 export class PaymentDetailsComponent implements OnInit, OnChanges {
-  @Input() eventProfile: Evento;
   @Input() pagoSeleccionado: Payment;
+
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() refreshCatList: EventEmitter<void> = new EventEmitter<void>();
+
 
   title = "Detalle Pago";
   detino = 'payments';
@@ -30,12 +30,9 @@ export class PaymentDetailsComponent implements OnInit, OnChanges {
   isOpen = false;
 
   constructor(
-    private location: Location,
-    private activatedRoute: ActivatedRoute,
     private paymentService: PaymentService,
     private eventService: EventoService,
     private clientService: ClientService,
-    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -46,36 +43,32 @@ export class PaymentDetailsComponent implements OnInit, OnChanges {
     // Si llega un pago seleccionado válido desde el padre, abre el Offcanvas automáticamente
     if (changes['pagoSeleccionado'] && this.pagoSeleccionado) {
       console.log(this.pagoSeleccionado)
-      this.getPagoById(this.pagoSeleccionado.id);
+      // this.getPagoById(this.pagoSeleccionado.id);
       this.isOpen = true;
     }
   }
 
   onClose() {
     this.pagoSeleccionado = null;
+    this.closeModal.emit();
+    this.refreshCatList.emit();
   }
 
-  getUser(id: number) {
-    this.paymentService.getPagosbyUser(id).subscribe(
-      res => {
-        this.payment = res;
-        error => this.error = error;
-      }
-    );
-  }
+  
 
   getPagoById(id: number) {
     this.isLoading = true;
     this.paymentService.getPagoById(+id).subscribe(
-      res => {
-        this.payment = res;
-        this.client_id = res.client_id;
-        this.getClient();
-        this.event_id = res.event_id;
-        setTimeout(() => {
-          this.getEvent();
-        }, 500)
+      (res: any) => {
+        this.payment = res.payment;
+        console.log(res)
         this.isLoading = false;
+        this.client_id = res.client_id;
+        // this.getClient();
+        this.event_id = res.event_id;
+        // setTimeout(() => {
+        //   this.getEvent();
+        // }, 500)
       }
 
 

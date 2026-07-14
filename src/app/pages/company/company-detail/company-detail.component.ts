@@ -60,7 +60,7 @@ export class CompanyDetailComponent implements OnInit, OnChanges{
       let USER = localStorage.getItem("user");
       this.user = JSON.parse(USER);
       this.role = this.user.roles && this.user.roles.length > 0 ? this.user.roles[0] : '';
-      this.closeMenu();
+      
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -70,20 +70,9 @@ export class CompanyDetailComponent implements OnInit, OnChanges{
       this.isOpen = true;
     }
   }
-    closeMenu() {
-      var menuLateral = document.getElementsByClassName('sidebar');
-      for (var i = 0; i < menuLateral.length; i++) {
-        menuLateral[i].classList.remove('active');
-      }
-    }
+    
    
-    onClose() {
-    this.companySeleccionado = null;
-  }
-
-  redireccionarEvento(eventoId: number) {
-    this.onAbrirModalEvento.emit(eventoId);
-  }
+   
   
     getCompany(id: number) {
       this.isLoading = true;
@@ -175,7 +164,13 @@ export class CompanyDetailComponent implements OnInit, OnChanges{
       }
     }
   
-   
+    onClose() {
+    this.companySeleccionado = null;
+  }
+
+  redireccionarEvento(eventoId: number) {
+    this.onAbrirModalEvento.emit(eventoId);
+  }
 
 
 }

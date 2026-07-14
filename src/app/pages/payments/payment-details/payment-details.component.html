@@ -1,6 +1,5 @@
 <!-- =======| Main |======= -->
 
-<app-loading *ngIf="isLoading"></app-loading>
 <div class="modal fade" id="viewPayment" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -20,7 +19,7 @@
                         <span class="badge bg-primary" *ngIf="pagoSeleccionado?.status === 'PENDING'">Pendiente</span>
                         <span class="badge bg-danger" *ngIf="pagoSeleccionado?.status === 'REJECTED'">Rechazado</span>
                     </p>
-                    <p><b>Status deuda: &nbsp;</b> 
+                    <p *ngIf="pagoSeleccionado?.status_deuda" ><b>Status deuda: &nbsp;</b> 
                         <!-- {{pagoSeleccionado?.status_deuda}} -->
                     <span class="badge bg-success" *ngIf="pagoSeleccionado?.status_deuda === 'PAID'">Pagado</span>
                         <span class="badge bg-warning" *ngIf="pagoSeleccionado?.status_deuda === null">Pendiente</span>
@@ -28,12 +27,12 @@
                     </p>
                     <p><b>Nombre de la cuenta:</b> {{pagoSeleccionado?.nombre}}</p>
                     <p><b>email de la cuenta:</b> {{pagoSeleccionado?.email}}</p>
-                    <p><b>Cliente:</b> {{cliente?.name}} {{cliente?.surname}}</p>
-                    <p><b>Evento:</b> {{event?.name}}</p>
-                    <p><b>Fecha del Evento:</b> {{event?.fecha_inicio | date}}</p>
-                    <button class="btn btn-outline-primary" [routerLink]="['/dashboard/evento/detail/', pagoSeleccionado?.event_id]"> <i class="fa fa-eye"></i> </button>
+                    <p><b>Cliente:</b> {{pagoSeleccionado?.client?.name}} {{pagoSeleccionado?.client?.surname}} </p>
+                    <p><b>Evento:</b> {{pagoSeleccionado?.event?.name}}</p>
+                    <p><b>Fecha del Evento:</b> {{pagoSeleccionado?.event?.fecha_inicio | date}}</p>
+                    
                     <p><b>Fecha | Hora del pago:</b> {{pagoSeleccionado?.created_at | date:'MMM d, y, h:mm:ss a'}}</p>
-                    <p><b>Metodo de Pago:</b> {{pagoSeleccionado?.metodo}}</p>
+                    <p><b>Metodo de Pago:</b> {{pagoSeleccionado?.metodo.tipo}}</p>
                     <div *ngIf="pagoSeleccionado?.bank_name">
                         <p><b>Nombre del Banco:</b> {{pagoSeleccionado?.bank_name}}</p>
                     </div>
@@ -42,20 +41,21 @@
                     </div>
 
                     <p><b>Monto:</b>
-                        <span *ngIf="pagoSeleccionado?.metodo ==='Transferencia Bolívares' || pagoSeleccionado?.metodo ==='payment Móvil'">
+                        {{pagoSeleccionado?.monto|currency}}
+                        <!-- <span *ngIf="pagoSeleccionado?.metodo ==='Transferencia Bolívares' || pagoSeleccionado?.metodo ==='payment Móvil'">
                             {{pagoSeleccionado?.monto|currency:'Bs.'}}
 
                         </span>
                         <span *ngIf="pagoSeleccionado?.metodo ==='Transferencia Dólares'">
                             {{pagoSeleccionado?.monto|currency}}
-                        </span>
+                        </span> -->
                     </p>
               
                     
                 </div>
                 <div class="col-xs-12 col-sm-6">
 
-                    <img [src]="pagoSeleccionado?.avatar | imagenPipe: 'payments'" style="width:100%; padding: 10px;
+                    <img [src]="pagoSeleccionado?.avatar| imagenPipe: 'payments' " style="width:100%; padding: 10px;
                 border: 1px solid #ccc;
                 margin-top: 30px;" class="shadow" alt="">
                 </div>

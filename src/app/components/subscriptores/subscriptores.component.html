@@ -16,7 +16,7 @@
                                 (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i
                                     class="fa fa-search"></i></button>
                             <a href="javascript:;" (click)="PageSize()"
-                                class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-refresh"></i></a>
+                                class="btn btn-primary doctor-refresh ms-2 circle"><i class="fa fa-sync"></i></a>
                         </div>
                     </div>
                 </div>
@@ -46,12 +46,12 @@
                         *ngFor="let client of filteredClients  |  paginate: { itemsPerPage: count, currentPage: p } let i = index;">
 
 
-                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">
+                        <td><a (click)="seleccionarSalirAbrirClient(client.id)">
                                 <img [src]="client?.avatar| imagenPipe: 'clients' " class=" shadow"
                                     style="width: 45px; height: 45px; border-radius: 100px;" alt="">
                             </a>
                         </td>
-                        <td><a [routerLink]="['/dashboard/cliente/detail/', client.id]">{{client.name}}</a></td>
+                        <td><a class="cursor" (click)="seleccionarSalirAbrirClient(client.id)">{{client.name}}</a></td>
                         <td>{{client.n_doc}} </td>
                         <td>{{client.email}} </td>
                         <td>

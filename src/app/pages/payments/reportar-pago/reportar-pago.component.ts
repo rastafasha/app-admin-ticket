@@ -2,10 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from '@angular/forms';
-
-
 import { environment } from 'src/environments/environment';
-import { AccountService } from 'src/app/services/account.service';
 import { Payment } from 'src/app/models/payment';
 import { User } from 'src/app/models/users';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -20,10 +17,7 @@ declare var $:any;
 
 @Component({
   selector: 'app-reportar-pago',
-  standalone: true,
-  imports: [
-    CommonModule,FormsModule,ReactiveFormsModule
-  ],
+  standalone: false,
   templateUrl: './reportar-pago.component.html',
   styleUrls: ['./reportar-pago.component.css']
 })
@@ -63,7 +57,6 @@ export class ReportarPagoComponent implements OnInit {
     private usuarioService: UserService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private accountService: AccountService,
   ) {
     this.user = this.usuarioService.user;
   }

@@ -45,13 +45,10 @@
                 <tbody>
                     <tr *ngFor="let pago of payments |  paginate: { itemsPerPage: count, currentPage: p }">
                         <td>
-                            <a [routerLink]="['/dashboard/payment-detail', pago.id]">
-                                <img [src]="pago.avatar| imagenPipe: 'payments' "  class="imagecircle shadow" alt="">
-
-                            </a>
+                            <img [src]="pago.avatar| imagenPipe: 'payments' "  class="imagecircle shadow" alt="">
+                            
                         </td>
-                        <th scope="row"><a [routerLink]="['/dashboard/payment-detail', pago.id]">{{pago.referencia}}</a>
-                        </th>
+                        <th scope="row">{{pago.referencia}}</th>
                         <!-- <th><a [routerLink]="['/dashboard/user/', pago.parent_id]">{{pago.parent_id}}</a></th> -->
                         <td>{{pago.event?.name}}</td>
                         <td>{{pago.bank_destino}}</td>

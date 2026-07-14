@@ -265,7 +265,7 @@
                                             <br />
                                             <div class="row">
                                                 <app-subscriptores
-                                                    [eventoSeleccionado]="eventoSeleccionado"></app-subscriptores>
+                                                    [eventoSeleccionado]="eventoSeleccionado" (onClientSeleccionado)="redireccionarClient($event)"></app-subscriptores>
                                             </div>
                                         </div>
                                         <!-- fin subcriptores -->
@@ -275,7 +275,7 @@
                                             <br />
                                             <div class="row">
                                                 <app-pagos-evento
-                                                    [eventoSeleccionado]="eventoSeleccionado"></app-pagos-evento>
+                                                    [eventoSeleccionado]="eventoSeleccionado" (onPagoSeleccionado)="redireccionarPagoOd($event)" (onClientSeleccionado)="redireccionarClient($event)"></app-pagos-evento>
                                             </div>
                                         </div>
                                     </div>

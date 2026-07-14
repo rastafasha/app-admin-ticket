@@ -55,11 +55,10 @@ export class PaymentService {
 
   getPagoById(id:number): Observable<any> {
     const url = `${baseUrl}/payment/show/${id}`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, payment: Payment}) => resp.payment)
-        );
+    return this.http.get<any>(url, this.headers);
   }
+
+  
   getTransferenciaByTiendaId(_id: string){
     const url = `${baseUrl}/payment/tienda/${_id}`;
     return this.http.get<any>(url, this.headers)

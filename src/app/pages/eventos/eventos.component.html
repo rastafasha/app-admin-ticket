@@ -147,5 +147,8 @@
 
 </div>
 <!--/main-->
-<app-evento-detail [eventoSeleccionado]="eventoSeleccionado" #viewEvento></app-evento-detail>
 <app-evento-edit (refreshCatList)="ngOnInit()" [eventSeleccionado]="eventSeleccionado" (closeModal)="onClose()" #editEvent></app-evento-edit>
+<app-evento-detail [eventoSeleccionado]="eventoSeleccionado" #viewEvento (onAbrirModalClient)="manejarCambioModalClient($event)" (onAbrirModalPago)="manejarCambioModalPagoId($event)" ></app-evento-detail>
+
+<app-payment-details [pagoSeleccionado]="pagoSeleccionado" #viewPayment></app-payment-details>
+<app-clientdetail [clientSeleccionado]="clientSeleccionado" #viewClient></app-clientdetail>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 
@@ -25,8 +25,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 //paginas
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import{SliderIndexComponent} from './slider/slider-index/slider-index.component';
-import{SliderEditComponent} from './slider/slider-edit/slider-edit.component';
+import { SliderIndexComponent } from './slider/slider-index/slider-index.component';
+import { SliderEditComponent } from './slider/slider-edit/slider-edit.component';
 import { ComponentsModule } from "../components/components.module";
 import { ConfigComponent } from './config/config.component';
 import { TasabcvComponent } from './tasabcv/tasabcv.component';
@@ -35,6 +35,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ConfigModule } from './config/config.module';
 import { CompanyModule } from './company/company.module';
 import { TicketModule } from './ticket/ticket.module';
+import { PaymentsModule } from './payments/payments.module';
+import { ParentsModule } from './clientes/clientes.module';
 
 
 
@@ -63,23 +65,24 @@ import { TicketModule } from './ticket/ticket.module';
 
     ],
     imports: [
-    CommonModule,
-    SharedModule,
-    PAGES_ROUTES,
-    FormsModule,
-    ReactiveFormsModule,
-    OrderModule,
-    NgxPaginationModule,
-    CKEditorModule,
-    SharedModule,
-    ComponentsModule,
-    EventosModule,
-    NgxChartsModule,
-     ConfigModule,
-     CompanyModule,
-     TicketModule,
-     EventosModule
-]
+        CommonModule,
+        SharedModule,
+        PAGES_ROUTES,
+        FormsModule,
+        ReactiveFormsModule,
+        OrderModule,
+        NgxPaginationModule,
+        CKEditorModule,
+        SharedModule,
+        ComponentsModule,
+        NgxChartsModule,
+        ConfigModule,
+        TicketModule,
+        EventosModule,
+        CompanyModule,
+        PaymentsModule,
+        ParentsModule
+    ]
 })
 
-export class PagesModule {}
+export class PagesModule { }

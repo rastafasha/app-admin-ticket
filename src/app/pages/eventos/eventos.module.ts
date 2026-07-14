@@ -13,34 +13,39 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EventoEditComponent } from './evento-edit/evento-edit.component';
 import { ListahijosComponent } from './listahijos/listahijos.component';
+import { PaymentsModule } from '../payments/payments.module';
+import { ParentsModule } from '../clientes/clientes.module';
 
 
 
 @NgModule({
   declarations: [
-    EventosComponent, 
-    EventoDetailComponent, 
+    EventosComponent,
+    EventoDetailComponent,
     EventoEditComponent,
     ListahijosComponent
   ],
   exports: [
-    EventosComponent, 
-    EventoDetailComponent, 
+    EventosComponent,
+    EventoDetailComponent,
     EventoEditComponent,
     ListahijosComponent
   ],
   imports: [
-   CommonModule,
-       HttpClientModule,
-       FormsModule,
-       ReactiveFormsModule,
-       RouterModule,
-       BrowserAnimationsModule,
-       NgxPaginationModule,
-       CKEditorModule,
-       ComponentsModule,
-       SharedModule,
-       PipesModule
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    NgxPaginationModule,
+    CKEditorModule,
+    ComponentsModule,
+    SharedModule,
+    PipesModule,
+    PaymentsModule,
+    ParentsModule
+
   ]
 })
 export class EventosModule { }
